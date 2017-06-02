@@ -1,0 +1,16 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "editor.cursorStyle": "line",
+  "editor.rulers": [50, 72, 80],
+  "editor.cursorBlinking": "smooth",
+  "editor.renderWhitespace": "boundary",
+  "workbench.sideBar.location": "right",
+  "window.restoreFullscreen": true,
+  "editor.detectIndentation": false,
+  "window.zoomLevel": 0,
+  "workbench.iconTheme": "vs-seti",
+  "eslint.autoFixOnSave": true,
+  "editor.wordWrap": "on"
+}
