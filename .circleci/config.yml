@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: hiyafoo/ci:latest
+    working_directory: ~/node-vrealize
+    branches:
+      only:
+        - master
+    steps:
+      - checkout
+      - run:
+          name: "Run tests"
+          environment:
+            TEST: "test"
+          command: |
+            npm install
+            npm run test
