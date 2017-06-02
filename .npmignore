@@ -1,0 +1,14 @@
+.circleci
+.nyc_output
+.vscode
+coverage
+node_modules
+src
+test
+tools
+.babelrc
+.eslintrc.js
+.gitignore
+.npmignore
+coverage.shield.badge.md
+.nycrc

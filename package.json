@@ -1,6 +1,6 @@
 {
   "name": "node-vrealize",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "",
   "scripts": {
     "test": "npm run lint && nyc --require babel-core/register mocha test/unit/specs --recursive && npm run report",
@@ -8,7 +8,9 @@
     "test:watch": "nyc --require babel-core/register mocha test/unit/specs/ --recursive -w",
     "build": "babel src -d dist --presets es2015,stage-2 --source-maps",
     "lint": "eslint --ext .js, src test/unit/specs",
-    "lint:watch": "esw --color -w --ext .js, src test/unit/specs"
+    "lint:watch": "esw --color -w --ext .js, src test/unit/specs",
+    "prepublish": "npm run build",
+    "preversion": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
