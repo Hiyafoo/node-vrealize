@@ -1,6 +1,6 @@
 {
   "name": "node-vrealize",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "scripts": {
     "test": "npm run lint && nyc --require babel-core/register mocha test/unit/specs --recursive && npm run report",
