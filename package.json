@@ -2,6 +2,7 @@
   "name": "node-vrealize",
   "version": "0.1.5",
   "description": "",
+  "main":"dist/index.js",
   "scripts": {
     "test": "npm run lint && nyc --require babel-core/register mocha test/unit/specs --recursive && npm run report",
     "report": "nyc report --reporter=lcov && node tools/update-readme-with-shield-badge.js",
