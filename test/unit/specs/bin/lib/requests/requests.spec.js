@@ -4,8 +4,9 @@ import request from 'request'
 var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
+var NodeVRealize = require('../../../../../../src/index')
 
-var requests = require('../../../../../../src/requests')
+var vRa = new NodeVRealize()
 
 var response200 = {statusCode: 200}
 var response201 = {statusCode: 201}
@@ -13,7 +14,12 @@ var response404 = {statusCode: 404}
 
 var body = {
   id: 1,
-  requestCompletion: true,
+  state: 'SUCCESSFUL',
+  requestCompletion: {
+    'requestCompletionState': 'SUCCESSFUL',
+    'completionDetails': '',
+    'resourceBindingIds': null
+  },
   content:
   [
     {
@@ -37,15 +43,6 @@ describe('Requests', function () {
     sandbox = sinon.sandbox.create()
     requestGetStub = sandbox.stub(request, 'get')
     requestPostStub = sandbox.stub(request, 'post')
-    requests.config = {
-      username: '',
-      hostname: '',
-      password: '',
-      tenant: '',
-      token: {
-        id: ''},
-      agent: ''
-    }
   })
 
   afterEach(() => {
@@ -59,7 +56,7 @@ describe('Requests', function () {
           {key: 'test'}
         ]
       }
-      var obj = requests.getObjectFromKey(jsonSample, 'test')
+      var obj = vRa.getObjectFromKey(jsonSample, 'test')
       expect(obj).to.deep.equal({key: 'test'})
       obj.value = 'value'
       expect(jsonSample.entries[0].value).to.deep.equal('value')
@@ -68,17 +65,17 @@ describe('Requests', function () {
     it('should return null when the key is not present in the entries Array', function () {
       var jsonSample = {
         entries: [
-          {'y.Hostname.CID': 'te'}
+          {'hybris.Hostname.CID': 'te'}
         ]
       }
-      expect(requests.getObjectFromKey(jsonSample, 'test')).to.deep.equal(null)
+      expect(vRa.getObjectFromKey(jsonSample, 'test')).to.deep.equal(null)
     })
   })
 
   describe('getAllCatalogItems method', function () {
     it('should return error when get request fails', function (done) {
       requestGetStub.yields('error', null, null)
-      requests.getAllCatalogItems(function (err, response) {
+      vRa.getAllCatalogItems(function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -87,7 +84,7 @@ describe('Requests', function () {
 
     it('callback should return an error when getRequest fails', function (done) {
       requestGetStub.yields('error', null, null)
-      requests.getAllCatalogItems(function (err, response) {
+      vRa.getAllCatalogItems(function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -96,7 +93,7 @@ describe('Requests', function () {
 
     it('callback should return response body as error when getRequest returns a non-successful status code', function (done) {
       requestGetStub.yields(null, response404, body)
-      requests.getAllCatalogItems(function (err, response) {
+      vRa.getAllCatalogItems(function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -105,7 +102,7 @@ describe('Requests', function () {
 
     it('callback should return body item list when getRequest returns a 200 status code', function (done) {
       requestGetStub.yields(null, response200, body)
-      requests.getAllCatalogItems(function (err, response) {
+      vRa.getAllCatalogItems(function (err, response) {
         expect(err).to.be.null
         expect(JSON.parse(response).length).to.equal(body.content.length)
         done()
@@ -116,7 +113,7 @@ describe('Requests', function () {
   describe('getByName method', function () {
     it('callback should return an error when getRequest fails', function (done) {
       requestGetStub.yields('error', null, null)
-      requests.getByName([], function (err, response) {
+      vRa.getByName([], function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -125,7 +122,7 @@ describe('Requests', function () {
 
     it('callback should return response body as error when getRequest status code is not 200', function (done) {
       requestGetStub.yields(null, response404, 'error')
-      requests.getByName('name', function (err, response) {
+      vRa.getByName('name', function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -134,7 +131,7 @@ describe('Requests', function () {
 
     it('should return body content when getRequest status code is 200', function (done) {
       requestGetStub.yields(null, response200, body)
-      requests.getByName('name', function (err, response) {
+      vRa.getByName('name', function (err, response) {
         expect(err).to.be.null
         expect(response).to.equal(body.content[0])
         done()
@@ -145,7 +142,7 @@ describe('Requests', function () {
   describe('get method', function () {
     it('callback should return an error when getRequest fails', function (done) {
       requestGetStub.yields('error', null, null)
-      requests.get([], function (err, response) {
+      vRa.get([], function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -156,42 +153,64 @@ describe('Requests', function () {
   describe('get method', function () {
     it('callback should return response body as error when getRequest status code is not 200', function (done) {
       requestGetStub.yields(null, response404, 'error')
-      requests.get('name', function (err, response) {
+      vRa.get('name', function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
       })
     })
 
-    it('callback should return body content with only id and request completion when getRequest status code is 200 and raw parameter is false', function (done) {
+    it('callback should return request completion status when getRequest status code is 200 and raw parameter is false', function (done) {
       var params = {id: 1, raw: false}
-
+      body.state = 'IN_PROGRESS'
       requestGetStub.yields(null, response200, body)
-      requests.get(params, function (err, response) {
+      vRa.get(params, function (err, response) {
         expect(err).to.be.null
-        expect(response.id).to.equal(body.id)
-        expect(response.requestCompletion).to.equal(body.requestCompletion)
-        expect(Object.keys(response).length).to.equal(2)
+        expect(response).to.equal(body.state)
         done()
       })
     })
 
-    it('callback should return body when getRequest status code is 200 and raw parameter is true', function (done) {
+    it('callback should return body when getRequest response state is IN_PROGRESS and raw parameter is true', function (done) {
       var params = {id: 1, raw: true}
 
+      body.state = 'IN_PROGRESS'
       requestGetStub.yields(null, response200, body)
-      requests.get(params, function (err, response) {
+      vRa.get(params, function (err, response) {
         expect(err).to.be.null
         expect(response).to.equal(body)
         done()
       })
     })
   })
+  it('callback should return IN_PROGRESS when getRequest response state is IN_PROGRESS and raw parameter is false', function (done) {
+    var params = {id: 1, raw: false}
+
+    body.state = 'IN_PROGRESS'
+    requestGetStub.yields(null, response200, body)
+    vRa.get(params, function (err, response) {
+      expect(err).to.be.null
+      expect(response).to.equal(body.state)
+      done()
+    })
+  })
+
+  it('callback should return when getRequest response state is OTHER and raw parameter is false', function (done) {
+    var params = {id: 1, raw: false}
+
+    body.state = 'OTHER'
+    requestGetStub.yields(null, response200, body)
+    vRa.get(params, function (err, response) {
+      expect(err).to.be.null
+      expect(response).to.equal(body.requestCompletion.requestCompletionState)
+      done()
+    })
+  })
 
   describe('getAll method', function () {
     it('should return response body as error when getRequest status code is not 200', function (done) {
       requestGetStub.yields(null, response404, 'error')
-      requests.getAll('name', function (err, response) {
+      vRa.getAll('name', function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -200,7 +219,7 @@ describe('Requests', function () {
 
     it('callback should return an error when getRequest fails', function (done) {
       requestGetStub.yields('error', null, null)
-      requests.getAll([], function (err, response) {
+      vRa.getAll([], function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -209,7 +228,7 @@ describe('Requests', function () {
 
     it('callback should return body when getRequest status code is 200', function (done) {
       requestGetStub.yields(null, response200, body)
-      requests.getAll([], function (err, response) {
+      vRa.getAll([], function (err, response) {
         expect(err).to.be.null
         expect(response).to.equal(body)
         done()
@@ -220,7 +239,7 @@ describe('Requests', function () {
   describe('sendRequest method', function () {
     it('should return error when getRequest fails', function (done) {
       requestPostStub.yields('error', null, null)
-      requests.sendRequest([], [], function (err, response) {
+      vRa.sendRequest([], [], function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -229,7 +248,7 @@ describe('Requests', function () {
 
     it('callback should return response body as error when getRequest status code is not 200', function (done) {
       requestPostStub.yields(null, response404, 'error')
-      requests.sendRequest([], [], function (err, response) {
+      vRa.sendRequest([], [], function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -238,7 +257,7 @@ describe('Requests', function () {
 
     it('should return body when getRequest status code is 201', function (done) {
       requestPostStub.yields(null, response201, body)
-      requests.sendRequest([], [], function (err, response) {
+      vRa.sendRequest([], [], function (err, response) {
         expect(err).to.be.null
         expect(response).to.equal(body)
         done()
@@ -249,7 +268,7 @@ describe('Requests', function () {
   describe('getTemplate method', function () {
     it('callback should return an error when getRequest fails', function (done) {
       requestGetStub.yields('error', null, null)
-      requests.getTemplate([], function (err, response) {
+      vRa.getTemplate([], function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -258,7 +277,7 @@ describe('Requests', function () {
 
     it('callback should return response body as error when status code is not 200', function (done) {
       requestGetStub.yields(null, response404, 'error')
-      requests.getTemplate('name', function (err, response) {
+      vRa.getTemplate('name', function (err, response) {
         expect(err).to.be.a('string')
         expect(response).to.be.undefined
         done()
@@ -267,7 +286,7 @@ describe('Requests', function () {
 
     it('callback should return body when getRequest status code is 200', function (done) {
       requestGetStub.yields(null, response200, body)
-      requests.getTemplate([], function (err, response) {
+      vRa.getTemplate([], function (err, response) {
         expect(err).to.be.null
         expect(response).to.equal(body)
         done()

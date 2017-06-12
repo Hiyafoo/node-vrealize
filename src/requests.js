@@ -3,6 +3,10 @@ import _ from 'lodash'
 import Promise from 'bluebird'
 var requestPromise = Promise.promisify(require('request'))
 
+var inProgressState = 'IN_PROGRESS'
+var pendingPreApprovalState = 'PENDING_PRE_APPROVAL'
+var submittedState = 'SUBMITTED'
+
 /* istanbul ignore next */
 module.exports = {
   submit: submit,
@@ -248,14 +252,21 @@ function get (params, cb) {
       return cb(error)
     }
     if (response.statusCode === 200) {
-      var result = body
+      var result = 'ERROR'
       if (params.raw === false) {
-        result = {
-          id: body.id,
-          requestCompletion: body.requestCompletion
+        if (body.state === inProgressState || body.state === pendingPreApprovalState || body.state === submittedState) {
+          result = inProgressState
+        } else {
+          var requestCompletion = body.requestCompletion
+          /* istanbul ignore next */
+          if (requestCompletion) {
+            result = requestCompletion.requestCompletionState
+          }
         }
+      } else {
+        result = body
       }
-      cb(null, result)
+      return cb(null, result)
     } else {
       cb(body)
     }
