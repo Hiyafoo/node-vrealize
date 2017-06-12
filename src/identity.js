@@ -52,16 +52,18 @@ function getToken (cb) {
     json: true
   }
 
+  var _this = this
+
   request(options, function (error, response, body) {
     // clear here to prevent password from being populated further than this request
-    this.config.password = ''
+    _this.config.password = ''
     if (error) {
       cb(error)
     }
 
     if (response.statusCode === 200) {
-      this.config.token = body
-      process.env.VRA_TOKEN = this.config.token
+      _this.config.token = body
+      process.env.VRA_TOKEN = _this.config.token
       cb(null, body.id)
     } else {
       cb(body.errors[0].systemMessage)
