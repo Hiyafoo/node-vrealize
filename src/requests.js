@@ -1,17 +1,15 @@
 import request from 'request'
-import config from './config'
-import chalk from 'chalk'
 import _ from 'lodash'
 import fs from 'jsonfile'
+import Promise from 'bluebird'
+var requestPromise = Promise.promisify(require('request'))
 
 /* istanbul ignore next */
 module.exports = {
   submit: submit,
   getAll: getAll,
   getByName: getByName,
-  showConfig: function () {
-    console.log(chalk.blue(config.username))
-  },
+  getRequestsByName: Promise.promisify(getRequestsByName),
   getObjectFromKey: getObjectFromKey,
   get: get,
   getAllCatalogItems: getAllCatalogItems,
@@ -20,15 +18,63 @@ module.exports = {
   updateTemplateData: updateTemplateData
 }
 
-function getAllCatalogItems (cb) {
+function getRequestsByName (catalogItemName, customerIdName, cidKeyName, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests?limit=1&$filter=(catalogItem/name eq '${catalogItemName}')`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
+    },
+    body: {},
+    json: true
+  }
+
+  requestPromise(options)
+  .then(function (response, body) {
+    if (response.statusCode === 200) {
+      if (!response.body || !response.body.content) {
+        return cb('getRequestsByName Response has no body or content')
+      }
+
+      var content = response.body.content
+      var matchingCidrequests = []
+      for (var i = 0; i < content.length; i++) {
+        var requestItem = content[i]
+
+        if (requestItem && requestItem.requestData && requestItem.requestData.entries) {
+          for (var j = 0; j < requestItem.requestData.entries.length; j++) {
+            var requestData = requestItem.requestData.entries[j]
+            if (requestData.key === cidKeyName && requestData.value.value === customerIdName) {
+              matchingCidrequests.push(requestItem)
+            }
+          }
+        }
+      }
+
+      cb(null, matchingCidrequests)
+    } else {
+      cb(JSON.stringify(response.body, null, 2))
+    }
+  })
+  .catch(function (error) {
+    if (error) {
+      return cb(error)
+    }
+  })
+}
+
+function getAllCatalogItems (cb) {
+  var options = {
+    method: 'GET',
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000`,
+    headers: {
+      'cache-control': 'no-cache',
+      'content-type': 'application/json',
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
@@ -94,12 +140,12 @@ function submit (deploymentOptions, cb) {
 function getByName (name, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000&$filter=(name eq '${name}')`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000&$filter=(name eq '${name}')`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
@@ -147,12 +193,12 @@ function updateTemplateData (templateData, deploymentOptions, callback) {
 function getTemplate (url, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
+    agent: this.config.agent,
     url: url,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
@@ -174,12 +220,12 @@ function getTemplate (url, cb) {
 function sendRequest (url, data, cb) {
   var options = {
     method: 'POST',
-    agent: config.agent,
+    agent: this.config.agent,
     url: url,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: data,
     json: true
@@ -200,12 +246,12 @@ function sendRequest (url, data, cb) {
 function get (params, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/requests/${params.id}`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests/${params.id}`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     json: true
   }
@@ -232,12 +278,12 @@ function get (params, cb) {
 function getAll (obj, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/requests/`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests/`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     json: true
   }

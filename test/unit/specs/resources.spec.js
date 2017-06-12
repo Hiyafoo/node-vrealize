@@ -33,6 +33,15 @@ describe('Resources', function () {
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
     requestGetStub = sandbox.stub(request, 'get')
+    resources.config = {
+      username: '',
+      hostname: '',
+      password: '',
+      tenant: '',
+      token: {
+        id: ''},
+      agent: ''
+    }
   })
 
   afterEach(() => {

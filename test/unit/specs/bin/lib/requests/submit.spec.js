@@ -4,7 +4,7 @@ var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
 
-var requests = require('../../../../src/requests')
+var requests = require('../../../../../../src/requests')
 
 var deploymentOptions = {
   clientId: 1,

@@ -6,7 +6,7 @@ require('chai').should()
 import fs from 'jsonfile'
 import path from 'path'
 
-var requests = require('../../../../src/requests')
+var requests = require('../../../../../../src/requests')
 
 describe('[Requests] - updateTemplateData method', function () {
   'use strict'

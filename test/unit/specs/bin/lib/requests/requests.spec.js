@@ -5,7 +5,7 @@ var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
 
-var requests = require('../../../../src/requests')
+var requests = require('../../../../../../src/requests')
 
 var response200 = {statusCode: 200}
 var response201 = {statusCode: 201}
@@ -37,6 +37,15 @@ describe('Requests', function () {
     sandbox = sinon.sandbox.create()
     requestGetStub = sandbox.stub(request, 'get')
     requestPostStub = sandbox.stub(request, 'post')
+    requests.config = {
+      username: '',
+      hostname: '',
+      password: '',
+      tenant: '',
+      token: {
+        id: ''},
+      agent: ''
+    }
   })
 
   afterEach(() => {

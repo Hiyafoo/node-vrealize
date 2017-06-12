@@ -1,5 +1,4 @@
 import request from 'request'
-import config from './config'
 import chalk from 'chalk'
 // import _ from 'lodash'
 
@@ -10,19 +9,19 @@ module.exports = {
   getById: getById,
   getActions: getActions,
   showConfig: function () {
-    console.log(chalk.blue(config.username))
+    console.log(chalk.blue(this.config.username))
   }
 }
 
 function getAll (cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/resources?limit=1000`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/resources?limit=1000`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
@@ -55,12 +54,12 @@ function getAll (cb) {
 function getByName (name, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/resources?limit=1000&$filter=(name eq '${name}')`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/resources?limit=1000&$filter=(name eq '${name}')`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
@@ -82,12 +81,12 @@ function getByName (name, cb) {
 function getById (id, cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/resources?limit=1000&$filter=request/id eq '${id}'`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/resources?limit=1000&$filter=request/id eq '${id}'`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
@@ -113,12 +112,12 @@ function getActions (resourceName, cb) {
     }
     var options = {
       method: 'GET',
-      agent: config.agent,
-      url: `https://${config.hostname}/catalog-service/api/consumer/resources/${resource.id}/actions`,
+      agent: this.config.agent,
+      url: `https://${this.config.hostname}/catalog-service/api/consumer/resources/${resource.id}/actions`,
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${config.token.id}`
+        'authorization': `Bearer ${this.config.token.id}`
       },
       body: {},
       json: true

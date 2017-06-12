@@ -1,0 +1,4692 @@
+{
+  "@type": "CatalogItemRequest",
+  "id": "9a177b3a-9626-4f2f-9ade-a2acce53068b",
+  "iconId": "552ee5e0-b38b-4648-b736-b9ef4722c546",
+  "version": 0,
+  "requestNumber": null,
+  "state": "SUBMITTED",
+  "description": null,
+  "reasons": null,
+  "requestedFor": "nicolas_rose@infra.ycs.io",
+  "requestedBy": "nicolas_rose@infra.ycs.io",
+  "organization": {
+    "tenantRef": "commerce",
+    "tenantLabel": null,
+    "subtenantRef": "30a9f2ea-d5d1-48ca-a27a-53254d2f7891",
+    "subtenantLabel": null
+  },
+  "requestorEntitlementId": "1f758ca7-5154-44c8-8769-c08daab8a65a",
+  "preApprovalId": null,
+  "postApprovalId": null,
+  "dateCreated": "2017-04-12T14:37:48.706Z",
+  "lastUpdated": "2017-04-12T14:37:48.706Z",
+  "dateSubmitted": "2017-04-12T14:37:48.706Z",
+  "dateApproved": null,
+  "dateCompleted": null,
+  "quote": {},
+  "requestCompletion": null,
+  "requestData": {
+    "entries": [
+      {
+        "key": "hybris.Hostname.NumberSuffix",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "LDAP",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*LDAP",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680769622
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "hybris.IpCustomization.Execute",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Ldap",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "ldap"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 2
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "hybris.SSH.Execute",
+                "value": {
+                  "type": "string",
+                  "value": "false"
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Toolpz",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Logmon",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.Edge.username",
+        "value": {
+          "type": "string",
+          "value": "admin"
+        }
+      },
+      {
+        "key": "Run_Puppet_DNS",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*Run_Puppet_DNS",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "Check_DNS_Server_Status_1",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*Check_DNS_Server_Status_1",
+          "values": {
+            "entries": [
+              {
+                "key": "LOGFILE",
+                "value": {
+                  "type": "string",
+                  "value": "/var/log/hybris.DNS.log"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "COUNTER",
+                "value": {
+                  "type": "integer",
+                  "value": 10
+                }
+              },
+              {
+                "key": "TIMESTAMP",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.Hostname.CID",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.MachineActivated",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "YTR",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*YTR",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680802284
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "ytr"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.EdgeConfigPE.Firewall",
+        "value": {
+          "type": "string",
+          "value": "true"
+        }
+      },
+      {
+        "key": "_deploymentName",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "hybris.EdgeConfigPZ.JumphostDNS",
+        "value": {
+          "type": "string",
+          "value": "true"
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.WaitingToBuild",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.Requested",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "CloneFrom",
+        "value": {
+          "type": "string",
+          "value": "TEMPLATE_CentOS_4.0.1_PE"
+        }
+      },
+      {
+        "key": "Custom.ComponentMachine.HostnameScheme",
+        "value": {
+          "type": "string",
+          "value": "{hybris.Hostname.DCID}-{hybris.Hostname.CID}-{hybris.Hostname.PID}-{hybris.Hostname.PZNR}-{hybris.Hostname.SERVERTYPE}-{###}"
+        }
+      },
+      {
+        "key": "DNS01",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*DNS01",
+          "values": {
+            "entries": [
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680747280
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "dns"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "hybris.SSH.Execute",
+                "value": {
+                  "type": "string",
+                  "value": "false"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "DNS02",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*DNS02",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680776843
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "dns"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "hybris.SSH.Execute",
+                "value": {
+                  "type": "string",
+                  "value": "false"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "SFTP",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*SFTP",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680790532
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "sftp"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "LOGMON-Load-Balancer",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*LOGMON-Load-Balancer",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "edge"
+              },
+              {
+                "key": "edge_nic_index"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.SSH.ssh_key",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "ProjectZoneSatellite10690024",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*ProjectZoneSatellite10690024",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "network_profile",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "Call_RC_Local_DNS1",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*Call_RC_Local_DNS1",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.BuildingMachine",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "XW_-_Configure_Project_Zone_Edge_v4.1_1",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*XW_-_Configure_Project_Zone_Edge_v4.1_1",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.UnprovisionMachine",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.MachineProvisioned",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "subtenantId",
+        "value": {
+          "type": "string",
+          "value": "30a9f2ea-d5d1-48ca-a27a-53254d2f7891"
+        }
+      },
+      {
+        "key": "_number_of_instances",
+        "value": {
+          "type": "integer",
+          "value": 1
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.DeactivateMachine",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "hybris.Hostname.PID",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "JUMPBOX",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*JUMPBOX",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680782489
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              },
+              {
+                "key": "hybris.dns.pz.jumpbox",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "jump"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "_leaseDays"
+      },
+      {
+        "key": "providerBindingId",
+        "value": {
+          "type": "string",
+          "value": "ProjectZonev5101"
+        }
+      },
+      {
+        "key": "hybris.Hostname.PZNR",
+        "value": {
+          "type": "string",
+          "value": "z1"
+        }
+      },
+      {
+        "key": "providerId",
+        "value": {
+          "type": "string",
+          "value": "02c13f2c-c0f9-46e0-a9cf-013ce5058390"
+        }
+      },
+      {
+        "key": "hybris.Hostname.DCID",
+        "value": {
+          "type": "string",
+          "value": "sy2"
+        }
+      },
+      {
+        "key": "XB_Puppet_First_Call_v2_1",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*XB_Puppet_First_Call_v2_1",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.SFTP.Key.ReGenEnabled",
+        "value": {
+          "type": "string",
+          "value": "true"
+        }
+      },
+      {
+        "key": "Custom.SetCustomHostname.Execute",
+        "value": {
+          "type": "string",
+          "value": "true"
+        }
+      },
+      {
+        "key": "LOGMON",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*LOGMON",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680808258
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Execute",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Ldap",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "logmon"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 3
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Toolpz",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Logmon",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "SATELLITE",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*SATELLITE",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680815817
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "sate"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.Hostname.SERVERTYPE",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "hybris.Edge.password",
+        "value": {
+          "type": "secureString",
+          "value": ""
+        }
+      },
+      {
+        "key": "hybris.EdgeConfigPZ.Firewall",
+        "value": {
+          "type": "string",
+          "value": ""
+        }
+      },
+      {
+        "key": "hybris.Edge.size",
+        "value": {
+          "type": "string",
+          "value": "compact"
+        }
+      },
+      {
+        "key": "Validation_PZ_Standard_DNS1",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*Validation_PZ_Standard_DNS1",
+          "values": {
+            "entries": [
+              {
+                "key": "EXPECTED_IP_LDAP1",
+                "value": {
+                  "type": "string",
+                  "value": "10.0.0.213"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "EXPECTED_RESULT_PUPPET",
+                "value": {
+                  "type": "string",
+                  "value": "failure: 0"
+                }
+              },
+              {
+                "key": "COMMAND_LDAP",
+                "value": {
+                  "type": "string",
+                  "value": "/opt/openldap_manage/test_ldapsearch.sh"
+                }
+              },
+              {
+                "key": "DOMAINE",
+                "value": {
+                  "type": "string",
+                  "value": ".int.commerce.ycs.io"
+                }
+              },
+              {
+                "key": "EXPECTED_IP_LDAP2",
+                "value": {
+                  "type": "string",
+                  "value": "10.0.0.214"
+                }
+              },
+              {
+                "key": "VMTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "dns"
+                }
+              },
+              {
+                "key": "FOLDER_KEY_SSH",
+                "value": {
+                  "type": "string",
+                  "value": "/home/admin/.ssh/authorized_keys"
+                }
+              },
+              {
+                "key": "EXPECTED_RESULT_IP",
+                "value": {
+                  "type": "string",
+                  "value": "10.0.0.210"
+                }
+              },
+              {
+                "key": "EXPECTED_RESULT_LDAP",
+                "value": {
+                  "type": "string",
+                  "value": "dn: dc=int,dc=commerce,dc=ycs,dc=io"
+                }
+              },
+              {
+                "key": "PATH_PUPPET_FILE",
+                "value": {
+                  "type": "string",
+                  "value": "/opt/puppet_temp/check_puppet_agent.log"
+                }
+              },
+              {
+                "key": "EXPECTED_RESULT_DNS",
+                "value": {
+                  "type": "string",
+                  "value": "Name:"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.Edge.enableHA",
+        "value": {
+          "type": "string",
+          "value": "false"
+        }
+      },
+      {
+        "key": "hybris.LB.Logmon.InstallCertificate",
+        "value": {
+          "type": "string",
+          "value": "true"
+        }
+      },
+      {
+        "key": "hybris.EdgeConfigPZ.Execute",
+        "value": {
+          "type": "string",
+          "value": "false"
+        }
+      },
+      {
+        "key": "SMTP",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*SMTP",
+          "values": {
+            "entries": [
+              {
+                "key": "source_machine"
+              },
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1488680796132
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "smtp"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "Custom.Deployment.HostnameScheme",
+        "value": {
+          "type": "string",
+          "value": "{hybris.Hostname.DCID}-{hybris.Hostname.CID}-{hybris.Hostname.PID}-{hybris.Hostname.PZNR}-"
+        }
+      },
+      {
+        "key": "TOOLPZ",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*TOOLPZ",
+          "values": {
+            "entries": [
+              {
+                "key": "memory",
+                "value": {
+                  "type": "integer",
+                  "value": 2048
+                }
+              },
+              {
+                "key": "disks",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.MachineDisk",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "is_clone",
+                            "value": {
+                              "type": "boolean",
+                              "value": true
+                            }
+                          },
+                          {
+                            "key": "initial_location",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "volumeId",
+                            "value": {
+                              "type": "string",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "key": "custom_properties"
+                          },
+                          {
+                            "key": "id",
+                            "value": {
+                              "type": "integer",
+                              "value": 1489976285915
+                            }
+                          },
+                          {
+                            "key": "label",
+                            "value": {
+                              "type": "string",
+                              "value": "Hard disk 1"
+                            }
+                          },
+                          {
+                            "key": "userCreated",
+                            "value": {
+                              "type": "boolean",
+                              "value": false
+                            }
+                          },
+                          {
+                            "key": "storage_reservation_policy",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "capacity",
+                            "value": {
+                              "type": "integer",
+                              "value": 16
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "VirtualMachine.Network1.Name",
+                "value": {
+                  "type": "string",
+                  "value": "VLAN979-BACKEND-TOOLS"
+                }
+              },
+              {
+                "key": "description"
+              },
+              {
+                "key": "hybris.IpCustomization.Execute",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Ldap",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "storage",
+                "value": {
+                  "type": "integer",
+                  "value": 16
+                }
+              },
+              {
+                "key": "guest_customization_specification",
+                "value": {
+                  "type": "string",
+                  "value": "CS-Commerce-Project-VMs"
+                }
+              },
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "os_distribution"
+              },
+              {
+                "key": "reservation_policy",
+                "value": {
+                  "type": "entityRef",
+                  "componentId": null,
+                  "classId": "Infrastructure.Reservation.Policy.ComputeResource",
+                  "id": "RP-Compute-Clusters",
+                  "label": "RP-Compute-Clusters"
+                }
+              },
+              {
+                "key": "max_network_adapters",
+                "value": {
+                  "type": "integer",
+                  "value": -1
+                }
+              },
+              {
+                "key": "max_per_user",
+                "value": {
+                  "type": "integer",
+                  "value": 0
+                }
+              },
+              {
+                "key": "nics",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "COMPLEX",
+                  "items": [
+                    {
+                      "type": "complex",
+                      "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                      "componentId": null,
+                      "classId": "Infrastructure.Compute.Machine.Nic",
+                      "typeFilter": null,
+                      "values": {
+                        "entries": [
+                          {
+                            "key": "external_address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "address",
+                            "value": {
+                              "type": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "key": "assignment_type",
+                            "value": {
+                              "type": "string",
+                              "value": "Static"
+                            }
+                          },
+                          {
+                            "key": "network_profile"
+                          },
+                          {
+                            "key": "id"
+                          },
+                          {
+                            "key": "load_balancing"
+                          },
+                          {
+                            "key": "network"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "source_machine_vmsnapshot"
+              },
+              {
+                "key": "_allocation",
+                "value": {
+                  "type": "complex",
+                  "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                  "componentId": null,
+                  "classId": "Infrastructure.Compute.Machine.Allocation",
+                  "typeFilter": null,
+                  "values": {
+                    "entries": [
+                      {
+                        "key": "machines",
+                        "value": {
+                          "type": "multiple",
+                          "elementTypeId": "COMPLEX",
+                          "items": [
+                            {
+                              "type": "complex",
+                              "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                              "componentId": null,
+                              "classId": "Infrastructure.Compute.Machine.Allocation.Machine",
+                              "typeFilter": null,
+                              "values": {
+                                "entries": [
+                                  {
+                                    "key": "nics",
+                                    "value": {
+                                      "type": "multiple",
+                                      "elementTypeId": "COMPLEX",
+                                      "items": [
+                                        {
+                                          "type": "complex",
+                                          "componentTypeId": "com.vmware.csp.iaas.blueprint.service",
+                                          "componentId": null,
+                                          "classId": "Infrastructure.Compute.Machine.Nic",
+                                          "typeFilter": null,
+                                          "values": {
+                                            "entries": [
+                                              {
+                                                "key": "external_address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "address",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": ""
+                                                }
+                                              },
+                                              {
+                                                "key": "assignment_type",
+                                                "value": {
+                                                  "type": "string",
+                                                  "value": "Static"
+                                                }
+                                              },
+                                              {
+                                                "key": "network_profile"
+                                              },
+                                              {
+                                                "key": "id"
+                                              },
+                                              {
+                                                "key": "load_balancing"
+                                              },
+                                              {
+                                                "key": "network"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "key": "machine_id",
+                                    "value": {
+                                      "type": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "key": "display_location",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "hybris.Hostname.SERVERTYPE",
+                "value": {
+                  "type": "string",
+                  "value": "toolpz"
+                }
+              },
+              {
+                "key": "os_version"
+              },
+              {
+                "key": "os_arch",
+                "value": {
+                  "type": "string",
+                  "value": "x86_64"
+                }
+              },
+              {
+                "key": "cpu",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "datacenter_location"
+              },
+              {
+                "key": "property_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "STRING",
+                  "items": [
+                    null
+                  ]
+                }
+              },
+              {
+                "key": "_cluster",
+                "value": {
+                  "type": "integer",
+                  "value": 1
+                }
+              },
+              {
+                "key": "security_groups",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "max_volumes",
+                "value": {
+                  "type": "integer",
+                  "value": 60
+                }
+              },
+              {
+                "key": "os_type",
+                "value": {
+                  "type": "string",
+                  "value": "Linux"
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Toolpz",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              },
+              {
+                "key": "source_machine_external_snapshot"
+              },
+              {
+                "key": "security_tags",
+                "value": {
+                  "type": "multiple",
+                  "elementTypeId": "ENTITY_REFERENCE",
+                  "items": []
+                }
+              },
+              {
+                "key": "hybris.IpCustomization.Logmon",
+                "value": {
+                  "type": "string",
+                  "value": "true"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "XB_-_Validation_PZ_1",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*XB_-_Validation_PZ_1",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hybris.SSH.Execute",
+        "value": {
+          "type": "string",
+          "value": "true"
+        }
+      },
+      {
+        "key": "Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.Disposing",
+        "value": {
+          "type": "string",
+          "value": "*"
+        }
+      },
+      {
+        "key": "ProjectZone1000024",
+        "value": {
+          "type": "complex",
+          "componentTypeId": "com.vmware.csp.component.cafe.composition",
+          "componentId": null,
+          "classId": "Blueprint.Component.Declaration",
+          "typeFilter": "ProjectZonev5101*ProjectZone1000024",
+          "values": {
+            "entries": [
+              {
+                "key": "_hasChildren",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "key": "network_profile",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "retriesRemaining": 3,
+  "requestedItemName": "Project Zone v5.1.0",
+  "requestedItemDescription": "In Installation Process",
+  "components": null,
+  "stateName": null,
+  "catalogItemProviderBinding": {
+    "bindingId": "commerce!::!ProjectZonev5101",
+    "providerRef": {
+      "id": "02c13f2c-c0f9-46e0-a9cf-013ce5058390",
+      "label": "Blueprint Service"
+    }
+  },
+  "phase": "PENDING_PRE_APPROVAL",
+  "approvalStatus": "PENDING",
+  "waitingStatus": "NOT_WAITING",
+  "executionStatus": "STARTED",
+  "catalogItemRef": {
+    "id": "552ee5e0-b38b-4648-b736-b9ef4722c546",
+    "label": "Project Zone v5.1.0"
+  }
+}

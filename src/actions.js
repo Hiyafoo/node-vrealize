@@ -16,10 +16,10 @@ function importAction (categoryName, actionPath, password, cb) {
   var options = {
     method: 'POST',
     agent: config.agent,
-    url: `https://${config.hostname}/vco/api/actions/`,
+    url: `https://${this.config.hostname}/vco/api/actions/`,
     headers: {
       'cache-control': 'no-cache',
-      'authorization': 'Basic ' + new Buffer(config.username + ':' + password).toString('base64')
+      'authorization': 'Basic ' + new Buffer(this.config.username + ':' + password).toString('base64')
     },
     qs: {categoryName: categoryName},
     formData: {file: fs.createReadStream(actionPath)}
@@ -41,12 +41,12 @@ function importAction (categoryName, actionPath, password, cb) {
 function getAll (cb) {
   var options = {
     method: 'GET',
-    agent: config.agent,
-    url: `https://${config.hostname}/catalog-service/api/consumer/resources?limit=1000`,
+    agent: this.config.agent,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/resources?limit=1000`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${config.token.id}`
+      'authorization': `Bearer ${this.config.token.id}`
     },
     body: {},
     json: true
