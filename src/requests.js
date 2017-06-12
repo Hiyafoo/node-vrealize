@@ -1,6 +1,5 @@
 import request from 'request'
 import _ from 'lodash'
-import fs from 'jsonfile'
 import Promise from 'bluebird'
 var requestPromise = Promise.promisify(require('request'))
 
@@ -119,7 +118,7 @@ function submit (deploymentOptions, cb) {
         return cb(error, null)
       }
 
-      _this.updateTemplateData(templateData, deploymentOptions, function (err, mergedTemplateData) {
+      _this.updateTemplateData(templateData, deploymentOptions.templateData, function (err, mergedTemplateData) {
         if (err) {
           return cb(error, null)
         }
@@ -161,30 +160,21 @@ function getByName (name, cb) {
   })
 }
 
-function updateTemplateData (templateData, deploymentOptions, callback) {
-  if (!deploymentOptions.templateDataPath) {
-    return callback(null, templateData)
+function updateTemplateData (templateData, dataToBeMerged, callback) {
+  var node
+  if (dataToBeMerged) {
+    dataToBeMerged.forEach(function (elem) {
+      node = templateData
+      if (elem.path.length > 0) {
+        var properties = elem.path.split('.')
+        properties.forEach(function (property) {
+          node = node[property]
+        })
+      }
+      node[elem.leaf] = elem.value
+    })
   }
-  fs.readFile(deploymentOptions.templateDataPath, (err, dataToBeMerged) => {
-    if (err) {
-      return callback(err, null)
-    }
-
-    var node
-    if (deploymentOptions && dataToBeMerged) {
-      dataToBeMerged.forEach(function (elem) {
-        node = templateData
-        if (elem.path.length > 0) {
-          var properties = elem.path.split('.')
-          properties.forEach(function (property) {
-            node = node[property]
-          })
-        }
-        node[elem.leaf] = elem.value
-      })
-    }
-    callback(null, templateData)
-  })
+  callback(null, templateData)
 }
 
 function getTemplate (url, cb) {

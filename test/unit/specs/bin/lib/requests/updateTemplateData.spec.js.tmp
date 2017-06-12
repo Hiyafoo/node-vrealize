@@ -3,7 +3,6 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
-import fs from 'jsonfile'
 import path from 'path'
 
 var requests = require('../../../../../../src/requests')
@@ -11,11 +10,11 @@ var requests = require('../../../../../../src/requests')
 describe('[Requests] - updateTemplateData method', function () {
   'use strict'
   let sandbox
-  let fsReadFileStub
+  // let fsReadFileStub
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    fsReadFileStub = sandbox.stub(fs, 'readFile')
+    // fsReadFileStub = sandbox.stub(fs, 'readFile')
   })
 
   afterEach(() => {
