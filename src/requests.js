@@ -123,10 +123,6 @@ function submit (deploymentOptions, cb) {
         if (err) {
           return cb(error, null)
         }
-        mergedTemplateData.data['y.Hostname.CID'] = deploymentOptions.clientId
-        mergedTemplateData.data['y.Hostname.PID'] = deploymentOptions.projectId
-        mergedTemplateData.data['_deploymentName'] = deploymentOptions.deploymentName
-        mergedTemplateData.description = deploymentOptions.deploymentName
         _this.sendRequest(urlRequest, mergedTemplateData, function (error, response) {
           if (error) {
             return cb(error, null)
