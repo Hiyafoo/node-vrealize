@@ -22,7 +22,7 @@ function getRequestsByName (catalogItemName, customerIdName, cidKeyName, cb) {
   var options = {
     method: 'GET',
     agent: this.config.agent,
-    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests?limit=1&$filter=(catalogItem/name eq '${catalogItemName}')`,
+    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(catalogItem/name eq '${catalogItemName}')`,
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
@@ -105,7 +105,8 @@ function getAllCatalogItems (cb) {
 }
 
 function submit (deploymentOptions, cb) {
-  module.exports.getByName(deploymentOptions.blueprintName, function (error, response) {
+  var _this = this
+  _this.getByName(deploymentOptions.blueprintName, function (error, response) {
     if (error) {
       return cb(error, null)
     }
@@ -113,12 +114,12 @@ function submit (deploymentOptions, cb) {
     var urlTemplate = response.links[0].href
     var urlRequest = response.links[1].href
 
-    module.exports.getTemplate(urlTemplate, function (error, templateData) {
+    _this.getTemplate(urlTemplate, function (error, templateData) {
       if (error) {
         return cb(error, null)
       }
 
-      module.exports.updateTemplateData(templateData, deploymentOptions, function (err, mergedTemplateData) {
+      _this.updateTemplateData(templateData, deploymentOptions, function (err, mergedTemplateData) {
         if (err) {
           return cb(error, null)
         }
@@ -126,7 +127,7 @@ function submit (deploymentOptions, cb) {
         mergedTemplateData.data['y.Hostname.PID'] = deploymentOptions.projectId
         mergedTemplateData.data['_deploymentName'] = deploymentOptions.deploymentName
         mergedTemplateData.description = deploymentOptions.deploymentName
-        module.exports.sendRequest(urlRequest, mergedTemplateData, function (error, response) {
+        _this.sendRequest(urlRequest, mergedTemplateData, function (error, response) {
           if (error) {
             return cb(error, null)
           }
