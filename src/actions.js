@@ -1,21 +1,16 @@
 import request from 'request'
-import config from './config'
-import chalk from 'chalk'
 import fs from 'fs'
 // import _ from 'lodash'
 
 module.exports = {
   getAll: getAll,
-  importAction: importAction,
-  showConfig: function () {
-    console.log(chalk.blue(config.username))
-  }
+  importAction: importAction
 }
 
 function importAction (categoryName, actionPath, password, cb) {
   var options = {
     method: 'POST',
-    agent: config.agent,
+    agent: this.config.agent,
     url: `https://${this.config.hostname}/vco/api/actions/`,
     headers: {
       'cache-control': 'no-cache',
