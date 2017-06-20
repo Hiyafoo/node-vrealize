@@ -3,14 +3,21 @@
 import request from 'request'
 var expect = require('chai').expect
 var sinon = require('sinon')
+var sinonStubPromise = require('sinon-stub-promise')
 require('chai').should()
 var NodeVRealize = require('../../../../../../src/index')
 
 var vRa = new NodeVRealize()
 
+sinonStubPromise(sinon)
+
 var response200 = {statusCode: 200}
 var response201 = {statusCode: 201}
 var response404 = {statusCode: 404}
+
+var catalogItemName = 'catalogItemName'
+var customerIdName = 'customerIdName'
+var cidKeyName = 'cidKeyName'
 
 var body = {
   id: 1,
@@ -41,12 +48,59 @@ describe('Requests', function () {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    requestGetStub = sandbox.stub(request, 'get')
-    requestPostStub = sandbox.stub(request, 'post')
+    requestGetStub = sandbox.stub(request, 'getAsync').returnsPromise()
+    requestPostStub = sandbox.stub(request, 'postAsync').returnsPromise()
   })
 
   afterEach(() => {
     sandbox.restore()
+  })
+
+  describe('getRequestsByName method', function () {
+    it('promise should return error when vRa request rejects promise', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
+      })
+    })
+
+    it('promise should return error when response statusCode is not 200', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
+
+      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      .catch(function (error) {
+        expect(error).to.equal(response.body)
+      })
+    })
+
+    it('promise should return empty array when response body or response body content is empty', function () {
+      var response = {statusCode: 200}
+      requestGetStub.resolves(response)
+
+      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      .then(function (response) {
+        expect(response.length).to.equal(0)
+      })
+    })
+
+    it('promise should return populated array when response statusCode is 200', function () {
+      var response = {
+        statusCode: 200,
+        body: {
+          content: []
+        }}
+
+      requestGetStub.resolves(response)
+
+      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      .then(function (response) {
+        expect(response.length).to.equal(response.body.content.length)
+      })
+    })
   })
 
   describe('getObjectFromKey method', function () {

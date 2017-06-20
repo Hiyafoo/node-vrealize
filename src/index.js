@@ -18,7 +18,7 @@ function vRa () {
 
 // actions
 vRa.prototype.importAction = actions.importAction
-vRa.prototype.getAll = actions.getAll
+vRa.prototype.getAllActions = actions.getAll
 
 // requests
 vRa.prototype.getRequestsByName = requests.getRequestsByName

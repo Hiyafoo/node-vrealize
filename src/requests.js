@@ -1,7 +1,7 @@
 import request from 'request'
 import _ from 'lodash'
 import Promise from 'bluebird'
-var requestPromise = Promise.promisify(require('request'))
+var requestPromise = Promise.promisifyAll(require('request'))
 
 var inProgressState = 'IN_PROGRESS'
 var pendingPreApprovalState = 'PENDING_PRE_APPROVAL'
@@ -12,7 +12,7 @@ module.exports = {
   submit: submit,
   getAll: getAll,
   getByName: getByName,
-  getRequestsByName: Promise.promisify(getRequestsByName),
+  getRequestsByName: getRequestsByName,
   getObjectFromKey: getObjectFromKey,
   get: get,
   getAllCatalogItems: getAllCatalogItems,
@@ -21,25 +21,32 @@ module.exports = {
   updateTemplateData: updateTemplateData
 }
 
-function getRequestsByName (catalogItemName, customerIdName, cidKeyName, cb) {
-  var options = {
-    method: 'GET',
-    agent: this.config.agent,
-    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(catalogItem/name eq '${catalogItemName}')`,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    body: {},
-    json: true
-  }
+function getRequestsByName (catalogItemName, customerIdName, cidKeyName) {
+  var _this = this
 
-  requestPromise(options)
-  .then(function (response, body) {
-    if (response.statusCode === 200) {
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(catalogItem/name eq '${catalogItemName}')`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      body: {},
+      json: true
+    }
+
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        return reject(response.body)
+      }
+
+    // could nto find any reuqests with given name
       if (!response.body || !response.body.content) {
-        return cb('getRequestsByName Response has no body or content')
+        return resolve([])
       }
 
       var content = response.body.content
@@ -56,16 +63,11 @@ function getRequestsByName (catalogItemName, customerIdName, cidKeyName, cb) {
           }
         }
       }
-
-      cb(null, matchingCidrequests)
-    } else {
-      cb(JSON.stringify(response.body, null, 2))
-    }
-  })
-  .catch(function (error) {
-    if (error) {
-      return cb(error)
-    }
+      resolve(matchingCidrequests)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
   })
 }
 

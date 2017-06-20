@@ -1,6 +1,6 @@
-import fs from 'fs'
-import extfs from 'extfs'
-import logger from './logger'
+import Promise from 'bluebird'
+var fs = Promise.promisifyAll(require('fs'))
+var extfs = Promise.promisifyAll(require('extfs'))
 
 module.exports = {
   doesVMWareTokenExist: doesVMWareTokenExist,
@@ -10,30 +10,34 @@ module.exports = {
 
 var VMwareTokenPath = '/tmp/VMwareToken'
 
-function doesVMWareTokenExist (cb) {
-  fs.exists(VMwareTokenPath, function (exists) {
-    if (!exists) {
-      return cb(`The file at path ${VMwareTokenPath} does not exist`, false)
-    }
-
-    extfs.isEmpty(VMwareTokenPath, function (empty) {
-      if (empty) {
-        return cb(`The file at path ${VMwareTokenPath} is empty`, false)
+function doesVMWareTokenExist () {
+  return new Promise(function (resolve, reject) {
+    fs.existsAsync(VMwareTokenPath)
+    .then(function (exists) {
+      if (exists) {
+        return extfs.isEmptyAsync(VMwareTokenPath)
       }
-      cb(null, true)
+      resolve(false)
+    })
+    .then(function (isEmpty) {
+      resolve(!isEmpty)
+    })
+    .catch(function (error) {
+      reject(error)
     })
   })
 }
 
 /* istanbul ignore next */
-function getTokenFromFile (callback) {
-  fs.readFile(VMwareTokenPath, (err, data) => {
-    if (err) {
-      logger.error(err)
-      return callback(err, null)
-    }
-
-    callback(null, data)
+function getTokenFromFile () {
+  return new Promise(function (resolve, reject) {
+    fs.readFileAsync(VMwareTokenPath)
+    .then(function (data) {
+      resolve(data)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
   })
 }
 
@@ -43,6 +47,5 @@ function saveVMwareToken (data) {
     if (err) {
       throw err
     }
-    logger.info(`Token has been saved to ${VMwareTokenPath}`)
   })
 }
