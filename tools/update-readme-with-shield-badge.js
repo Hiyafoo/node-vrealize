@@ -18,9 +18,9 @@ var report = Report.create('shield-badge', {
 
 try {
   console.log('\n====================== Adding the badge to the ' + report.readmeFilename + ' =======================')
-  var coverageDir = path.resolve(__dirname, '../coverage')
+  var coverageDir = path.resolve(__dirname, '../.nyc_output')
   fs.readdirSync(coverageDir).forEach(function (file) {
-    if (file.indexOf('cov') === 0 && file.indexOf('.json') > 0) {
+    if (file.indexOf('.json') > 0) {
       collector.add(JSON.parse(fs.readFileSync(path.resolve(coverageDir, file), 'utf8')))
     }
   })
