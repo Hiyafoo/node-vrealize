@@ -36,6 +36,23 @@ var body = {
     }
   ]}
 
+function filter (data) {
+  var matchingCidrequests = []
+  for (var i = 0; i < data.length; i++) {
+    var requestItem = data[i]
+
+    if (requestItem && requestItem.requestData && requestItem.requestData.entries) {
+      for (var j = 0; j < requestItem.requestData.entries.length; j++) {
+        var requestData = requestItem.requestData.entries[j]
+        if (requestData.key === cidKeyName && requestData.value.value === customerIdName) {
+          matchingCidrequests.push(requestItem)
+        }
+      }
+    }
+  }
+  return matchingCidrequests
+}
+
 describe('Requests', function () {
   'use strict'
   let sandbox
@@ -57,7 +74,7 @@ describe('Requests', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)
 
-      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      return vRa.getRequestsByName(catalogItemName, filter)
       .catch(function (error) {
         expect(error).to.equal(errorMessage)
       })
@@ -67,7 +84,7 @@ describe('Requests', function () {
       var response = {statusCode: 400, body: 'error'}
       requestGetStub.resolves(response)
 
-      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      return vRa.getRequestsByName(catalogItemName, filter)
       .catch(function (error) {
         expect(error).to.equal(response.body)
       })
@@ -77,7 +94,7 @@ describe('Requests', function () {
       var response = {statusCode: 200}
       requestGetStub.resolves(response)
 
-      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      return vRa.getRequestsByName(catalogItemName, filter)
       .then(function (response) {
         expect(response.length).to.equal(0)
       })
@@ -100,7 +117,7 @@ describe('Requests', function () {
 
       requestGetStub.resolves(rsp)
 
-      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      return vRa.getRequestsByName(catalogItemName, filter)
       .then(function (response) {
         expect(response.length).to.equal(rsp.body.content.length)
       })
@@ -123,7 +140,7 @@ describe('Requests', function () {
 
       requestGetStub.resolves(rsp)
 
-      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      return vRa.getRequestsByName(catalogItemName, filter)
       .then(function (response) {
         expect(response.length).to.equal(0)
       })

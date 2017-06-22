@@ -20,7 +20,7 @@ module.exports = {
   updateTemplateData: updateTemplateData
 }
 
-function getRequestsByName (catalogItemName, customerIdName, cidKeyName) {
+function getRequestsByName (catalogItemName, filterMethod) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -48,21 +48,7 @@ function getRequestsByName (catalogItemName, customerIdName, cidKeyName) {
         return resolve([])
       }
 
-      var content = response.body.content
-      var matchingCidrequests = []
-      for (var i = 0; i < content.length; i++) {
-        var requestItem = content[i]
-
-        if (requestItem && requestItem.requestData && requestItem.requestData.entries) {
-          for (var j = 0; j < requestItem.requestData.entries.length; j++) {
-            var requestData = requestItem.requestData.entries[j]
-            if (requestData.key === cidKeyName && requestData.value.value === customerIdName) {
-              matchingCidrequests.push(requestItem)
-            }
-          }
-        }
-      }
-      resolve(matchingCidrequests)
+      resolve(filterMethod(response.body.content))
     })
     .catch(function (error) {
       reject(error)
