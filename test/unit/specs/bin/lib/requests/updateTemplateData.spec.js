@@ -64,14 +64,14 @@ describe('[Requests] - updateTemplateData method', function () {
     sandbox.restore()
   })
 
-  it('promise should return unchanged templateData when dataToBeMerge is empty', function () {
+  it('promise should return unchanged templateData when dataToBeMerged is empty', function () {
     return vRa.updateTemplateData(templateData, [])
     .then(function (template) {
       expect(template).to.deep.equal(templateData)
     })
   })
 
-  it('promise should return unchanged templateData when dataToBeMerge is null', function () {
+  it('promise should return unchanged templateData when dataToBeMerged is null', function () {
     return vRa.updateTemplateData(templateData, null)
     .then(function (template) {
       expect(template).to.deep.equal(templateData)

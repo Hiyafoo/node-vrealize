@@ -2,7 +2,6 @@
 
 import requests from './requests'
 import identity from './identity'
-import token from './token'
 import actions from './actions'
 
 function vRa () {
@@ -35,10 +34,5 @@ vRa.prototype.getObjectFromKey = requests.getObjectFromKey
 // identity
 vRa.prototype.isTokenAuthorized = identity.isTokenAuthorized
 vRa.prototype.getToken = identity.getToken
-
-// token
-vRa.prototype.doesVMWareTokenExist = token.doesVMWareTokenExist
-vRa.prototype.getTokenFromFile = token.getTokenFromFile
-vRa.prototype.saveVMwareToken = token.saveVMwareToken
 
 module.exports = vRa
