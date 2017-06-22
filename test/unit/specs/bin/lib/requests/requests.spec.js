@@ -11,10 +11,6 @@ var vRa = new NodeVRealize()
 
 sinonStubPromise(sinon)
 
-var response200 = {statusCode: 200}
-var response201 = {statusCode: 201}
-var response404 = {statusCode: 404}
-
 var catalogItemName = 'catalogItemName'
 var customerIdName = 'customerIdName'
 var cidKeyName = 'cidKeyName'
@@ -87,18 +83,49 @@ describe('Requests', function () {
       })
     })
 
-    it('promise should return populated array when response statusCode is 200', function () {
-      var response = {
+    it('promise should return populated array when customer id and key name are present in the reponse', function () {
+      var rsp = {
         statusCode: 200,
         body: {
-          content: []
+          content: [
+            {
+              requestData: {
+                entries: [
+                  {key: cidKeyName, value: {value: customerIdName}}
+                ]
+              }
+
+            }]
         }}
 
-      requestGetStub.resolves(response)
+      requestGetStub.resolves(rsp)
 
       return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
       .then(function (response) {
-        expect(response.length).to.equal(response.body.content.length)
+        expect(response.length).to.equal(rsp.body.content.length)
+      })
+    })
+
+    it('promise should return empty array when customer id and key name are not present in the reponse', function () {
+      var rsp = {
+        statusCode: 200,
+        body: {
+          content: [
+            {
+              requestData: {
+                entries: [
+                  {key: cidKeyName + '1', value: {value: customerIdName + '1'}}
+                ]
+              }
+
+            }]
+        }}
+
+      requestGetStub.resolves(rsp)
+
+      return vRa.getRequestsByName(catalogItemName, customerIdName, cidKeyName)
+      .then(function (response) {
+        expect(response.length).to.equal(0)
       })
     })
   })
@@ -127,223 +154,229 @@ describe('Requests', function () {
   })
 
   describe('getAllCatalogItems method', function () {
-    it('should return error when get request fails', function (done) {
-      requestGetStub.yields('error', null, null)
-      vRa.getAllCatalogItems(function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when statusCode is not 200', function () {
+      var rsp = {statusCode: 404, body: 'error'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.getAllCatalogItems()
+      .catch(function (error) {
+        expect(error).to.equal(rsp.body)
       })
     })
 
-    it('callback should return an error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
-      vRa.getAllCatalogItems(function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when vRa request promise is rejected', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.getAllCatalogItems()
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
       })
     })
 
-    it('callback should return response body as error when getRequest returns a non-successful status code', function (done) {
-      requestGetStub.yields(null, response404, body)
-      vRa.getAllCatalogItems(function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
-      })
-    })
+    it('promise should resolve with array of catalogItems when vRa request promise resolves', function () {
+      var rsp = {statusCode: 200, body: body}
+      requestGetStub.resolves(rsp)
 
-    it('callback should return body item list when getRequest returns a 200 status code', function (done) {
-      requestGetStub.yields(null, response200, body)
-      vRa.getAllCatalogItems(function (err, response) {
-        expect(err).to.be.null
-        expect(JSON.parse(response).length).to.equal(body.content.length)
-        done()
+      return vRa.getAllCatalogItems()
+      .then(function (response) {
+        expect(response.length).to.equal(body.content.length)
       })
     })
   })
 
   describe('getByName method', function () {
-    it('callback should return an error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
-      vRa.getByName([], function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when statusCode is not 200', function () {
+      var rsp = {statusCode: 404, body: 'error'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.getByName('name')
+      .catch(function (error) {
+        expect(error).to.equal(rsp.body)
       })
     })
 
-    it('callback should return response body as error when getRequest status code is not 200', function (done) {
-      requestGetStub.yields(null, response404, 'error')
-      vRa.getByName('name', function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when vRa request promise is rejected', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.getByName('name')
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
       })
     })
 
-    it('should return body content when getRequest status code is 200', function (done) {
-      requestGetStub.yields(null, response200, body)
-      vRa.getByName('name', function (err, response) {
-        expect(err).to.be.null
-        expect(response).to.equal(body.content[0])
-        done()
-      })
-    })
-  })
+    it('promise should resolve with body content when vRa request promise is resolved', function () {
+      var rsp = {statusCode: 200, body: {content: [{name: 'name'}]}}
+      requestGetStub.resolves(rsp)
 
-  describe('get method', function () {
-    it('callback should return an error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
-      vRa.get([], function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+      return vRa.getByName('name')
+      .then(function (response) {
+        expect(response).to.equal(rsp.body.content[0])
       })
     })
   })
 
   describe('get method', function () {
-    it('callback should return response body as error when getRequest status code is not 200', function (done) {
-      requestGetStub.yields(null, response404, 'error')
-      vRa.get('name', function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
-      })
-    })
-
-    it('callback should return request completion status when getRequest status code is 200 and raw parameter is false', function (done) {
+    it('promise should reject with error when statusCode is not 200', function () {
       var params = {id: 1, raw: false}
-      body.state = 'IN_PROGRESS'
-      requestGetStub.yields(null, response200, body)
-      vRa.get(params, function (err, response) {
-        expect(err).to.be.null
-        expect(response).to.equal(body.state)
-        done()
+      var rsp = {statusCode: 404, body: 'error'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.get(params)
+      .catch(function (error) {
+        expect(error).to.equal(rsp.body)
       })
     })
 
-    it('callback should return body when getRequest response state is IN_PROGRESS and raw parameter is true', function (done) {
+    it('promise should reject with error when vRa request promise is rejected', function () {
+      var params = {id: 1, raw: false}
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.get(params)
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
+      })
+    })
+
+    it('promise should resolve with response body when raw parameter is true', function () {
       var params = {id: 1, raw: true}
+      var rsp = {statusCode: 200, body: 'body'}
+      requestGetStub.resolves(rsp)
 
-      body.state = 'IN_PROGRESS'
-      requestGetStub.yields(null, response200, body)
-      vRa.get(params, function (err, response) {
-        expect(err).to.be.null
-        expect(response).to.equal(body)
-        done()
+      return vRa.get(params)
+      .then(function (response) {
+        expect(response).to.equal(rsp.body)
       })
     })
-  })
-  it('callback should return IN_PROGRESS when getRequest response state is IN_PROGRESS and raw parameter is false', function (done) {
-    var params = {id: 1, raw: false}
 
-    body.state = 'IN_PROGRESS'
-    requestGetStub.yields(null, response200, body)
-    vRa.get(params, function (err, response) {
-      expect(err).to.be.null
-      expect(response).to.equal(body.state)
-      done()
+    it('promise should resolve with requestCompletionState property when raw parameter is false and state is not handled', function () {
+      var params = {id: 1, raw: false}
+      var rsp = {statusCode: 200, body: {state: 'unknown', requestCompletion: {requestCompletionState: 'state'}}}
+      requestGetStub.resolves(rsp)
+
+      return vRa.get(params)
+      .then(function (response) {
+        expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
+      })
     })
-  })
 
-  it('callback should return when getRequest response state is OTHER and raw parameter is false', function (done) {
-    var params = {id: 1, raw: false}
+    it('promise should resolve with error when raw parameter is false, stateCompletion is empty and state is not handled', function () {
+      var params = {id: 1, raw: false}
+      var rsp = {statusCode: 200, body: {state: 'unknown'}}
+      requestGetStub.resolves(rsp)
 
-    body.state = 'OTHER'
-    requestGetStub.yields(null, response200, body)
-    vRa.get(params, function (err, response) {
-      expect(err).to.be.null
-      expect(response).to.equal(body.requestCompletion.requestCompletionState)
-      done()
+      return vRa.get(params)
+      .then(function (response) {
+        expect(response).to.equal('ERROR')
+      })
+    })
+
+    it('promise should resolve with requestCompletion object when raw parameter is false', function () {
+      var params = {id: 1, raw: false}
+      var rsp = {statusCode: 200, body: {requestCompletion: {requestCompletionState: 'state'}}}
+      requestGetStub.resolves(rsp)
+
+      return vRa.get(params)
+      .then(function (response) {
+        expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
+      })
     })
   })
 
   describe('getAll method', function () {
-    it('should return response body as error when getRequest status code is not 200', function (done) {
-      requestGetStub.yields(null, response404, 'error')
-      vRa.getAll('name', function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when statusCode is not 200', function () {
+      var rsp = {statusCode: 404, body: 'error'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.getAll()
+      .catch(function (error) {
+        expect(error).to.equal(rsp.body)
       })
     })
 
-    it('callback should return an error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
-      vRa.getAll([], function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when vRa request promise is rejected', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.getAll()
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
       })
     })
 
-    it('callback should return body when getRequest status code is 200', function (done) {
-      requestGetStub.yields(null, response200, body)
-      vRa.getAll([], function (err, response) {
-        expect(err).to.be.null
-        expect(response).to.equal(body)
-        done()
+    it('promise should resolve with response body vRa request resolves', function () {
+      var rsp = {statusCode: 200, body: 'body'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.getAll()
+      .then(function (response) {
+        expect(response).to.equal(rsp.body)
       })
     })
   })
 
   describe('sendRequest method', function () {
-    it('should return error when getRequest fails', function (done) {
-      requestPostStub.yields('error', null, null)
-      vRa.sendRequest([], [], function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when statusCode is not 200', function () {
+      var rsp = {statusCode: 404, body: 'error'}
+      requestPostStub.resolves(rsp)
+
+      return vRa.sendRequest()
+      .catch(function (error) {
+        expect(error).to.equal(rsp.body)
       })
     })
 
-    it('callback should return response body as error when getRequest status code is not 200', function (done) {
-      requestPostStub.yields(null, response404, 'error')
-      vRa.sendRequest([], [], function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when vRa request promise is rejected', function () {
+      var errorMessage = 'error'
+      requestPostStub.rejects(errorMessage)
+
+      return vRa.sendRequest()
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
       })
     })
 
-    it('should return body when getRequest status code is 201', function (done) {
-      requestPostStub.yields(null, response201, body)
-      vRa.sendRequest([], [], function (err, response) {
-        expect(err).to.be.null
-        expect(response).to.equal(body)
-        done()
+    it('promise should resolve with response body vRa request resolves', function () {
+      var rsp = {statusCode: 201, body: 'body'}
+      requestPostStub.resolves(rsp)
+
+      return vRa.sendRequest()
+      .then(function (response) {
+        expect(response).to.equal(rsp.body)
       })
     })
   })
 
   describe('getTemplate method', function () {
-    it('callback should return an error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
-      vRa.getTemplate([], function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when statusCode is not 200', function () {
+      var rsp = {statusCode: 404, body: 'error'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.getTemplate()
+      .catch(function (error) {
+        expect(error).to.equal(rsp.body)
       })
     })
 
-    it('callback should return response body as error when status code is not 200', function (done) {
-      requestGetStub.yields(null, response404, 'error')
-      vRa.getTemplate('name', function (err, response) {
-        expect(err).to.be.a('string')
-        expect(response).to.be.undefined
-        done()
+    it('promise should reject with error when vRa request promise is rejected', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.getTemplate()
+      .catch(function (error) {
+        expect(error).to.equal(errorMessage)
       })
     })
 
-    it('callback should return body when getRequest status code is 200', function (done) {
-      requestGetStub.yields(null, response200, body)
-      vRa.getTemplate([], function (err, response) {
-        expect(err).to.be.null
-        expect(response).to.equal(body)
-        done()
+    it('promise should resolve with response body vRa request resolves', function () {
+      var rsp = {statusCode: 200, body: 'body'}
+      requestGetStub.resolves(rsp)
+
+      return vRa.getTemplate()
+      .then(function (response) {
+        expect(response).to.equal(rsp.body)
       })
     })
   })

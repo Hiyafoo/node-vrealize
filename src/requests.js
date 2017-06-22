@@ -1,4 +1,3 @@
-import request from 'request'
 import _ from 'lodash'
 import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
@@ -71,28 +70,31 @@ function getRequestsByName (catalogItemName, customerIdName, cidKeyName) {
   })
 }
 
-function getAllCatalogItems (cb) {
-  var options = {
-    method: 'GET',
-    agent: this.config.agent,
-    url: `https://${this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000`,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    body: {},
-    json: true
-  }
+function getAllCatalogItems () {
+  var _this = this
 
-  request.get(options, function (error, response, body) {
-    if (error) {
-      cb(error)
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      body: {},
+      json: true
     }
 
-    if (response.statusCode === 200) {
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        return reject(response.body)
+      }
+
       let items = []
-      body.content.forEach(function (item) {
+      response.body.content.forEach(function (item) {
         var res = {}
         res.name = item.name
         res.id = item.catalogItemId
@@ -102,201 +104,202 @@ function getAllCatalogItems (cb) {
         // res.catalogResourceId = item.catalogResource.id
         items.push(res)
       }, this)
-      cb(null, JSON.stringify(items, null, 2))
-    } else {
-      cb(JSON.stringify(body))
-    }
+      resolve(items)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
   })
 }
 
-function submit (deploymentOptions, cb) {
+function getByName (name) {
   var _this = this
-  _this.getByName(deploymentOptions.blueprintName, function (error, response) {
-    if (error) {
-      return cb(error, null)
+
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000&$filter=(name eq '${name}')`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      body: {},
+      json: true
     }
 
-    var urlTemplate = response.links[0].href
-    var urlRequest = response.links[1].href
-
-    _this.getTemplate(urlTemplate, function (error, templateData) {
-      if (error) {
-        return cb(error, null)
-      }
-
-      _this.updateTemplateData(templateData, deploymentOptions.templateData, function (err, mergedTemplateData) {
-        if (err) {
-          return cb(error, null)
-        }
-        _this.sendRequest(urlRequest, mergedTemplateData, function (error, response) {
-          if (error) {
-            return cb(error, null)
-          }
-          cb(null, response)
-        })
-      })
-    })
-  })
-}
-
-function getByName (name, cb) {
-  var options = {
-    method: 'GET',
-    agent: this.config.agent,
-    url: `https://${this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000&$filter=(name eq '${name}')`,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    body: {},
-    json: true
-  }
-
-  request.get(options, function (error, response, body) {
-    if (error) {
-      return cb(error)
-    }
-
-    if (response.statusCode === 200) {
-      cb(null, body.content[0])
-    } else {
-      cb(JSON.stringify(body, null, 2))
-    }
-  })
-}
-
-function updateTemplateData (templateData, dataToBeMerged, callback) {
-  var node
-  if (dataToBeMerged) {
-    dataToBeMerged.forEach(function (elem) {
-      node = templateData
-      if (elem.path.length > 0) {
-        var properties = elem.path.split('.')
-        properties.forEach(function (property) {
-          node = node[property]
-        })
-      }
-      node[elem.leaf] = elem.value
-    })
-  }
-  callback(null, templateData)
-}
-
-function getTemplate (url, cb) {
-  var options = {
-    method: 'GET',
-    agent: this.config.agent,
-    url: url,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    body: {},
-    json: true
-  }
-
-  request.get(options, function (error, response, body) {
-    if (error) {
-      return cb(error)
-    }
-
-    if (response.statusCode === 200) {
-      cb(null, body)
-    } else {
-      cb(JSON.stringify(body, null, 2))
-    }
-  })
-}
-
-function sendRequest (url, data, cb) {
-  var options = {
-    method: 'POST',
-    agent: this.config.agent,
-    url: url,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    body: data,
-    json: true
-  }
-
-  request.post(options, function (error, response, body) {
-    if (error) {
-      return cb(error)
-    }
-    if (response.statusCode === 201) {
-      cb(null, body)
-    } else {
-      cb(body)
-    }
-  })
-}
-
-function get (params, cb) {
-  var options = {
-    method: 'GET',
-    agent: this.config.agent,
-    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests/${params.id}`,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    json: true
-  }
-
-  request.get(options, function (error, response, body) {
-    if (error) {
-      return cb(error)
-    }
-    if (response.statusCode === 200) {
-      var result = 'ERROR'
-      if (params.raw === false) {
-        if (body.state === inProgressState || body.state === pendingPreApprovalState || body.state === submittedState) {
-          result = inProgressState
-        } else {
-          var requestCompletion = body.requestCompletion
-          /* istanbul ignore next */
-          if (requestCompletion) {
-            result = requestCompletion.requestCompletionState
-          }
-        }
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        return reject(response.body)
       } else {
-        result = body
+        resolve(response.body.content[0])
       }
-      return cb(null, result)
-    } else {
-      cb(body)
-    }
+    })
+    .catch(function (error) {
+      reject(error)
+    })
   })
 }
 
-function getAll (obj, cb) {
-  var options = {
-    method: 'GET',
-    agent: this.config.agent,
-    url: `https://${this.config.hostname}/catalog-service/api/consumer/requests/`,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
-    },
-    json: true
-  }
+function submit (deploymentOptions) {
+  var _this = this
+  var urlRequest
 
-  request.get(options, function (error, response, body) {
-    if (error) {
-      return cb(error)
+  return new Promise(function (resolve, reject) {
+    _this.getByName(deploymentOptions.blueprintName)
+    .then(function (response) {
+      var urlTemplate = response.links[0].href
+      urlRequest = response.links[1].href
+
+      return _this.getTemplate(urlTemplate)
+    })
+    .then(function (templateData) {
+      return _this.updateTemplateData(templateData, deploymentOptions.templateData)
+    })
+    .then(function (mergedTemplateData) {
+      return _this.sendRequest(urlRequest, mergedTemplateData)
+    })
+    .then(function (response) {
+      resolve(response)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function getTemplate (url) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: url,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      body: {},
+      json: true
     }
-    if (response.statusCode === 200) {
-      cb(null, body)
-    } else {
-      cb(body)
+
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        return reject(response.body)
+      }
+      return resolve(response.body)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function sendRequest (url, data) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'POST',
+      agent: _this.config.agent,
+      url: url,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      body: data,
+      json: true
     }
+
+    requestPromise.postAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 201) {
+        return reject(response.body)
+      }
+      resolve(response.body)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function get (params) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests/${params.id}`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      json: true
+    }
+
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        return reject(response.body)
+      }
+
+      var body = response.body
+      if (params.raw === true) {
+        return resolve(body)
+      }
+
+      if (body.state === inProgressState || body.state === pendingPreApprovalState || body.state === submittedState) {
+        return resolve(inProgressState)
+      }
+
+      var requestCompletion = body.requestCompletion
+      if (requestCompletion) {
+        return resolve(requestCompletion.requestCompletionState)
+      }
+
+      return resolve('ERROR')
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function getAll () {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests/`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token.id}`
+      },
+      json: true
+    }
+
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        return reject(response.body)
+      }
+      resolve(response.body)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
   })
 }
 
@@ -310,3 +313,25 @@ function getObjectFromKey (jsonObject, key) {
   }
   return jsonObject.entries[indexCID]
 }
+
+function updateTemplateData (templateData, dataToBeMerged) {
+  return new Promise(function (resolve, reject) {
+    var node
+    if (dataToBeMerged) {
+      dataToBeMerged.forEach(function (elem) {
+        node = templateData
+        if (elem.path.length > 0) {
+          var properties = elem.path.split('.')
+
+          // access each property. Ex: a.b.c.d
+          properties.forEach(function (property) {
+            node = node[property]
+          })
+        }
+        node[elem.leaf] = elem.value
+      })
+    }
+    resolve(templateData)
+  })
+}
+
