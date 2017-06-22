@@ -12,6 +12,35 @@ This project is in a very early phase.
 npm install node-vrealize
 ```
 
+## Available methods
+
+Please note that all the methods of the node-vRealize module return Promises.
+
+## Actions
+
+* function importAction(categoryName, actionPath, password)
+
+## Identity
+
+* function getToken()
+* function isTokenAuthorized()
+
+## Requests
+
+* function **getRequestsByName**(*catalogItemName*, *filterMehtod*)
+* function **getAllCatalogItems**()
+* function **submit**(*options*)
+* function **getByName**(*name*)
+* function **getTemplate**(*url*)
+* function **sendRequest**(*url*, *data*)
+* function **get**(*options*) with ***options***:
+  * **raw**: *true*|*false*
+
+    if *true*, returns a single string **IN_PROGRESS**|**PENDING_PRE_APPROVAL**|**SUBMITTED**|**SUCCESS**|**FAILED**
+    
+    if *false*, returns the verbose vRa JSON object
+* function getAll()
+
 ## Usage
 
 ### Retrieve a token and use it for later purposes
@@ -36,24 +65,23 @@ vRa.config.agent = new https.Agent({
   rejectUnauthorized: false
 })
 
-vRa.getToken(function (error, token) {
-  if (error) {
-    // Handle Error
-    return error
-  }
+vRa.getToken()
+.then(function (token) {
   // Handle the retrieved token
   vRa.config.token = token
-  return token
+})
+.catch(function (error) {
+  // Handle the Error
 })
 
 // the vRA instance will use the token previously set in the config
 vRa.getRequestsByName('CentOS VM')
-  .then(function (response) {
-    // Do something
-  })
-  .catch(function (error) {
-    // Handle error
-  })
+.then(function (response) {
+  // Do something
+})
+.catch(function (error) {
+  // Handle error
+})
 ```
 
 ## LICENSE
