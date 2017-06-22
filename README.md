@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-74.32%25-yellow.svg)
+[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-95.63%25-brightgreen.svg)
 
 # Node vRealize
 
