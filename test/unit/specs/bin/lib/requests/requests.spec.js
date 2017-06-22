@@ -300,6 +300,18 @@ describe('Requests', function () {
         expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
       })
     })
+
+    it('promise should resolve with INPROGRESS when raw parameter is false and body state is INPROGRESS', function () {
+      var inProgress = 'IN_PROGRESS'
+      var params = {id: 1, raw: false}
+      var rsp = {statusCode: 200, body: {requestCompletion: {requestCompletionState: 'state'}, state: inProgress}}
+      requestGetStub.resolves(rsp)
+
+      return vRa.get(params)
+      .then(function (response) {
+        expect(response).to.equal(inProgress)
+      })
+    })
   })
 
   describe('getAll method', function () {
