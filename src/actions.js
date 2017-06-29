@@ -22,7 +22,8 @@ function importAction (categoryName, actionPath, password) {
           'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
         },
         qs: {categoryName: categoryName},
-        formData: {file: fs.createReadStream(actionPath)}
+        formData: {file: fs.createReadStream(actionPath)},
+        json: true
       }
     } catch (error) {
       return reject(error)
