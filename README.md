@@ -19,6 +19,7 @@ Please note that all the methods of the node-vRealize module return Promises.
 ## Actions
 
 * function importAction(categoryName, actionPath, password)
+* function importWorkflow(categoryId, workflowPath, password)
 
 ## Identity
 

@@ -6,7 +6,7 @@ module.exports = {
   importWorkflow: importWorkflow
 }
 
-function importWorkflow (categoryName, workflowPath, password) {
+function importWorkflow (categoryId, workflowPath, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -20,7 +20,10 @@ function importWorkflow (categoryName, workflowPath, password) {
           'cache-control': 'no-cache',
           'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
         },
-        qs: {categoryName: categoryName},
+        qs: {
+          categoryId: categoryId,
+          overwrite: true
+        },
         formData: {file: fs.createReadStream(workflowPath)},
         json: true
       }
