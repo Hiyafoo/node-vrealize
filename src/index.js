@@ -3,6 +3,7 @@
 import requests from './requests'
 import identity from './identity'
 import actions from './actions'
+import workflows from './workflows'
 
 function vRa () {
   this.config = {
@@ -16,6 +17,8 @@ function vRa () {
 }
 
 // actions
+vRa.prototype.importWorkflow = workflows.importWorkflow
+
 vRa.prototype.importAction = actions.importAction
 vRa.prototype.getAllActions = actions.getAll
 
