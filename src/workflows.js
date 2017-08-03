@@ -33,11 +33,7 @@ function importWorkflow (categoryId, workflowPath, password) {
 
     requestPromise.postAsync(options)
     .then(function (response) {
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        return resolve(response)
-      } else {
-        return resolve(response.body)
-      }
+      return resolve(response)
     })
     .catch(function (error) {
       reject(error)

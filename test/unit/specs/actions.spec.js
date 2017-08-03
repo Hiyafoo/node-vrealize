@@ -67,8 +67,8 @@ describe('Token', function () {
       requestPostStubPromise.resolves(res)
 
       return vRa.importAction(categoryName, actionPath, password)
-      .then(function (body) {
-        expect(res.body).to.equal(body)
+      .then(function (response) {
+        expect(response).to.deep.equal(res)
       })
     })
 

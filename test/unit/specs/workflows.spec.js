@@ -67,8 +67,8 @@ describe('Workflows', function () {
       requestPostStubPromise.resolves(res)
 
       return vRa.importWorkflow(categoryName, actionPath, password)
-      .then(function (body) {
-        expect(res.body).to.equal(body)
+      .then(function (response) {
+        expect(res).to.deep.equal(res)
       })
     })
 
