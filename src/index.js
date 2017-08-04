@@ -18,6 +18,7 @@ function vRa () {
 
 // actions
 vRa.prototype.importWorkflow = workflows.importWorkflow
+vRa.prototype.exportWorkflow = workflows.exportWorkflow
 
 vRa.prototype.importAction = actions.importAction
 vRa.prototype.getAllActions = actions.getAll

@@ -3,7 +3,8 @@ import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
-  importWorkflow: importWorkflow
+  importWorkflow: importWorkflow,
+  exportWorkflow: exportWorkflow
 }
 
 function importWorkflow (categoryId, workflowPath, password) {
@@ -40,3 +41,32 @@ function importWorkflow (categoryId, workflowPath, password) {
     })
   })
 }
+
+function exportWorkflow (workflowId, password) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options
+
+    options = {
+      method: 'POST',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/vco/api/workflows/${workflowId}`,
+      headers: {
+        'cache-control': 'no-cache',
+        'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
+        'accept': 'apllication/zip'
+      },
+      json: true
+    }
+
+    requestPromise.postAsync(options)
+    .then(function (response) {
+      return resolve(response)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
