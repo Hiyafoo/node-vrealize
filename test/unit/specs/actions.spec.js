@@ -21,6 +21,7 @@ describe('Token', function () {
 
   var categoryName = 'categoryName'
   var actionPath = 'actionPath'
+  var actionId = 'actionId'
   var password = 'password'
 
   beforeEach(() => {
@@ -124,6 +125,38 @@ describe('Token', function () {
       return vRa.getAllActions()
       .then(function (body) {
         expect(body).to.equal(body)
+      })
+    })
+  })
+
+  describe('exportAction method', function () {
+    it('promise should return the response when statusCode is 200', function () {
+      var res = {statusCode: 200}
+      requestPostStubPromise.resolves(res, null)
+
+      return vRa.exportWorkflow(actionId, password)
+      .then(function (response) {
+        expect(res).to.equal(response)
+      })
+    })
+
+    it('promise should return the response when statusCode is over 300', function () {
+      var res = {statusCode: 300, body: 'test'}
+      requestPostStubPromise.resolves(res)
+
+      return vRa.exportWorkflow(actionId, password)
+      .then(function (response) {
+        expect(res).to.deep.equal(res)
+      })
+    })
+
+    it('promise should return error when the vRa request is rejected', function () {
+      var errorMessage = 'error'
+      requestPostStubPromise.rejects(new Error(errorMessage))
+
+      return vRa.exportWorkflow(actionId, password)
+      .catch(function (error) {
+        expect(error.message).to.equal(errorMessage)
       })
     })
   })

@@ -4,7 +4,8 @@ var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
   getAll: getAll,
-  importAction: importAction
+  importAction: importAction,
+  exportAction: exportAction
 }
 
 function importAction (categoryName, actionPath, password) {
@@ -27,6 +28,32 @@ function importAction (categoryName, actionPath, password) {
       }
     } catch (error) {
       return reject(error)
+    }
+
+    requestPromise.postAsync(options)
+    .then(function (response) {
+      return resolve(response)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function exportAction (actionId, password) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options
+    options = {
+      method: 'POST',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/vco/api/actions/${actionId}`,
+      headers: {
+        'cache-control': 'no-cache',
+        'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
+        'accept': 'application/zip'
+      }
     }
 
     requestPromise.postAsync(options)
