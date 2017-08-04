@@ -2,13 +2,10 @@
 // ar path = require('path')
 var expect = require('chai').expect
 var sinon = require('sinon')
-var sinonStubPromise = require('sinon-stub-promise')
 require('chai').should()
 var NodeVRealize = require('../../../../../../src/index')
 
 var vRa = new NodeVRealize()
-
-sinonStubPromise(sinon)
 
 var deploymentOptions = {
   clientId: 1,
@@ -28,8 +25,8 @@ var body = {
       catalogItemId: 1,
       links:
       [
-            {href: 'link0', rel: 'rel0'},
-            {href: 'link1', rel: 'rel1'}
+        {href: 'link0', rel: 'rel0'},
+        {href: 'link1', rel: 'rel1'}
       ]
     }
   ]}
@@ -44,10 +41,10 @@ describe('[Requests] - Submit method', function () {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    getByNameStub = sandbox.stub(vRa, 'getByName').returnsPromise()
-    getTemplateStub = sandbox.stub(vRa, 'getTemplate').returnsPromise()
-    updateTemplateDataStub = sandbox.stub(vRa, 'updateTemplateData').returnsPromise()
-    sendRequestStub = sandbox.stub(vRa, 'sendRequest').returnsPromise()
+    getByNameStub = sandbox.stub(NodeVRealize.prototype, 'getByName')
+    getTemplateStub = sandbox.stub(NodeVRealize.prototype, 'getTemplate')
+    updateTemplateDataStub = sandbox.stub(NodeVRealize.prototype, 'updateTemplateData')
+    sendRequestStub = sandbox.stub(NodeVRealize.prototype, 'sendRequest')
   })
 
   afterEach(() => {
@@ -60,7 +57,7 @@ describe('[Requests] - Submit method', function () {
 
     return vRa.submit(deploymentOptions)
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
   })
 
@@ -72,7 +69,7 @@ describe('[Requests] - Submit method', function () {
 
     return vRa.submit(deploymentOptions)
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
   })
 
@@ -86,7 +83,7 @@ describe('[Requests] - Submit method', function () {
 
     return vRa.submit(deploymentOptions)
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
   })
 
@@ -101,7 +98,7 @@ describe('[Requests] - Submit method', function () {
 
     return vRa.submit(deploymentOptions)
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
   })
 

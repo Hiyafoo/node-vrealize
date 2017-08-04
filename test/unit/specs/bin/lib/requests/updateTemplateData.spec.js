@@ -2,13 +2,10 @@
 // ar path = require('path')
 var expect = require('chai').expect
 var sinon = require('sinon')
-var sinonStubPromise = require('sinon-stub-promise')
 require('chai').should()
 var NodeVRealize = require('../../../../../../src/index')
 
 var vRa = new NodeVRealize()
-
-sinonStubPromise(sinon)
 
 describe('[Requests] - updateTemplateData method', function () {
   'use strict'

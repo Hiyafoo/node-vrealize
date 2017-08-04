@@ -3,14 +3,11 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
-var sinonStubPromise = require('sinon-stub-promise')
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
 
 var vRa = new NodeVRealize()
-
-sinonStubPromise(sinon)
 
 describe('Identity', function () {
   'use strict'
@@ -26,9 +23,9 @@ describe('Identity', function () {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    requestPostStubPromise = sandbox.stub(request, 'postAsync').returnsPromise()
-    requestGetStubPromise = sandbox.stub(request, 'getAsync').returnsPromise()
-    requestHeadStubPromise = sandbox.stub(request, 'headAsync').returnsPromise()
+    requestPostStubPromise = sandbox.stub(request, 'postAsync')
+    requestGetStubPromise = sandbox.stub(request, 'getAsync')
+    requestHeadStubPromise = sandbox.stub(request, 'headAsync')
   })
 
   afterEach(() => {

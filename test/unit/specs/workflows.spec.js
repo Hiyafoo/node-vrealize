@@ -3,14 +3,11 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
-var sinonStubPromise = require('sinon-stub-promise')
 import fs from 'fs'
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
 var vRa = new NodeVRealize()
-
-sinonStubPromise(sinon)
 
 describe('Workflows', function () {
   'use strict'
@@ -29,8 +26,8 @@ describe('Workflows', function () {
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
     fsCreateReadStreamStub = sandbox.stub(fs, 'createReadStream')
-    requestPostStubPromise = sandbox.stub(request, 'postAsync').returnsPromise()
-    requestGetStubPromise = sandbox.stub(request, 'getAsync').returnsPromise()
+    requestPostStubPromise = sandbox.stub(request, 'postAsync')
+    requestGetStubPromise = sandbox.stub(request, 'getAsync')
   })
 
   afterEach(() => {
@@ -50,18 +47,18 @@ describe('Workflows', function () {
       })
     })
 
-    it('promise should return response when statusCode is 200', function () {
+    it('promise should return response when the statusCode is 200', function () {
       var res = {statusCode: 200}
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.resolves(res, null)
 
       return vRa.importWorkflow(categoryName, actionPath, password)
-      .then(function (response, body) {
+      .then(function (response) {
         expect(res).to.equal(response)
       })
     })
 
-    it('promise should return body when statusCode over 300', function () {
+    it('promise should return body when the statusCode is over 300', function () {
       var res = {statusCode: 300, body: 'test'}
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.resolves(res)
@@ -72,7 +69,7 @@ describe('Workflows', function () {
       })
     })
 
-    it('promise should return error when vRa request is rejected', function () {
+    it('promise should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.rejects(new Error(errorMessage))

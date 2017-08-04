@@ -3,14 +3,11 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
-var sinonStubPromise = require('sinon-stub-promise')
 import fs from 'fs'
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
 var vRa = new NodeVRealize()
-
-sinonStubPromise(sinon)
 
 describe('Token', function () {
   'use strict'
@@ -29,8 +26,8 @@ describe('Token', function () {
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
     fsCreateReadStreamStub = sandbox.stub(fs, 'createReadStream')
-    requestPostStubPromise = sandbox.stub(request, 'postAsync').returnsPromise()
-    requestGetStubPromise = sandbox.stub(request, 'getAsync').returnsPromise()
+    requestPostStubPromise = sandbox.stub(request, 'postAsync')
+    requestGetStubPromise = sandbox.stub(request, 'getAsync')
   })
 
   afterEach(() => {

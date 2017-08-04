@@ -3,13 +3,10 @@
 import request from 'request'
 var expect = require('chai').expect
 var sinon = require('sinon')
-var sinonStubPromise = require('sinon-stub-promise')
 require('chai').should()
 var NodeVRealize = require('../../../../../../src/index')
 
 var vRa = new NodeVRealize()
-
-sinonStubPromise(sinon)
 
 var catalogItemName = 'catalogItemName'
 var customerIdName = 'customerIdName'
@@ -61,8 +58,8 @@ describe('Requests', function () {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    requestGetStub = sandbox.stub(request, 'getAsync').returnsPromise()
-    requestPostStub = sandbox.stub(request, 'postAsync').returnsPromise()
+    requestGetStub = sandbox.stub(request, 'getAsync')
+    requestPostStub = sandbox.stub(request, 'postAsync')
   })
 
   afterEach(() => {
@@ -76,7 +73,7 @@ describe('Requests', function () {
 
       return vRa.getRequestsByName(catalogItemName, filter)
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
@@ -187,7 +184,7 @@ describe('Requests', function () {
 
       return vRa.getAllCatalogItems()
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
@@ -219,7 +216,7 @@ describe('Requests', function () {
 
       return vRa.getByName('name')
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
@@ -253,7 +250,7 @@ describe('Requests', function () {
 
       return vRa.get(params)
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
@@ -331,7 +328,7 @@ describe('Requests', function () {
 
       return vRa.getAll()
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
@@ -363,7 +360,7 @@ describe('Requests', function () {
 
       return vRa.sendRequest()
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
@@ -395,7 +392,7 @@ describe('Requests', function () {
 
       return vRa.getTemplate()
       .catch(function (error) {
-        expect(error).to.equal(errorMessage)
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
