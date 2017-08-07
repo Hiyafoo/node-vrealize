@@ -46,7 +46,7 @@ function exportAction (actionId, password) {
   return new Promise(function (resolve, reject) {
     var options
     options = {
-      method: 'POST',
+      method: 'GET',
       agent: _this.config.agent,
       url: `https://${_this.config.hostname}/vco/api/actions/${actionId}`,
       headers: {
@@ -56,7 +56,7 @@ function exportAction (actionId, password) {
       }
     }
 
-    requestPromise.postAsync(options)
+    requestPromise.getAsync(options)
     .then(function (response) {
       return resolve(response)
     })

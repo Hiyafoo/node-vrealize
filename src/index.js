@@ -22,6 +22,7 @@ vRa.prototype.exportWorkflow = workflows.exportWorkflow
 
 vRa.prototype.importAction = actions.importAction
 vRa.prototype.getAllActions = actions.getAll
+vRa.prototype.exportAction = actions.exportAction
 
 // requests
 vRa.prototype.getRequestsByName = requests.getRequestsByName

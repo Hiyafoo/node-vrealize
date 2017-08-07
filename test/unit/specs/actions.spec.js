@@ -132,9 +132,9 @@ describe('Token', function () {
   describe('exportAction method', function () {
     it('promise should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
-      requestPostStubPromise.resolves(res, null)
+      requestGetStubPromise.resolves(res, null)
 
-      return vRa.exportWorkflow(actionId, password)
+      return vRa.exportAction(actionId, password)
       .then(function (response) {
         expect(res).to.equal(response)
       })
@@ -142,9 +142,9 @@ describe('Token', function () {
 
     it('promise should return the response when statusCode is over 300', function () {
       var res = {statusCode: 300, body: 'test'}
-      requestPostStubPromise.resolves(res)
+      requestGetStubPromise.resolves(res)
 
-      return vRa.exportWorkflow(actionId, password)
+      return vRa.exportAction(actionId, password)
       .then(function (response) {
         expect(res).to.deep.equal(res)
       })
@@ -152,9 +152,9 @@ describe('Token', function () {
 
     it('promise should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
-      requestPostStubPromise.rejects(new Error(errorMessage))
+      requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.exportWorkflow(actionId, password)
+      return vRa.exportAction(actionId, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
