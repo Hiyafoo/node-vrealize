@@ -55,7 +55,7 @@ function exportWorkflow (workflowId, password) {
       headers: {
         'cache-control': 'no-cache',
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
-        'accept': 'apllication/zip'
+        'accept': 'application/zip'
       },
       json: true
     }
