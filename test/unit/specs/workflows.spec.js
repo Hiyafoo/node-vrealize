@@ -85,7 +85,7 @@ describe('Workflows', function () {
   describe('exportWorkflow method', function () {
     it('promise should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
-      requestPostStubPromise.resolves(res, null)
+      requestGetStubPromise.resolves(res, null)
 
       return vRa.exportWorkflow(workflowId, password)
       .then(function (response) {
@@ -95,7 +95,7 @@ describe('Workflows', function () {
 
     it('promise should return the response when statusCode is over 300', function () {
       var res = {statusCode: 300, body: 'test'}
-      requestPostStubPromise.resolves(res)
+      requestGetStubPromise.resolves(res)
 
       return vRa.exportWorkflow(workflowId, password)
       .then(function (response) {
@@ -105,7 +105,7 @@ describe('Workflows', function () {
 
     it('promise should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
-      requestPostStubPromise.rejects(new Error(errorMessage))
+      requestGetStubPromise.rejects(new Error(errorMessage))
 
       return vRa.exportWorkflow(workflowId, password)
       .catch(function (error) {

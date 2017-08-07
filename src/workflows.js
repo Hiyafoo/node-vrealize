@@ -49,7 +49,7 @@ function exportWorkflow (workflowId, password) {
     var options
 
     options = {
-      method: 'POST',
+      method: 'GET',
       agent: _this.config.agent,
       url: `https://${_this.config.hostname}/vco/api/workflows/${workflowId}`,
       headers: {
@@ -60,7 +60,7 @@ function exportWorkflow (workflowId, password) {
       json: true
     }
 
-    requestPromise.postAsync(options)
+    requestPromise.getAsync(options)
     .then(function (response) {
       return resolve(response)
     })
