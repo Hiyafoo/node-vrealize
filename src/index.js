@@ -4,6 +4,7 @@ import requests from './requests'
 import identity from './identity'
 import actions from './actions'
 import workflows from './workflows'
+import configurations from './configurations'
 
 function vRa () {
   this.config = {
@@ -16,9 +17,11 @@ function vRa () {
   }
 }
 
-// actions
 vRa.prototype.importWorkflow = workflows.importWorkflow
 vRa.prototype.exportWorkflow = workflows.exportWorkflow
+
+vRa.prototype.importConfiguration = configurations.importConfiguration
+vRa.prototype.exportConfiguration = configurations.exportConfiguration
 
 vRa.prototype.importAction = actions.importAction
 vRa.prototype.getAllActions = actions.getAll

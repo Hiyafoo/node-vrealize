@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.71%25-brightgreen.svg)
+[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-100%25-brightgreen.svg)
 
 # Node vRealize
 
@@ -20,8 +20,10 @@ Please note that all the methods of the node-vRealize module return Promises.
 
 * function importAction(categoryName, actionPath, password)
 * function importWorkflow(categoryId, workflowPath, password)
+* function importConfiguration(categoryId, configurationPath, password)
 * function exportAction(actionId, password)
 * function exportWorkflow(workflowId, password)
+* function exportConfiguration(configurationId, password)
 
 ## Identity
 
