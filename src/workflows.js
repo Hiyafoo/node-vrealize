@@ -57,7 +57,7 @@ function exportWorkflow (workflowId, password) {
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
         'accept': 'application/zip'
       },
-      json: true
+      encoding: null
     }
 
     requestPromise.getAsync(options)
@@ -69,4 +69,3 @@ function exportWorkflow (workflowId, password) {
     })
   })
 }
-

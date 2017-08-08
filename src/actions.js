@@ -53,7 +53,8 @@ function exportAction (actionId, password) {
         'cache-control': 'no-cache',
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
         'accept': 'application/zip'
-      }
+      },
+      encoding: null
     }
 
     requestPromise.getAsync(options)
