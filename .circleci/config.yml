@@ -9,10 +9,29 @@ jobs:
         - master
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: "Run tests"
+          name: "Install the application"
           environment:
             TEST: "test"
-          command: |
-            npm install
-            npm run test
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: "Lint the source code"
+          command: npm run lint
+      - run:
+          name: "Run unit tests"
+          command: npm run test
+      - run:
+          name: "Build the application"
+          command: npm run build
+      - store_artifacts:
+          path: dist
+          destination: dist
+      - store_artifacts:
+          path: coverage
+          destination: coverage
