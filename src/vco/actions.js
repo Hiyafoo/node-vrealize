@@ -22,7 +22,10 @@ function importAction (categoryName, actionPath, password) {
           'cache-control': 'no-cache',
           'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
         },
-        qs: {categoryName: categoryName},
+        qs: {
+          categoryName: categoryName,
+          overwrite: true
+        },
         formData: {file: fs.createReadStream(actionPath)},
         json: true
       }
