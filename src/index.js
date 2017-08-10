@@ -2,9 +2,9 @@
 
 import requests from './requests'
 import identity from './identity'
-import actions from './actions'
-import workflows from './workflows'
-import configurations from './configurations'
+import actions from './vco/actions'
+import workflows from './vco/workflows'
+import configurations from './vco/configurations'
 
 function vRa () {
   this.config = {
