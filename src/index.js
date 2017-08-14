@@ -5,6 +5,7 @@ import identity from './identity'
 import actions from './vco/actions'
 import workflows from './vco/workflows'
 import configurations from './vco/configurations'
+import categories from './vco/categories'
 
 function vRa () {
   this.config = {
@@ -16,6 +17,13 @@ function vRa () {
     agent: ''
   }
 }
+
+vRa.prototype.importCategory = categories.importCategory
+vRa.prototype.exportCategory = categories.exportCategory
+vRa.prototype.getCategories = categories.getCategories
+vRa.prototype.getCategoryIdFromAbsolutePath = categories.getCategoryIdFromAbsolutePath
+vRa.prototype.getCategory = categories.getCategory
+vRa.prototype.getLeafCategoryId = categories.getLeafCategoryId
 
 vRa.prototype.importWorkflow = workflows.importWorkflow
 vRa.prototype.exportWorkflow = workflows.exportWorkflow

@@ -16,21 +16,60 @@ npm install node-vrealize
 
 Please note that all the methods of the node-vRealize module return Promises.
 
-## Actions
+## vCO
 
-* function importAction(categoryName, actionPath, password)
-* function importWorkflow(categoryId, workflowPath, password)
-* function importConfiguration(categoryId, configurationPath, password)
-* function exportAction(actionId, password)
-* function exportWorkflow(workflowId, password)
-* function exportConfiguration(configurationId, password)
-
-## Identity
+### Identity
 
 * function getToken()
 * function isTokenAuthorized()
 
-## Requests
+### Artefacts import/export
+
+* function importAction(categoryName, actionPath, password)
+* function importWorkflow(categoryId, workflowPath, password)
+* function importConfiguration(categoryId, configurationPath, password)
+* function importCategory(categoryObj, password)
+  
+  where categoryObj is of the following type if importing a root category:
+  ```JavaScript
+  {
+    name: 'name',
+    description: 'desc',
+    type: 'type'
+  }
+  ```
+  or is of the following type if importing a child category:
+  ```JavaScript
+  {
+    parentId: 'parentId',
+    name: 'name',
+    description: 'desc',
+    type: 'type'
+  }
+  ```
+
+* function exportAction(actionId, password)
+* function exportWorkflow(workflowId, password)
+* function exportConfiguration(configurationId, password)
+* function exportCategory(categoryId, password)
+
+### Categories-related methods
+
+* function getCategories(categoryType, isRoot, password)
+* function getCategory(categoryId, password)
+* getCategoryIdFromAbsolutePath([string]categoryAbsolutePath, categoryType, password)
+* getLeafCategoryId(categoryId, [array]categoryPath, password)
+
+categoryType is one of:
+
+* WorkflowCategory 
+* ConfigurationElementCategory
+* ResourceElementCategory
+* ScriptModuleCategory
+
+## vRA
+
+### Requests
 
 * function **getRequestsByName**(*catalogItemName*, *filterMehtod*)
 * function **getAllCatalogItems**()
