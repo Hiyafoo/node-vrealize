@@ -33,7 +33,7 @@ function importCategory (categoryObj, password) {
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
         'accept': 'application/json'
       },
-      formData: {
+      body: {
         name: categoryObj.name,
         description: categoryObj.description,
         type: categoryObj.type
