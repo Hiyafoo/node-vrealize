@@ -176,10 +176,12 @@ function getCategoryIdFromAbsolutePath (categoryAbsolutePath, categoryType, pass
 function findCategoryId (categoryName, categories) {
   var categoryId = -1
   var category = _.find(categories.link, function (link) {
-    for (var i = 0; i < link.attributes.length; i++) {
-      var attribute = link.attributes[i]
-      var isName = attribute.name === 'name' && attribute.value === categoryName
-      if (isName) { return true }
+    if (link.attributes) {
+      for (var i = 0; i < link.attributes.length; i++) {
+        var attribute = link.attributes[i]
+        var isName = attribute.name === 'name' && attribute.value === categoryName
+        if (isName) { return true }
+      }
     }
     return false
   })

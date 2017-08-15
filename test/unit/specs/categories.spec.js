@@ -14,6 +14,10 @@ var categoryLevel1 = {
     relations: {
       link: [
         {
+          'href': 'https://localhost:443/vco/api/categories/ff8080815d065f21015d06d2417800db/permissions/',
+          'rel': 'permissions'
+        },
+        {
           'attributes': [
             {
               'value': '123080815d065f21015d1349a5580db3',
@@ -26,6 +30,10 @@ var categoryLevel1 = {
           ],
           'href': 'https://test.io/vco/api/categories/123080815d065f21015d1349a5580db3/',
           'rel': 'down'
+        },
+        {
+          'href': 'https://localhost:443/vco/api/categories/ff8080815d065f21015d06d2417800db/permissions/',
+          'rel': 'permissions'
         }
       ]
     }
@@ -37,6 +45,10 @@ var categoryLevel2 = {
   body: {
     relations: {
       link: [
+        {
+          'href': 'https://localhost:443/vco/api/categories/ff8080815d065f21015d06d2417800db/permissions/',
+          'rel': 'permissions'
+        },
         {
           'attributes': [
             {
@@ -50,7 +62,12 @@ var categoryLevel2 = {
           ],
           'href': 'https://test.io/vco/api/categories/456789/',
           'rel': 'down'
+        },
+        {
+          'href': 'https://localhost:443/vco/api/categories/ff8080815d065f21015d06d2417800db/permissions/',
+          'rel': 'permissions'
         }
+
       ]
     }
   }
