@@ -9,42 +9,50 @@ var NodeVRealize = require('../../../src/index')
 var vRa = new NodeVRealize()
 
 var categoryLevel1 = {
-  relations: {
-    link: [
-      {
-        'attributes': [
-          {
-            'value': '123080815d065f21015d1349a5580db3',
-            'name': 'id'
-          },
-          {
-            'value': 'network',
-            'name': 'name'
-          }
-        ],
-        'href': 'https://test.io/vco/api/categories/123080815d065f21015d1349a5580db3/',
-        'rel': 'down'
-      }]
+  statusCode: 200,
+  body: {
+    relations: {
+      link: [
+        {
+          'attributes': [
+            {
+              'value': '123080815d065f21015d1349a5580db3',
+              'name': 'id'
+            },
+            {
+              'value': 'network',
+              'name': 'name'
+            }
+          ],
+          'href': 'https://test.io/vco/api/categories/123080815d065f21015d1349a5580db3/',
+          'rel': 'down'
+        }
+      ]
+    }
   }
 }
 
 var categoryLevel2 = {
-  relations: {
-    link: [
-      {
-        'attributes': [
-          {
-            'value': '456789',
-            'name': 'id'
-          },
-          {
-            'value': 'nsx',
-            'name': 'name'
-          }
-        ],
-        'href': 'https://test.io/vco/api/categories/456789/',
-        'rel': 'down'
-      }]
+  statusCode: 200,
+  body: {
+    relations: {
+      link: [
+        {
+          'attributes': [
+            {
+              'value': '456789',
+              'name': 'id'
+            },
+            {
+              'value': 'nsx',
+              'name': 'name'
+            }
+          ],
+          'href': 'https://test.io/vco/api/categories/456789/',
+          'rel': 'down'
+        }
+      ]
+    }
   }
 }
 
@@ -71,7 +79,10 @@ describe('Categories', function () {
   var categoryId = 'id'
   var password = 'password'
 
-  var bodyResponseRootCategories = require('./files/categories').rootCategories
+  var bodyResponseRootCategories = {
+    statusCode: 200,
+    body: require('./files/categories').rootCategories
+  }
   // var bodyResponseAllCategories = require('./files/categories').allCategories
 
   beforeEach(() => {
@@ -277,8 +288,11 @@ describe('Categories', function () {
       requestGetCategoriesStubPromise.resolves(bodyResponseRootCategories)
       requestGetCategoryStubPromise.onCall(0).resolves(categoryLevel1)
       requestGetCategoryStubPromise.onCall(1).resolves({
-        relations: {
-          link: []
+        statusCode: 200,
+        body: {
+          relations: {
+            link: []
+          }
         }
       })
       return vRa.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')

@@ -98,7 +98,8 @@ function getCategories (categoryType, isRoot, password) {
         categoryType: categoryType,
         isRoot: isRoot || false
       },
-      encoding: 'utf-8'
+      encoding: 'utf-8',
+      json: true
     }
 
     requestPromise.getAsync(options)
@@ -126,7 +127,8 @@ function getCategory (categoryId, password) {
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
         'accept': 'application/json'
       },
-      encoding: 'utf-8'
+      encoding: 'utf-8',
+      json: true
     }
 
     requestPromise.getAsync(options)
@@ -149,7 +151,8 @@ function getCategoryIdFromAbsolutePath (categoryAbsolutePath, categoryType, pass
 
     // TODO: put in cache for 5 minutes
     _this.getCategories(categoryType, true, password)
-    .then(function (rootCategories) {
+    .then(function (response) {
+      var rootCategories = response.body
       // TODO: put in cache for 5 minutes
       var rootCategoryName = categoryDecomposedPath.shift()
       return findCategoryId(rootCategoryName, rootCategories)
@@ -196,7 +199,8 @@ function getLeafCategoryId (currentCategoryId, categoryPath, password) {
       resolve(currentCategoryId)
     } else {
       _this.getCategory(currentCategoryId, password)
-      .then(function (category) {
+      .then(function (response) {
+        var category = response.body
         var categoryName = categoryPath.shift()
         var categoryId = findCategoryId(categoryName, category.relations)
         if (categoryId !== -1) {
