@@ -9,7 +9,7 @@ require('chai').should()
 var NodeVRealize = require('../../../src/index')
 var vRa = new NodeVRealize()
 
-describe('Workflows', function () {
+describe('Configurations', function () {
   'use strict'
   let sandbox
   // eslint-disable-next-line
@@ -35,12 +35,12 @@ describe('Workflows', function () {
     sandbox.restore()
   })
 
-  describe('importConfiguration method', function () {
+  describe('exportConfiguration method', function () {
     it('promise should reject when reading stream for action path throws an error', function () {
       var errorMessage = 'error'
       fsCreateReadStreamStub.throws(new Error(errorMessage))
 
-      return vRa.importConfiguration(categoryId, configurationPath, password)
+      return vRa.exportConfiguration(categoryId, configurationPath, password)
       .then(function (response) {
       })
       .catch(function (error) {
@@ -53,7 +53,7 @@ describe('Workflows', function () {
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.resolves(res, null)
 
-      return vRa.importConfiguration(categoryId, configurationPath, password)
+      return vRa.exportConfiguration(categoryId, configurationPath, password)
       .then(function (response) {
         expect(res).to.equal(response)
       })
@@ -64,7 +64,7 @@ describe('Workflows', function () {
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.resolves(res)
 
-      return vRa.importConfiguration(categoryId, configurationPath, password)
+      return vRa.exportConfiguration(categoryId, configurationPath, password)
       .then(function (response) {
         expect(res).to.deep.equal(res)
       })
@@ -75,19 +75,19 @@ describe('Workflows', function () {
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.importConfiguration(categoryId, configurationPath, password)
+      return vRa.exportConfiguration(categoryId, configurationPath, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
     })
   })
 
-  describe('exportConfiguration method', function () {
+  describe('importConfiguration method', function () {
     it('promise should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.exportConfiguration(configurationId, password)
+      return vRa.importConfiguration(configurationId, password)
       .then(function (response) {
         expect(res).to.equal(response)
       })
@@ -97,7 +97,7 @@ describe('Workflows', function () {
       var res = {statusCode: 300, body: 'test'}
       requestGetStubPromise.resolves(res)
 
-      return vRa.exportConfiguration(configurationId, password)
+      return vRa.importConfiguration(configurationId, password)
       .then(function (response) {
         expect(res).to.deep.equal(res)
       })
@@ -107,7 +107,7 @@ describe('Workflows', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.exportConfiguration(configurationId, password)
+      return vRa.importConfiguration(configurationId, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })

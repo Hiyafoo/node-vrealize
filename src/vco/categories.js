@@ -18,7 +18,7 @@ module.exports = {
   getLeafCategoryId: getLeafCategoryId
 }
 
-function importCategory (categoryObj, password) {
+function exportCategory (categoryObj, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -51,7 +51,7 @@ function importCategory (categoryObj, password) {
   })
 }
 
-function exportCategory (categoryId, password) {
+function importCategory (categoryId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {

@@ -7,7 +7,7 @@ module.exports = {
   exportConfiguration: exportConfiguration
 }
 
-function importConfiguration (categoryId, configurationPath, password) {
+function exportConfiguration (categoryId, configurationPath, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -41,7 +41,7 @@ function importConfiguration (categoryId, configurationPath, password) {
   })
 }
 
-function exportConfiguration (configurationId, password) {
+function importConfiguration (configurationId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {

@@ -8,7 +8,7 @@ module.exports = {
   exportAction: exportAction
 }
 
-function importAction (categoryName, actionPath, password) {
+function exportAction (categoryName, actionPath, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -43,7 +43,7 @@ function importAction (categoryName, actionPath, password) {
   })
 }
 
-function exportAction (actionId, password) {
+function importAction (actionId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {

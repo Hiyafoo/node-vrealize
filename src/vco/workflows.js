@@ -7,7 +7,7 @@ module.exports = {
   exportWorkflow: exportWorkflow
 }
 
-function importWorkflow (categoryId, workflowPath, password) {
+function exportWorkflow (categoryId, workflowPath, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -42,7 +42,7 @@ function importWorkflow (categoryId, workflowPath, password) {
   })
 }
 
-function exportWorkflow (workflowId, password) {
+function importWorkflow (workflowId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {

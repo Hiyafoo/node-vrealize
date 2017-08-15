@@ -84,12 +84,12 @@ describe('Categories', function () {
     sandbox.restore()
   })
 
-  describe('importCategory method', function () {
+  describe('exportCategory method', function () {
     it('should return a 200 response when creating a root category', function () {
       var res = {statusCode: 200}
       requestPostStubPromise.resolves(res, null)
 
-      return vRa.importCategory(rootCategoryObj, password)
+      return vRa.exportCategory(rootCategoryObj, password)
       .then(function (response) {
         expect(res).to.equal(response)
         var spyPostAsync = requestPostStubPromise.getCall(0)
@@ -101,7 +101,7 @@ describe('Categories', function () {
       var res = {statusCode: 200}
       requestPostStubPromise.resolves(res, null)
 
-      return vRa.importCategory(childCategoryObj, password)
+      return vRa.exportCategory(childCategoryObj, password)
       .then(function (response) {
         expect(res).to.equal(response)
         var spyPostAsync = requestPostStubPromise.getCall(0)
@@ -113,7 +113,7 @@ describe('Categories', function () {
       var res = {statusCode: 300, body: 'test'}
       requestPostStubPromise.resolves(res)
 
-      return vRa.importCategory(rootCategoryObj, password)
+      return vRa.exportCategory(rootCategoryObj, password)
       .then(function (response) {
         expect(res).to.deep.equal(res)
       })
@@ -123,19 +123,19 @@ describe('Categories', function () {
       var errorMessage = 'error'
       requestPostStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.importCategory(rootCategoryObj, password)
+      return vRa.exportCategory(rootCategoryObj, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
     })
   })
 
-  describe('exportCategory method', function () {
+  describe('importCategory method', function () {
     it('promise should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.exportCategory(categoryId, password)
+      return vRa.importCategory(categoryId, password)
       .then(function (response) {
         expect(res).to.equal(response)
       })
@@ -145,7 +145,7 @@ describe('Categories', function () {
       var res = {statusCode: 300, body: 'test'}
       requestGetStubPromise.resolves(res)
 
-      return vRa.exportCategory(categoryId, password)
+      return vRa.importCategory(categoryId, password)
       .then(function (response) {
         expect(res).to.deep.equal(res)
       })
@@ -155,7 +155,7 @@ describe('Categories', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.exportCategory(categoryId, password)
+      return vRa.importCategory(categoryId, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })

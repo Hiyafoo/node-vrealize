@@ -9,7 +9,7 @@ require('chai').should()
 var NodeVRealize = require('../../../src/index')
 var vRa = new NodeVRealize()
 
-describe('Token', function () {
+describe('Actions', function () {
   'use strict'
   let sandbox
   // eslint-disable-next-line
@@ -35,12 +35,12 @@ describe('Token', function () {
     sandbox.restore()
   })
 
-  describe('importAction method', function () {
+  describe('exportAction method', function () {
     it('promise should reject when reading stream for action path throws an error', function () {
       var errorMessage = 'error'
       fsCreateReadStreamStub.throws(new Error(errorMessage))
 
-      return vRa.importAction(categoryName, actionPath, password)
+      return vRa.exportAction(categoryName, actionPath, password)
       .then(function (response) {
       })
       .catch(function (error) {
@@ -53,7 +53,7 @@ describe('Token', function () {
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.resolves(res, null)
 
-      return vRa.importAction(categoryName, actionPath, password)
+      return vRa.exportAction(categoryName, actionPath, password)
       .then(function (response, body) {
         expect(res).to.equal(response)
       })
@@ -64,7 +64,7 @@ describe('Token', function () {
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.resolves(res)
 
-      return vRa.importAction(categoryName, actionPath, password)
+      return vRa.exportAction(categoryName, actionPath, password)
       .then(function (response) {
         expect(response).to.deep.equal(res)
       })
@@ -75,7 +75,7 @@ describe('Token', function () {
       fsCreateReadStreamStub.returns('')
       requestPostStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.importAction(categoryName, actionPath, password)
+      return vRa.exportAction(categoryName, actionPath, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
@@ -129,12 +129,12 @@ describe('Token', function () {
     })
   })
 
-  describe('exportAction method', function () {
+  describe('importAction method', function () {
     it('promise should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.exportAction(actionId, password)
+      return vRa.importAction(actionId, password)
       .then(function (response) {
         expect(res).to.equal(response)
       })
@@ -144,7 +144,7 @@ describe('Token', function () {
       var res = {statusCode: 300, body: 'test'}
       requestGetStubPromise.resolves(res)
 
-      return vRa.exportAction(actionId, password)
+      return vRa.importAction(actionId, password)
       .then(function (response) {
         expect(res).to.deep.equal(res)
       })
@@ -154,7 +154,7 @@ describe('Token', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.exportAction(actionId, password)
+      return vRa.importAction(actionId, password)
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
