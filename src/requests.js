@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _findIndex from 'lodash.findindex'
 import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
 
@@ -290,7 +290,7 @@ function getAll () {
 }
 
 function getObjectFromKey (jsonObject, key) {
-  var indexCID = _.findIndex(jsonObject.entries, function (o) {
+  var indexCID = _findIndex(jsonObject.entries, function (o) {
     return o.key === key
   })
   // 'key', 'y.Hostname.CID')
