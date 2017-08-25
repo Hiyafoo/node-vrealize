@@ -26,6 +26,10 @@ Please note that all the methods of the node-vRealize module return Promises.
 ### Artefacts import/export
 
 * function importAction(categoryName, actionPath, password)
+* function importActions (moduleName, password)
+
+  where moduleName is the fully qualified name of a module or the starting matching string  of a module name
+  (i.e. "io.test/network" or "io.test")
 * function importWorkflow(categoryId, workflowPath, password)
 * function importConfiguration(categoryId, configurationPath, password)
 * function importCategory(categoryObj, password)

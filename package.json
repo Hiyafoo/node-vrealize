@@ -39,6 +39,7 @@
   "peerDependencies": {},
   "dependencies": {
     "chalk": "^1.1.3",
+    "lodash.filter": "^4.6.0",
     "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",
     "lodash.trim": "^4.5.1",

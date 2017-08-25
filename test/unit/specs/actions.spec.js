@@ -9,6 +9,8 @@ require('chai').should()
 var NodeVRealize = require('../../../src/index')
 var vRa = new NodeVRealize()
 
+var actions = require('./files/actions')
+
 describe('Actions', function () {
   'use strict'
   let sandbox
@@ -158,6 +160,74 @@ describe('Actions', function () {
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
+    })
+  })
+
+  describe('importActions method', function () {
+    it('should return the response when statusCode is 200', function () {
+      var res = {
+        statusCode: 200,
+        body: {
+          link: []
+        }
+      }
+      requestGetStubPromise.resolves(res, null)
+
+      return vRa.importActions('io.test', password)
+        .then(function (response) {
+          expect(res).to.equal(response)
+        })
+    })
+
+    it('should return the filtered response when statusCode is 200', function () {
+      var res = {
+        statusCode: 200,
+        body: actions.all
+      }
+      requestGetStubPromise.resolves(res, null)
+
+      return vRa.importActions('io.test.network', password)
+        .then(function (response) {
+          // console.log(JSON.stringify(response, null, 2))
+          expect(response.body.link.length).to.equal(7)
+        })
+    })
+
+    it('should return no actions in the filtered response when statusCode is 200', function () {
+      var res = {
+        statusCode: 200,
+        body: actions.all
+      }
+      requestGetStubPromise.resolves(res, null)
+
+      return vRa.importActions('do.not.exist', password)
+        .then(function (response) {
+          // console.log(JSON.stringify(response, null, 2))
+          expect(response.body.link.length).to.equal(0)
+        })
+    })
+
+    it('should return the response when statusCode is over 300', function () {
+      var res = {
+        statusCode: 300,
+        body: 'test'
+      }
+      requestGetStubPromise.resolves(res)
+
+      return vRa.importActions('not found', password)
+        .then(function (response) {
+          expect(res).to.deep.equal(res)
+        })
+    })
+
+    it('should return error when the vRa request is rejected', function () {
+      var errorMessage = 'error'
+      requestGetStubPromise.rejects(new Error(errorMessage))
+
+      return vRa.importActions(actionId, password)
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
   })
 })

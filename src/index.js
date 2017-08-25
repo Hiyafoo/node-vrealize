@@ -32,6 +32,7 @@ vRa.prototype.importConfiguration = configurations.importConfiguration
 vRa.prototype.exportConfiguration = configurations.exportConfiguration
 
 vRa.prototype.importAction = actions.importAction
+vRa.prototype.importActions = actions.importActions
 vRa.prototype.getAllActions = actions.getAll
 vRa.prototype.exportAction = actions.exportAction
 
