@@ -113,7 +113,7 @@ vRa.config.agent = new https.Agent({
   rejectUnauthorized: false
 })
 
-vRa.getToken()
+vRa.getTokenId()
 .then(function (token) {
   // Handle the retrieved token
   vRa.config.token = token

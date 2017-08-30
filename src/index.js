@@ -50,6 +50,6 @@ vRa.prototype.getObjectFromKey = requests.getObjectFromKey
 
 // identity
 vRa.prototype.isTokenAuthorized = identity.isTokenAuthorized
-vRa.prototype.getToken = identity.getToken
+vRa.prototype.getTokenId = identity.getTokenId
 
 module.exports = vRa

@@ -31,7 +31,7 @@ function getRequestsByName (catalogItemName, filterMethod) {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       body: {},
       json: true
@@ -67,7 +67,7 @@ function getAllCatalogItems () {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       body: {},
       json: true
@@ -109,7 +109,7 @@ function getByName (name) {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       body: {},
       json: true
@@ -167,7 +167,7 @@ function getTemplate (url) {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       body: {},
       json: true
@@ -197,7 +197,7 @@ function sendRequest (url, data) {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       body: data,
       json: true
@@ -227,7 +227,7 @@ function get (params) {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       json: true
     }
@@ -271,7 +271,7 @@ function getAll () {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       json: true
     }

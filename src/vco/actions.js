@@ -126,7 +126,7 @@ function getAll () {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token.id}`
+        'authorization': `Bearer ${_this.config.token}`
       },
       body: {},
       json: true

@@ -21,7 +21,7 @@ function getAll (cb) {
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
+      'authorization': `Bearer ${this.config.token}`
     },
     body: {},
     json: true
@@ -59,7 +59,7 @@ function getByName (name, cb) {
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
+      'authorization': `Bearer ${this.config.token}`
     },
     body: {},
     json: true
@@ -86,7 +86,7 @@ function getById (id, cb) {
     headers: {
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      'authorization': `Bearer ${this.config.token.id}`
+      'authorization': `Bearer ${this.config.token}`
     },
     body: {},
     json: true
@@ -117,7 +117,7 @@ function getActions (resourceName, cb) {
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
-        'authorization': `Bearer ${this.config.token.id}`
+        'authorization': `Bearer ${this.config.token}`
       },
       body: {},
       json: true

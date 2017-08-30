@@ -68,7 +68,7 @@ describe('Identity', function () {
       var errorMessage = 'error'
       requestPostStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.getToken()
+      return vRa.getTokenId()
       .catch(function (error) {
         expect(error.message).to.equal(errorMessage)
       })
@@ -81,7 +81,7 @@ describe('Identity', function () {
       }
       requestPostStubPromise.resolves(response)
 
-      return vRa.getToken()
+      return vRa.getTokenId()
       .then(function (tokenId) {
         expect(tokenId).to.equal(response.body.id)
       })
@@ -94,7 +94,7 @@ describe('Identity', function () {
       }
       requestPostStubPromise.resolves(response)
 
-      return vRa.getToken()
+      return vRa.getTokenId()
       .catch(function (error) {
         expect(error).to.equal(response.body.errors[0].systemMessage)
       })

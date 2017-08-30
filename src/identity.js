@@ -2,20 +2,20 @@ import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
-  getToken: getToken,
+  getTokenId: getTokenId,
   isTokenAuthorized: isTokenAuthorized
 }
 
-function isTokenAuthorized (token) {
+function isTokenAuthorized (tokenId) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
     var options = {
       method: 'HEAD',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/identity/api/tokens/${token}`,
+      url: `https://${_this.config.hostname}/identity/api/tokens/${tokenId}`,
       headers: {
-        'authorization': 'Bearer ' + token,
+        'authorization': 'Bearer ' + tokenId,
         'content-type': 'application/json'
       }
     }
@@ -34,7 +34,7 @@ function isTokenAuthorized (token) {
   })
 }
 
-function getToken () {
+function getTokenId () {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -62,7 +62,7 @@ function getToken () {
       _this.config.password = ''
 
       if (response.statusCode === 200) {
-        _this.config.token = response.body
+        _this.config.token = response.body.id
         process.env.VRA_TOKEN = _this.config.token
         resolve(response.body.id)
       } else {
