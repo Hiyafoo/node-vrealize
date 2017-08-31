@@ -137,7 +137,10 @@ function submit (deploymentOptions) {
     _this.getByName(deploymentOptions.blueprintName)
     .then(function (response) {
       var urlTemplate = response.links[0].href
+      urlTemplate = urlTemplate.substring(0, urlTemplate.indexOf('{'))
+
       urlRequest = response.links[1].href
+      urlRequest = urlRequest.substring(0, urlRequest.indexOf('{'))
 
       return _this.getTemplate(urlTemplate)
     })
