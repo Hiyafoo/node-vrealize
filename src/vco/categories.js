@@ -146,7 +146,7 @@ function deleteRootCategory (categoryAbsolutePath, categoryType, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
-    _this.getCategoryIdFromAbsolutePath()
+    _this.getCategoryIdFromAbsolutePath(categoryAbsolutePath, categoryType, password)
     .then(function (categoryId) {
       var options
 
