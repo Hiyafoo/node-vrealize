@@ -80,6 +80,8 @@ describe('Categories', function () {
   let requestPostStubPromise
   // eslint-disable-next-line
   let requestGetStubPromise
+  // eslint-disable-next-line
+  let requestDeleteStubPromise
 
   var childCategoryObj = {
     parentId: 'id',
@@ -106,6 +108,7 @@ describe('Categories', function () {
     sandbox = sinon.sandbox.create()
     requestPostStubPromise = sandbox.stub(request, 'postAsync')
     requestGetStubPromise = sandbox.stub(request, 'getAsync')
+    requestDeleteStubPromise = sandbox.stub(request, 'deleteAsync')
   })
 
   afterEach(() => {
@@ -352,7 +355,7 @@ describe('Categories', function () {
       var getCategoryIdFromAbsolutePath = sandbox.stub(NodeVRealize.prototype, 'getCategoryIdFromAbsolutePath')
 
       var res = {statusCode: 200}
-      requestGetStubPromise.resolves(res, null)
+      requestDeleteStubPromise.resolves(res, null)
 
       getCategoryIdFromAbsolutePath.resolves(categoryId)
       return vRa.deleteRootCategory('/io.test/network/', 'ConfigurationElementCategory', 'password')
@@ -366,7 +369,7 @@ describe('Categories', function () {
       var getCategoryIdFromAbsolutePath = sandbox.stub(NodeVRealize.prototype, 'getCategoryIdFromAbsolutePath')
 
       var error = 'error'
-      requestGetStubPromise.rejects(error)
+      requestDeleteStubPromise.rejects(error)
 
       getCategoryIdFromAbsolutePath.resolves(categoryId)
       return vRa.deleteRootCategory('/io.test/network/', 'ConfigurationElementCategory', 'password')

@@ -166,7 +166,7 @@ function deleteRootCategory (categoryAbsolutePath, categoryType, password) {
         }
       }
 
-      return requestPromise.getAsync(options)
+      return requestPromise.deleteAsync(options)
     }).then(function (response) {
       resolve(response)
     })
