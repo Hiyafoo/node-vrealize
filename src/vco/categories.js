@@ -15,7 +15,8 @@ module.exports = {
   getCategoryIdFromAbsolutePath: getCategoryIdFromAbsolutePath,
   getCategories: getCategories,
   getCategory: getCategory,
-  getLeafCategoryId: getLeafCategoryId
+  getLeafCategoryId: getLeafCategoryId,
+  deleteRootCategory: deleteRootCategory
 }
 
 function exportCategory (categoryObj, password) {
@@ -133,6 +134,40 @@ function getCategory (categoryId, password) {
 
     requestPromise.getAsync(options)
     .then(function (response) {
+      resolve(response)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function deleteRootCategory (categoryAbsolutePath, categoryType, password) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    _this.getCategoryIdFromAbsolutePath()
+    .then(function (categoryId) {
+      var options
+
+      options = {
+        method: 'DELETE',
+        agent: _this.config.agent,
+        url: `https://${_this.config.hostname}/vco/api/categories/${categoryId}`,
+        headers: {
+          'cache-control': 'no-cache',
+          'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
+          'accept': 'application/json'
+        },
+        encoding: 'utf-8',
+        json: true,
+        qs: {
+          deleteNonEmptyContent: true
+        }
+      }
+
+      return requestPromise.getAsync(options)
+    }).then(function (response) {
       resolve(response)
     })
     .catch(function (error) {

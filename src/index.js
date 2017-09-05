@@ -23,6 +23,7 @@ vRa.prototype.exportCategory = categories.exportCategory
 vRa.prototype.getCategories = categories.getCategories
 vRa.prototype.getCategoryIdFromAbsolutePath = categories.getCategoryIdFromAbsolutePath
 vRa.prototype.getCategory = categories.getCategory
+vRa.prototype.deleteRootCategory = categories.deleteRootCategory
 vRa.prototype.getLeafCategoryId = categories.getLeafCategoryId
 
 vRa.prototype.importWorkflow = workflows.importWorkflow

@@ -345,4 +345,34 @@ describe('Categories', function () {
       })
     })
   })
+
+  describe('deleteRootCategory method', function () {
+    it('should return a 200 statusCode on successful deletion', function () {
+      var categoryId = 'id'
+      var getCategoryIdFromAbsolutePath = sandbox.stub(NodeVRealize.prototype, 'getCategoryIdFromAbsolutePath')
+
+      var res = {statusCode: 200}
+      requestGetStubPromise.resolves(res, null)
+
+      getCategoryIdFromAbsolutePath.resolves(categoryId)
+      return vRa.deleteRootCategory('/io.test/network/', 'ConfigurationElementCategory', 'password')
+      .then(function (response) {
+        expect(response.statusCode).to.equal(200)
+      })
+    })
+
+    it('should reject with an error when category id cannot be found', function () {
+      var categoryId = 'id'
+      var getCategoryIdFromAbsolutePath = sandbox.stub(NodeVRealize.prototype, 'getCategoryIdFromAbsolutePath')
+
+      var error = 'error'
+      requestGetStubPromise.rejects(error)
+
+      getCategoryIdFromAbsolutePath.resolves(categoryId)
+      return vRa.deleteRootCategory('/io.test/network/', 'ConfigurationElementCategory', 'password')
+      .catch(function (err) {
+        expect(err.name).to.equal(error)
+      })
+    })
+  })
 })
