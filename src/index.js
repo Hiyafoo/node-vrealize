@@ -1,6 +1,7 @@
 // import configuration from './config'
 
 import requests from './requests'
+import resources from './resources'
 import identity from './identity'
 import actions from './vco/actions'
 import workflows from './vco/workflows'
@@ -48,6 +49,12 @@ vRa.prototype.sendRequest = requests.sendRequest
 vRa.prototype.get = requests.get
 vRa.prototype.getAll = requests.getAll
 vRa.prototype.getObjectFromKey = requests.getObjectFromKey
+
+// resources
+vRa.prototype.getAllResources = resources.getAll
+vRa.prototype.getResourceByName = resources.getByName
+vRa.prototype.getResourceById = resources.getById
+vRa.prototype.getResourceActions = resources.getActions
 
 // identity
 vRa.prototype.isTokenAuthorized = identity.isTokenAuthorized

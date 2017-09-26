@@ -3,26 +3,29 @@ import request from 'request'
 var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
+var NodeVRealize = require('../../../src/index')
 
-var resources = require('../../../src/resources')
+var vRa = new NodeVRealize()
 
-var response200 = {statusCode: 200}
-var response404 = {statusCode: 404}
+// var resources = require('../../../src/resources')
 
-var resourceBody = {
-  id: 1,
-  requestCompletion: true,
-  content:
-  [
-    {
-      name: '1',
-      status: 'status',
-      id: 2,
-      resourceTypeRef: {
-        label: 1
-      }
-    }
-  ]}
+// var response200 = {statusCode: 200}
+// var response404 = {statusCode: 404}
+
+// var resourceBody = {
+//   id: 1,
+//   requestCompletion: true,
+//   content:
+//   [
+    // {
+    //   name: '1',
+    //   status: 'status',
+    //   id: 2,
+    //   resourceTypeRef: {
+    //     label: 1
+    //   }
+    // }
+//   ]}
 
 describe('Resources', function () {
   'use strict'
@@ -32,16 +35,7 @@ describe('Resources', function () {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    requestGetStub = sandbox.stub(request, 'get')
-    resources.config = {
-      username: '',
-      hostname: '',
-      password: '',
-      tenant: '',
-      token: {
-        id: ''},
-      agent: ''
-    }
+    requestGetStub = sandbox.stub(request, 'getAsync')
   })
 
   afterEach(() => {
@@ -49,149 +43,164 @@ describe('Resources', function () {
   })
 
   describe('getAll method', function () {
-    it('callback should return error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
+    it('promise should return error when getRequest fails', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
 
-      resources.getAll(function (err, response, body) {
-        expect(err).to.be.a('string')
-        done()
+      return vRa.getAll()
+      .catch(function (error) {
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
-    it('callback should return error with contents of body when getRequest returns non-successful status code', function (done) {
-      requestGetStub.yields(null, response404, resourceBody)
+    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
 
-      resources.getAll(function (err, response, body) {
-        expect(response).to.be.undefined
-        expect(body).to.be.undefined
-        expect(err).to.equal(JSON.stringify(resourceBody))
-        done()
+      vRa.getAll().catch(function (error) {
+        expect(error).to.equal(response.body)
       })
     })
 
-    it('callback should return contents of body when getRequest returns 200 status code', function (done) {
-      requestGetStub.yields(null, response200, resourceBody)
+    it('promise should return contents of body when getRequest returns 200 status code', function () {
+      var stubbedResponse = {statusCode: 200,
+        body:
+        {
+          content: [
+            {
+              name: '1',
+              status: 'status'
+            }
+          ]}
+      }
+      requestGetStub.resolves(stubbedResponse)
 
-      resources.getAll(function (err, response, body) {
-        expect(body).to.be.undefined
-        expect(JSON.parse(response).length).to.equal(resourceBody.content.length)
-        expect(err).to.be.null
-        done()
+      vRa.getAll()
+      .then(function (response) {
+        expect(response.content.length).to.equal(stubbedResponse.body.content.length)
       })
     })
   })
 
   describe('getByName method', function () {
-    it('callback should return error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
+    it('promise should return error when getRequest fails', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
 
-      resources.getByName([], function (err, response, body) {
-        expect(err).to.be.a('string')
-        done()
+      return vRa.getResourceByName()
+      .catch(function (error) {
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
-    it('callback should return error with contents of body when getRequest returns non-successful status code', function (done) {
-      requestGetStub.yields(null, response404, resourceBody)
+    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
 
-      resources.getByName([], function (err, response, body) {
-        expect(response).to.be.undefined
-        expect(body).to.be.undefined
-        expect(err).to.equal(JSON.stringify(resourceBody, null, 2))
-        done()
+      vRa.getResourceByName('name')
+      .catch(function (error) {
+        expect(error).to.equal(response.body)
       })
     })
 
-    it('callback should return contents of body when getRequest returns 200 status code', function (done) {
-      requestGetStub.yields(null, response200, resourceBody)
+    it('promise should return contents of body when getRequest returns 200 status code', function () {
+      var stubbedResponse = {statusCode: 200,
+        body:
+        {
+          content: [
+            {
+              name: '1',
+              status: 'status'
+            }
+          ]}
+      }
+      requestGetStub.resolves(stubbedResponse)
 
-      resources.getByName([], function (err, response, body) {
-        expect(body).to.be.undefined
-        expect(response).to.equal(resourceBody.content[0])
-        expect(err).to.be.null
-        done()
+      vRa.getResourceByName('name')
+      .then(function (response) {
+        expect(response).to.deep.equal(stubbedResponse.body.content[0])
       })
     })
   })
 
   describe('getById method', function () {
-    it('callback should return error when getRequest fails', function (done) {
-      requestGetStub.yields('error', null, null)
+    it('promise should return error when getRequest fails', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
 
-      resources.getById([], function (err, response, body) {
-        expect(err).to.be.a('string')
-        done()
+      return vRa.getResourceById()
+      .catch(function (error) {
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
-    it('callback should return error with contents of body when getRequest returns non-successful status code', function (done) {
-      requestGetStub.yields(null, response404, resourceBody)
+    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
 
-      resources.getById([], function (err, response, body) {
-        expect(response).to.be.undefined
-        expect(body).to.be.undefined
-        expect(err).to.equal(JSON.stringify(resourceBody, null, 2))
-        done()
+      vRa.getResourceById('id')
+      .catch(function (error) {
+        expect(error).to.equal(response.body)
       })
     })
 
-    it('callback should return contents of body when getRequest returns 200 status code', function (done) {
-      requestGetStub.yields(null, response200, resourceBody)
+    it('promise should return contents of body when getRequest returns 200 status code', function () {
+      var stubbedResponse = {statusCode: 200,
+        body:
+        {
+          content: [
+            {
+              name: '1',
+              status: 'status'
+            }
+          ]}
+      }
+      requestGetStub.resolves(stubbedResponse)
 
-      resources.getById([], function (err, response, body) {
-        expect(body).to.be.undefined
-        expect(response).to.equal(resourceBody.content[0])
-        expect(err).to.be.null
-        done()
+      vRa.getResourceById('id')
+      .then(function (response) {
+        expect(response).to.deep.equal(stubbedResponse.body.content[0])
       })
     })
   })
 
   describe('getActions method', function () {
-    it('callback should return error when resourceName cannot be found', function (done) {
-      var getByNameStub = sandbox.stub(resources, 'getByName')
-      getByNameStub.yields('error', null)
+    it('promise should return error when resourceName cannot be found', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
 
-      resources.getActions([], function (err, response, body) {
-        expect(err).to.be.a('string')
-        done()
+      return vRa.getResourceActions('name')
+      .catch(function (error) {
+        expect(error.name).to.equal(errorMessage)
       })
     })
 
-    it('callback should return error when getRequest fails', function (done) {
-      var getByNameStub = sandbox.stub(resources, 'getByName')
-      getByNameStub.yields(null, [])
-      requestGetStub.yields('error', null, null)
+    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
 
-      resources.getActions([], function (err, response, body) {
-        expect(err).to.be.a('string')
-        done()
+      vRa.getResourceActions('name')
+      .catch(function (error) {
+        expect(error).to.equal(response.body)
       })
     })
 
-    it('callback should return error with contents of body when getRequest returns non-successful status code', function (done) {
-      var getByNameStub = sandbox.stub(resources, 'getByName')
-      getByNameStub.yields(null, [])
-      requestGetStub.yields(null, response404, resourceBody)
+    it('promise should return contents of body when getRequest returns 200 status code', function () {
+      var stubbedResponse = {statusCode: 200,
+        body:
+        {
+          content: [
+            {
+              name: '1',
+              status: 'status'
+            }
+          ]}
+      }
+      requestGetStub.resolves(stubbedResponse)
 
-      resources.getActions([], function (err, response, body) {
-        expect(response).to.be.undefined
-        expect(body).to.be.undefined
-        expect(err).to.equal(JSON.stringify(resourceBody, null, 2))
-        done()
-      })
-    })
-
-    it('callback should return contents of body when getRequest returns 200 status code', function (done) {
-      var getByNameStub = sandbox.stub(resources, 'getByName')
-      getByNameStub.yields(null, [])
-      requestGetStub.yields(null, response200, resourceBody)
-
-      resources.getActions([], function (err, response, body) {
-        expect(body).to.be.undefined
-        expect(response).to.equal(resourceBody.content)
-        expect(err).to.be.null
-        done()
+      vRa.getResourceActions('name')
+      .then(function (response) {
+        expect(response.length).to.equal(stubbedResponse.body.content.length)
       })
     })
   })

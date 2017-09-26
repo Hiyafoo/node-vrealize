@@ -43,7 +43,7 @@ function getRequestsByName (catalogItemName, filterMethod) {
         return reject(response.body)
       }
 
-    // could nto find any reuqests with given name
+    // could not find any reuqests with given name
       if (!response.body || !response.body.content) {
         return resolve([])
       }
