@@ -1,13 +1,16 @@
 import Promise from 'bluebird'
+import _findIndex from 'lodash.findindex'
+import Requests from './requests'
 var requestPromise = Promise.promisifyAll(require('request'))
-// import _ from 'lodash'
 
 /* istanbul ignore next */
 module.exports = {
   getAll: getAll,
   getByName: getByName,
   getById: getById,
-  getActions: getActions
+  getResourceActions: getResourceActions,
+  getResourceActionTemplate: getResourceActionTemplate,
+  submit: submit
 }
 
 function getAll () {
@@ -114,7 +117,7 @@ function getById (id) {
   })
 }
 
-function getActions (resourceName) {
+function getResourceActions (resourceName) {
   var _this = this
   return new Promise(function (resolve, reject) {
     _this.getByName(resourceName)
@@ -146,3 +149,69 @@ function getActions (resourceName) {
     })
   })
 }
+
+function getResourceActionTemplate (resourceId, resourceActionId) {
+  var _this = this
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${resourceId}/actions/${resourceActionId}/requests/template`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token}`
+      },
+      body: {},
+      json: true
+    }
+
+    requestPromise.getAsync(options)
+    .then(function (response) {
+      if (response.statusCode !== 200) {
+        reject(response.body)
+      } else {
+        resolve(response.body)
+      }
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function submit (actionOptions) {
+  var _this = this
+  var resourceActionId
+
+  return new Promise(function (resolve, reject) {
+    _this.getResourceActions(actionOptions.resourceName)
+    .then(function (response) {
+      resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
+
+      return _this.getResourceActionTemplate(actionOptions.resourceId, resourceActionId)
+    })
+    .then(function (templateData) {
+      var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${actionOptions.resourceId}/actions/${resourceActionId}/requests/`
+
+      return Requests.sendRequest(postUrl, templateData)
+    })
+    .then(function (response) {
+      resolve(response)
+    })
+    .catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+function getObjectFromKey (array, key) {
+  var indexOfKey = _findIndex(array, function (o) {
+    return o.key === key
+  })
+  if (indexOfKey === -1) {
+    throw new Error('Could not find key: ' + key + ' in array: ' + JSON.stringify(array, null, 2))
+  }
+  return array[indexOfKey]
+}
+

@@ -54,7 +54,9 @@ vRa.prototype.getObjectFromKey = requests.getObjectFromKey
 vRa.prototype.getAllResources = resources.getAll
 vRa.prototype.getResourceByName = resources.getByName
 vRa.prototype.getResourceById = resources.getById
-vRa.prototype.getResourceActions = resources.getActions
+vRa.prototype.getResourceActions = resources.getResourceActions
+vRa.prototype.submitResourceRequest = resources.submit
+vRa.prototype.getResourceActionTemplate = resources.getResourceActionTemplate
 
 // identity
 vRa.prototype.isTokenAuthorized = identity.isTokenAuthorized
