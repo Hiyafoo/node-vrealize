@@ -208,7 +208,7 @@ function sendRequest (url, data) {
 
     requestPromise.postAsync(options)
     .then(function (response) {
-      if (response.statusCode !== 201) {
+      if (response.statusCode !== 200 || response.statusCode !== 201) {
         return reject(response.body)
       }
       resolve(response.body)
