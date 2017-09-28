@@ -7,7 +7,7 @@
     "test": "npm run lint && nyc --require babel-core/register mocha test/unit/specs --recursive && npm run report",
     "report": "nyc report --reporter=lcov && node tools/update-readme-with-shield-badge.js",
     "test:watch": "nyc --require babel-core/register mocha test/unit/specs/ --recursive -w",
-    "build": "babel src -d dist --presets es2015,stage-2 --source-maps",
+    "build": "babel src -d dist --source-maps",
     "lint": "eslint --fix --ext .js, src test/unit/specs",
     "lint:watch": "esw --color -w --ext .js, src test/unit/specs",
     "prepublish": "npm run build",
