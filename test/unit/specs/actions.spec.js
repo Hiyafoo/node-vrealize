@@ -1,9 +1,9 @@
 /* global it beforeEach afterEach describe */
+import fs from 'fs'
 // var path = require('path')
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
-import fs from 'fs'
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
@@ -43,11 +43,11 @@ describe('Actions', function () {
       fsCreateReadStreamStub.throws(new Error(errorMessage))
 
       return vRa.exportAction(categoryName, actionPath, password)
-      .then(function (response) {
-      })
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .then(function (response) {
+        })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
 
     it('promise should return response when statusCode is 200', function () {
@@ -56,9 +56,9 @@ describe('Actions', function () {
       requestPostStubPromise.resolves(res, null)
 
       return vRa.exportAction(categoryName, actionPath, password)
-      .then(function (response, body) {
-        expect(res).to.equal(response)
-      })
+        .then(function (response, body) {
+          expect(res).to.equal(response)
+        })
     })
 
     it('promise should return body when statusCode over 300', function () {
@@ -67,9 +67,9 @@ describe('Actions', function () {
       requestPostStubPromise.resolves(res)
 
       return vRa.exportAction(categoryName, actionPath, password)
-      .then(function (response) {
-        expect(response).to.deep.equal(res)
-      })
+        .then(function (response) {
+          expect(response).to.deep.equal(res)
+        })
     })
 
     it('promise should return error when vRa request is rejected', function () {
@@ -78,9 +78,9 @@ describe('Actions', function () {
       requestPostStubPromise.rejects(new Error(errorMessage))
 
       return vRa.exportAction(categoryName, actionPath, password)
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
   })
 
@@ -90,10 +90,10 @@ describe('Actions', function () {
       requestGetStubPromise.rejects(new Error(errorMessage))
 
       return vRa.getAllActions()
-      .then(function (response) {})
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .then(function (response) {})
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
 
     it('promise should return array of resources when statusCode is 200', function () {
@@ -111,9 +111,9 @@ describe('Actions', function () {
       requestGetStubPromise.resolves(response)
 
       return vRa.getAllActions()
-      .then(function (resources) {
-        expect(resources.length).to.equal(response.body.content.length)
-      })
+        .then(function (resources) {
+          expect(resources.length).to.equal(response.body.content.length)
+        })
     })
 
     it('promise should return body when statusCode is not 200', function () {
@@ -125,9 +125,9 @@ describe('Actions', function () {
       requestGetStubPromise.resolves(response)
 
       return vRa.getAllActions()
-      .then(function (body) {
-        expect(body).to.equal(body)
-      })
+        .then(function (body) {
+          expect(body).to.equal(body)
+        })
     })
   })
 
@@ -137,9 +137,9 @@ describe('Actions', function () {
       requestGetStubPromise.resolves(res, null)
 
       return vRa.importAction(actionId, password)
-      .then(function (response) {
-        expect(res).to.equal(response)
-      })
+        .then(function (response) {
+          expect(res).to.equal(response)
+        })
     })
 
     it('promise should return the response when statusCode is over 300', function () {
@@ -147,9 +147,9 @@ describe('Actions', function () {
       requestGetStubPromise.resolves(res)
 
       return vRa.importAction(actionId, password)
-      .then(function (response) {
-        expect(res).to.deep.equal(res)
-      })
+        .then(function (response) {
+          expect(res).to.deep.equal(res)
+        })
     })
 
     it('promise should return error when the vRa request is rejected', function () {
@@ -157,9 +157,9 @@ describe('Actions', function () {
       requestGetStubPromise.rejects(new Error(errorMessage))
 
       return vRa.importAction(actionId, password)
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
   })
 

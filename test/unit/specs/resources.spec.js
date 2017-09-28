@@ -17,20 +17,19 @@ var vRa = new NodeVRealize()
 //   requestCompletion: true,
 //   content:
 //   [
-    // {
-    //   name: '1',
-    //   status: 'status',
-    //   id: 2,
-    //   resourceTypeRef: {
-    //     label: 1
-    //   }
-    // }
+// {
+//   name: '1',
+//   status: 'status',
+//   id: 2,
+//   resourceTypeRef: {
+//     label: 1
+//   }
+// }
 //   ]}
 
 describe('Resources', function () {
   'use strict'
   let sandbox
-  'use strict'
   let requestGetStub
 
   beforeEach(() => {
@@ -48,9 +47,9 @@ describe('Resources', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getAll()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
@@ -76,9 +75,9 @@ describe('Resources', function () {
       requestGetStub.resolves(stubbedResponse)
 
       vRa.getAll()
-      .then(function (response) {
-        expect(response.content.length).to.equal(stubbedResponse.body.content.length)
-      })
+        .then(function (response) {
+          expect(response.content.length).to.equal(stubbedResponse.body.content.length)
+        })
     })
   })
 
@@ -88,9 +87,9 @@ describe('Resources', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getResourceByName()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
@@ -98,9 +97,9 @@ describe('Resources', function () {
       requestGetStub.resolves(response)
 
       vRa.getResourceByName('name')
-      .catch(function (error) {
-        expect(error).to.equal(response.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
     })
 
     it('promise should return contents of body when getRequest returns 200 status code', function () {
@@ -110,9 +109,9 @@ describe('Resources', function () {
       requestGetStub.resolves(stubbedResponse)
 
       vRa.getResourceByName('name')
-      .then(function (response) {
-        expect(response).to.deep.equal(stubbedResponse.body.content[0])
-      })
+        .then(function (response) {
+          expect(response).to.deep.equal(stubbedResponse.body.content[0])
+        })
     })
   })
 
@@ -122,9 +121,9 @@ describe('Resources', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getResourceById()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
@@ -132,9 +131,9 @@ describe('Resources', function () {
       requestGetStub.resolves(response)
 
       vRa.getResourceById('id')
-      .catch(function (error) {
-        expect(error).to.equal(response.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
     })
 
     it('promise should return contents of body when getRequest returns 200 status code', function () {
@@ -151,9 +150,9 @@ describe('Resources', function () {
       requestGetStub.resolves(stubbedResponse)
 
       vRa.getResourceById('id')
-      .then(function (response) {
-        expect(response).to.deep.equal(stubbedResponse.body.content[0])
-      })
+        .then(function (response) {
+          expect(response).to.deep.equal(stubbedResponse.body.content[0])
+        })
     })
   })
 
@@ -163,9 +162,9 @@ describe('Resources', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getResourceActions('name')
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
@@ -173,9 +172,9 @@ describe('Resources', function () {
       requestGetStub.resolves(response)
 
       vRa.getResourceActions('name')
-      .catch(function (error) {
-        expect(error).to.equal(response.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
     })
 
     it('promise should return contents of body when getRequest returns 200 status code', function () {
@@ -185,9 +184,9 @@ describe('Resources', function () {
       requestGetStub.resolves(stubbedResponse)
 
       vRa.getResourceActions('name')
-      .then(function (response) {
-        expect(response).to.deep.equal(stubbedResponse.body.content)
-      })
+        .then(function (response) {
+          expect(response).to.deep.equal(stubbedResponse.body.content)
+        })
     })
   })
 
@@ -197,9 +196,9 @@ describe('Resources', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getResourceActionTemplate('id', 'actionId')
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
@@ -207,9 +206,9 @@ describe('Resources', function () {
       requestGetStub.resolves(response)
 
       vRa.getResourceActionTemplate('id', 'actionId')
-      .catch(function (error) {
-        expect(error).to.equal(response.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
     })
 
     it('promise should return contents of body when getRequest returns 200 status code', function () {
@@ -219,9 +218,9 @@ describe('Resources', function () {
       requestGetStub.resolves(stubbedResponse)
 
       vRa.getResourceActionTemplate('id', 'actionId')
-      .then(function (response) {
-        expect(response).to.deep.equal(stubbedResponse.body)
-      })
+        .then(function (response) {
+          expect(response).to.deep.equal(stubbedResponse.body)
+        })
     })
   })
 })

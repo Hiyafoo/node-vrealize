@@ -21,16 +21,16 @@ function isTokenAuthorized (tokenId) {
     }
 
     requestPromise.headAsync(options)
-    .then(function (response) {
-      if (response && response.statusCode === 204) {
-        resolve(true)
-      } else {
-        resolve(false)
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        if (response && response.statusCode === 204) {
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -57,20 +57,20 @@ function getTokenId () {
     }
 
     requestPromise.postAsync(options)
-    .then(function (response) {
-    // clear here to prevent password from being populated further than this request
-      _this.config.password = ''
+      .then(function (response) {
+        // clear here to prevent password from being populated further than this request
+        _this.config.password = ''
 
-      if (response.statusCode === 200) {
-        _this.config.token = response.body.id
-        process.env.VRA_TOKEN = _this.config.token
-        resolve(response.body.id)
-      } else {
-        reject(response.body.errors[0].systemMessage)
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+        if (response.statusCode === 200) {
+          _this.config.token = response.body.id
+          process.env.VRA_TOKEN = _this.config.token
+          resolve(response.body.id)
+        } else {
+          reject(response.body.errors[0].systemMessage)
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }

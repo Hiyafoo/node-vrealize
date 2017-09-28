@@ -63,30 +63,30 @@ describe('[Requests] - updateTemplateData method', function () {
 
   it('promise should return unchanged templateData when dataToBeMerged is empty', function () {
     return vRa.updateTemplateData(templateData, [])
-    .then(function (template) {
-      expect(template).to.deep.equal(templateData)
-    })
+      .then(function (template) {
+        expect(template).to.deep.equal(templateData)
+      })
   })
 
   it('promise should return unchanged templateData when dataToBeMerged is null', function () {
     return vRa.updateTemplateData(templateData, null)
-    .then(function (template) {
-      expect(template).to.deep.equal(templateData)
-    })
+      .then(function (template) {
+        expect(template).to.deep.equal(templateData)
+      })
   })
 
   it('promise should return unchanged templateData when dataToBeMerged has empty path', function () {
     dataToBeMerged[0].path = ''
     return vRa.updateTemplateData(templateData, dataToBeMerged)
-    .then(function (template) {
-      expect(template).to.equal(templateData)
-    })
+      .then(function (template) {
+        expect(template).to.equal(templateData)
+      })
   })
 
   it('promise should return changed templateData with dataToBeMerged properties', function () {
     return vRa.updateTemplateData(templateData, dataToBeMerged)
-    .then(function (template) {
-      expect(template.data.DNS1.componentId).to.equal(dataToBeMerged[0].value)
-    })
+      .then(function (template) {
+        expect(template.data.DNS1.componentId).to.equal(dataToBeMerged[0].value)
+      })
   })
 })

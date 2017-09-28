@@ -14,7 +14,7 @@ describe('Identity', function () {
   let sandbox
   // eslint-disable-next-line
   let doesVMWareTokenExistStub
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   let requestPostStubPromise
   // eslint-disable-next-line
   let requestGetStubPromise
@@ -38,9 +38,9 @@ describe('Identity', function () {
       requestHeadStubPromise.rejects(new Error(errorMessage))
 
       return vRa.isTokenAuthorized()
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
 
     it('promise should return true when vRa token request returns 204', function () {
@@ -48,9 +48,9 @@ describe('Identity', function () {
       requestHeadStubPromise.resolves(response)
 
       return vRa.isTokenAuthorized()
-      .then(function (isAuthorized) {
-        expect(isAuthorized).to.equal(true)
-      })
+        .then(function (isAuthorized) {
+          expect(isAuthorized).to.equal(true)
+        })
     })
 
     it('promise should return false when vRa token request returns 300', function () {
@@ -58,9 +58,9 @@ describe('Identity', function () {
       requestHeadStubPromise.resolves(response)
 
       return vRa.isTokenAuthorized()
-      .then(function (isAuthorized) {
-        expect(isAuthorized).to.equal(false)
-      })
+        .then(function (isAuthorized) {
+          expect(isAuthorized).to.equal(false)
+        })
     })
   })
   describe('getToken method', function () {
@@ -69,9 +69,9 @@ describe('Identity', function () {
       requestPostStubPromise.rejects(new Error(errorMessage))
 
       return vRa.getTokenId()
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
 
     it('promise should return token id when vRa token request returns 200', function () {
@@ -82,9 +82,9 @@ describe('Identity', function () {
       requestPostStubPromise.resolves(response)
 
       return vRa.getTokenId()
-      .then(function (tokenId) {
-        expect(tokenId).to.equal(response.body.id)
-      })
+        .then(function (tokenId) {
+          expect(tokenId).to.equal(response.body.id)
+        })
     })
 
     it('promise should return error when vRa token request returns 400', function () {
@@ -95,9 +95,9 @@ describe('Identity', function () {
       requestPostStubPromise.resolves(response)
 
       return vRa.getTokenId()
-      .catch(function (error) {
-        expect(error).to.equal(response.body.errors[0].systemMessage)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(response.body.errors[0].systemMessage)
+        })
     })
   })
 }

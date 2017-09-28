@@ -116,4 +116,3 @@ describe('[Requests] - Submit method', function () {
       })
   })
 })
-

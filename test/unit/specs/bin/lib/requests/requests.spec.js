@@ -27,8 +27,8 @@ var body = {
       catalogItemId: 1,
       links:
       [
-            {href: 'link0', rel: 'rel0'},
-            {href: 'link1', rel: 'rel1'}
+        {href: 'link0', rel: 'rel0'},
+        {href: 'link1', rel: 'rel1'}
       ]
     }
   ]}
@@ -72,9 +72,9 @@ describe('Requests', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getRequestsByName(catalogItemName, filter)
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should return error when response statusCode is not 200', function () {
@@ -82,9 +82,9 @@ describe('Requests', function () {
       requestGetStub.resolves(response)
 
       return vRa.getRequestsByName(catalogItemName, filter)
-      .catch(function (error) {
-        expect(error).to.equal(response.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
     })
 
     it('promise should return empty array when response body or response body content is empty', function () {
@@ -92,9 +92,9 @@ describe('Requests', function () {
       requestGetStub.resolves(response)
 
       return vRa.getRequestsByName(catalogItemName, filter)
-      .then(function (response) {
-        expect(response.length).to.equal(0)
-      })
+        .then(function (response) {
+          expect(response.length).to.equal(0)
+        })
     })
 
     it('promise should return populated array when customer id and key name are present in the reponse', function () {
@@ -115,9 +115,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getRequestsByName(catalogItemName, filter)
-      .then(function (response) {
-        expect(response.length).to.equal(rsp.body.content.length)
-      })
+        .then(function (response) {
+          expect(response.length).to.equal(rsp.body.content.length)
+        })
     })
 
     it('promise should return empty array when customer id and key name are not present in the reponse', function () {
@@ -138,9 +138,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getRequestsByName(catalogItemName, filter)
-      .then(function (response) {
-        expect(response.length).to.equal(0)
-      })
+        .then(function (response) {
+          expect(response.length).to.equal(0)
+        })
     })
   })
 
@@ -173,9 +173,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getAllCatalogItems()
-      .catch(function (error) {
-        expect(error).to.equal(rsp.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(rsp.body)
+        })
     })
 
     it('promise should reject with error when vRa request promise is rejected', function () {
@@ -183,9 +183,9 @@ describe('Requests', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getAllCatalogItems()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should resolve with array of catalogItems when vRa request promise resolves', function () {
@@ -193,9 +193,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getAllCatalogItems()
-      .then(function (response) {
-        expect(response.length).to.equal(body.content.length)
-      })
+        .then(function (response) {
+          expect(response.length).to.equal(body.content.length)
+        })
     })
   })
 
@@ -205,9 +205,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getByName('name')
-      .catch(function (error) {
-        expect(error).to.equal(rsp.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(rsp.body)
+        })
     })
 
     it('promise should reject with error when vRa request promise is rejected', function () {
@@ -215,9 +215,9 @@ describe('Requests', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getByName('name')
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should resolve with body content when vRa request promise is resolved', function () {
@@ -225,9 +225,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getByName('name')
-      .then(function (response) {
-        expect(response).to.equal(rsp.body.content[0])
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body.content[0])
+        })
     })
   })
 
@@ -238,9 +238,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.get(params)
-      .catch(function (error) {
-        expect(error).to.equal(rsp.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(rsp.body)
+        })
     })
 
     it('promise should reject with error when vRa request promise is rejected', function () {
@@ -249,9 +249,9 @@ describe('Requests', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.get(params)
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should resolve with response body when raw parameter is true', function () {
@@ -260,9 +260,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.get(params)
-      .then(function (response) {
-        expect(response).to.equal(rsp.body)
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body)
+        })
     })
 
     it('promise should resolve with requestCompletionState property when raw parameter is false and state is not handled', function () {
@@ -271,9 +271,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.get(params)
-      .then(function (response) {
-        expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
+        })
     })
 
     it('promise should resolve with error when raw parameter is false, stateCompletion is empty and state is not handled', function () {
@@ -282,9 +282,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.get(params)
-      .then(function (response) {
-        expect(response).to.equal('ERROR')
-      })
+        .then(function (response) {
+          expect(response).to.equal('ERROR')
+        })
     })
 
     it('promise should resolve with requestCompletion object when raw parameter is false', function () {
@@ -293,9 +293,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.get(params)
-      .then(function (response) {
-        expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body.requestCompletion.requestCompletionState)
+        })
     })
 
     it('promise should resolve with INPROGRESS when raw parameter is false and body state is INPROGRESS', function () {
@@ -305,9 +305,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.get(params)
-      .then(function (response) {
-        expect(response).to.equal(inProgress)
-      })
+        .then(function (response) {
+          expect(response).to.equal(inProgress)
+        })
     })
   })
 
@@ -317,9 +317,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getAll()
-      .catch(function (error) {
-        expect(error).to.equal(rsp.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(rsp.body)
+        })
     })
 
     it('promise should reject with error when vRa request promise is rejected', function () {
@@ -327,9 +327,9 @@ describe('Requests', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getAll()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should resolve with response body vRa request resolves', function () {
@@ -337,9 +337,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getAll()
-      .then(function (response) {
-        expect(response).to.equal(rsp.body)
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body)
+        })
     })
   })
 
@@ -349,9 +349,9 @@ describe('Requests', function () {
       requestPostStub.resolves(rsp)
 
       return vRa.sendRequest()
-      .catch(function (error) {
-        expect(error).to.equal(rsp.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(rsp.body)
+        })
     })
 
     it('promise should reject with error when vRa request promise is rejected', function () {
@@ -359,9 +359,9 @@ describe('Requests', function () {
       requestPostStub.rejects(errorMessage)
 
       return vRa.sendRequest()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should resolve with response body vRa request resolves', function () {
@@ -369,9 +369,9 @@ describe('Requests', function () {
       requestPostStub.resolves(rsp)
 
       return vRa.sendRequest()
-      .then(function (response) {
-        expect(response).to.equal(rsp.body)
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body)
+        })
     })
   })
 
@@ -381,9 +381,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getTemplate()
-      .catch(function (error) {
-        expect(error).to.equal(rsp.body)
-      })
+        .catch(function (error) {
+          expect(error).to.equal(rsp.body)
+        })
     })
 
     it('promise should reject with error when vRa request promise is rejected', function () {
@@ -391,9 +391,9 @@ describe('Requests', function () {
       requestGetStub.rejects(errorMessage)
 
       return vRa.getTemplate()
-      .catch(function (error) {
-        expect(error.name).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
     })
 
     it('promise should resolve with response body vRa request resolves', function () {
@@ -401,9 +401,9 @@ describe('Requests', function () {
       requestGetStub.resolves(rsp)
 
       return vRa.getTemplate()
-      .then(function (response) {
-        expect(response).to.equal(rsp.body)
-      })
+        .then(function (response) {
+          expect(response).to.equal(rsp.body)
+        })
     })
   })
 })

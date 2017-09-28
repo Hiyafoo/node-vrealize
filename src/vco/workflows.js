@@ -33,12 +33,12 @@ function exportWorkflow (categoryId, workflowPath, password) {
     }
 
     requestPromise.postAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -61,11 +61,11 @@ function importWorkflow (workflowId, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }

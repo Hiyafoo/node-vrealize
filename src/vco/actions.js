@@ -36,12 +36,12 @@ function exportAction (categoryName, actionPath, password) {
     }
 
     requestPromise.postAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -63,12 +63,12 @@ function importAction (actionId, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -91,27 +91,27 @@ function importActions (moduleName, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      if (response.statusCode && response.statusCode >= 200 && response.statusCode < 300 && response.body && response.body.link && response.body.link.length > 0) {
-        var filteredActions = _filter(response.body.link, function (link) {
-          if (link.attributes) {
-            for (var i = 0; i < link.attributes.length; i++) {
-              var attribute = link.attributes[i]
-              var isInModule = attribute.name === 'fqn' && attribute.value.startsWith(moduleName)
-              if (isInModule) {
-                return true
+      .then(function (response) {
+        if (response.statusCode && response.statusCode >= 200 && response.statusCode < 300 && response.body && response.body.link && response.body.link.length > 0) {
+          var filteredActions = _filter(response.body.link, function (link) {
+            if (link.attributes) {
+              for (var i = 0; i < link.attributes.length; i++) {
+                var attribute = link.attributes[i]
+                var isInModule = attribute.name === 'fqn' && attribute.value.startsWith(moduleName)
+                if (isInModule) {
+                  return true
+                }
               }
             }
-          }
-          return false
-        })
-        response.body.link = filteredActions
-      }
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+            return false
+          })
+          response.body.link = filteredActions
+        }
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -133,26 +133,26 @@ function getAll () {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      if (response.statusCode === 200) {
-        let resources = []
-        response.body.content.forEach(function (resource) {
-          var res = {}
-          res.name = resource.name
-          res.status = resource.status
-          res.id = resource.id
-          res.typeRef = resource.resourceTypeRef.label
-        // res.catalogResourceLabel = resource.catalogResource.label
-        // res.catalogResourceId = resource.catalogResource.id
-          resources.push(res)
-        }, _this)
-        resolve(resources)
-      } else {
-        resolve(response.body)
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        if (response.statusCode === 200) {
+          let resources = []
+          response.body.content.forEach(function (resource) {
+            var res = {}
+            res.name = resource.name
+            res.status = resource.status
+            res.id = resource.id
+            res.typeRef = resource.resourceTypeRef.label
+            // res.catalogResourceLabel = resource.catalogResource.label
+            // res.catalogResourceId = resource.catalogResource.id
+            resources.push(res)
+          }, _this)
+          resolve(resources)
+        } else {
+          resolve(response.body)
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }

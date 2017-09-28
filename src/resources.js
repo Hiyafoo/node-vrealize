@@ -31,27 +31,27 @@ function getAll () {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      if (response.statusCode !== 200) {
-        return reject(response.body)
-      }
+      .then(function (response) {
+        if (response.statusCode !== 200) {
+          return reject(response.body)
+        }
 
-      let resources = []
-      response.body.content.forEach(function (resource) {
-        var res = {}
-        res.name = resource.name
-        res.status = resource.status
-        res.id = resource.id
-        res.typeRef = resource.resourceTypeRef.label
+        let resources = []
+        response.body.content.forEach(function (resource) {
+          var res = {}
+          res.name = resource.name
+          res.status = resource.status
+          res.id = resource.id
+          res.typeRef = resource.resourceTypeRef.label
           // res.catalogResourceLabel = resource.catalogResource.label
           // res.catalogResourceId = resource.catalogResource.id
-        resources.push(res)
-      }, this)
-      resolve(resources)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+          resources.push(res)
+        }, this)
+        resolve(resources)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -73,16 +73,16 @@ function getByName (name) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      if (response.statusCode !== 200) {
-        return reject(response.body)
-      } else {
-        resolve(response.body.content[0])
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        if (response.statusCode !== 200) {
+          return reject(response.body)
+        } else {
+          resolve(response.body.content[0])
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -104,16 +104,16 @@ function getById (id) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      if (response.statusCode !== 200) {
-        reject(response.body)
-      } else {
-        resolve(response.body.content[0])
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        if (response.statusCode !== 200) {
+          reject(response.body)
+        } else {
+          resolve(response.body.content[0])
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -137,16 +137,16 @@ function getResourceActions (resourceName) {
 
         return requestPromise.getAsync(options)
       })
-    .then(function (response) {
-      if (response.statusCode !== 200) {
-        reject(response.body)
-      } else {
-        resolve(response.body.content)
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        if (response.statusCode !== 200) {
+          reject(response.body)
+        } else {
+          resolve(response.body.content)
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -167,16 +167,16 @@ function getResourceActionTemplate (resourceId, resourceActionId) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      if (response.statusCode !== 200) {
-        reject(response.body)
-      } else {
-        resolve(response.body)
-      }
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        if (response.statusCode !== 200) {
+          reject(response.body)
+        } else {
+          resolve(response.body)
+        }
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -186,22 +186,22 @@ function submit (actionOptions) {
 
   return new Promise(function (resolve, reject) {
     _this.getResourceActions(actionOptions.resourceName)
-    .then(function (response) {
-      resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
+      .then(function (response) {
+        resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
 
-      return _this.getResourceActionTemplate(actionOptions.resourceId, resourceActionId)
-    })
-    .then(function (templateData) {
-      var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${actionOptions.resourceId}/actions/${resourceActionId}/requests/`
+        return _this.getResourceActionTemplate(actionOptions.resourceId, resourceActionId)
+      })
+      .then(function (templateData) {
+        var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${actionOptions.resourceId}/actions/${resourceActionId}/requests/`
 
-      return Requests.sendRequest(postUrl, templateData)
-    })
-    .then(function (response) {
-      resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+        return Requests.sendRequest(postUrl, templateData)
+      })
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -214,4 +214,3 @@ function getObjectFromKey (array, key) {
   }
   return array[indexOfKey]
 }
-

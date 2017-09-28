@@ -1,9 +1,9 @@
 /* global it beforeEach afterEach describe */
+import fs from 'fs'
 // var path = require('path')
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
-import fs from 'fs'
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
@@ -41,11 +41,11 @@ describe('Workflows', function () {
       fsCreateReadStreamStub.throws(new Error(errorMessage))
 
       return vRa.exportWorkflow(categoryId, workflowPath, password)
-      .then(function (response) {
-      })
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .then(function (response) {
+        })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
 
     it('promise should return response when the statusCode is 200', function () {
@@ -54,9 +54,9 @@ describe('Workflows', function () {
       requestPostStubPromise.resolves(res, null)
 
       return vRa.exportWorkflow(categoryId, workflowPath, password)
-      .then(function (response) {
-        expect(res).to.equal(response)
-      })
+        .then(function (response) {
+          expect(res).to.equal(response)
+        })
     })
 
     it('promise should return body when the statusCode is over 300', function () {
@@ -65,9 +65,9 @@ describe('Workflows', function () {
       requestPostStubPromise.resolves(res)
 
       return vRa.exportWorkflow(categoryId, workflowPath, password)
-      .then(function (response) {
-        expect(res).to.deep.equal(res)
-      })
+        .then(function (response) {
+          expect(res).to.deep.equal(res)
+        })
     })
 
     it('promise should return error when the vRa request is rejected', function () {
@@ -76,9 +76,9 @@ describe('Workflows', function () {
       requestPostStubPromise.rejects(new Error(errorMessage))
 
       return vRa.exportWorkflow(categoryId, workflowPath, password)
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
   })
 
@@ -88,9 +88,9 @@ describe('Workflows', function () {
       requestGetStubPromise.resolves(res, null)
 
       return vRa.importWorkflow(workflowId, password)
-      .then(function (response) {
-        expect(res).to.equal(response)
-      })
+        .then(function (response) {
+          expect(res).to.equal(response)
+        })
     })
 
     it('promise should return the response when statusCode is over 300', function () {
@@ -98,9 +98,9 @@ describe('Workflows', function () {
       requestGetStubPromise.resolves(res)
 
       return vRa.importWorkflow(workflowId, password)
-      .then(function (response) {
-        expect(res).to.deep.equal(res)
-      })
+        .then(function (response) {
+          expect(res).to.deep.equal(res)
+        })
     })
 
     it('promise should return error when the vRa request is rejected', function () {
@@ -108,9 +108,9 @@ describe('Workflows', function () {
       requestGetStubPromise.rejects(new Error(errorMessage))
 
       return vRa.importWorkflow(workflowId, password)
-      .catch(function (error) {
-        expect(error.message).to.equal(errorMessage)
-      })
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
     })
   })
 })

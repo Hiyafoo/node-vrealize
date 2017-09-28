@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
-var requestPromise = Promise.promisifyAll(require('request'))
 import path from 'path'
 import _find from 'lodash.find'
 import _trim from 'lodash.trim'
+var requestPromise = Promise.promisifyAll(require('request'))
 
 var _ = {
   find: _find,
@@ -43,12 +43,12 @@ function exportCategory (categoryObj, password) {
     }
 
     requestPromise.postAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -71,12 +71,12 @@ function importCategory (categoryId, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -104,12 +104,12 @@ function getCategories (categoryType, isRoot, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -133,12 +133,12 @@ function getCategory (categoryId, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -147,32 +147,32 @@ function deleteRootCategory (categoryAbsolutePath, categoryType, password) {
 
   return new Promise(function (resolve, reject) {
     _this.getCategoryIdFromAbsolutePath(categoryAbsolutePath, categoryType, password)
-    .then(function (categoryId) {
-      var options
+      .then(function (categoryId) {
+        var options
 
-      options = {
-        method: 'DELETE',
-        agent: _this.config.agent,
-        url: `https://${_this.config.hostname}/vco/api/categories/${categoryId}`,
-        headers: {
-          'cache-control': 'no-cache',
-          'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
-          'accept': 'application/json'
-        },
-        encoding: 'utf-8',
-        json: true,
-        qs: {
-          deleteNonEmptyContent: true
+        options = {
+          method: 'DELETE',
+          agent: _this.config.agent,
+          url: `https://${_this.config.hostname}/vco/api/categories/${categoryId}`,
+          headers: {
+            'cache-control': 'no-cache',
+            'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
+            'accept': 'application/json'
+          },
+          encoding: 'utf-8',
+          json: true,
+          qs: {
+            deleteNonEmptyContent: true
+          }
         }
-      }
 
-      return requestPromise.deleteAsync(options)
-    }).then(function (response) {
-      resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+        return requestPromise.deleteAsync(options)
+      }).then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -186,25 +186,25 @@ function getCategoryIdFromAbsolutePath (categoryAbsolutePath, categoryType, pass
 
     // TODO: put in cache for 5 minutes
     _this.getCategories(categoryType, true, password)
-    .then(function (response) {
-      var rootCategories = response.body
-      // TODO: put in cache for 5 minutes
-      var rootCategoryName = categoryDecomposedPath.shift()
-      return findCategoryId(rootCategoryName, rootCategories)
-    })
-    .then(function (rootCategoryId) {
-      if (rootCategoryId === -1) {
-        resolve(rootCategoryId)
-      } else {
-        return _this.getLeafCategoryId(rootCategoryId, categoryDecomposedPath, password)
-      }
-    })
-    .then(function (leafCategoryId) {
-      resolve(leafCategoryId)
-    })
-    .catch(function (err) {
-      reject(err)
-    })
+      .then(function (response) {
+        var rootCategories = response.body
+        // TODO: put in cache for 5 minutes
+        var rootCategoryName = categoryDecomposedPath.shift()
+        return findCategoryId(rootCategoryName, rootCategories)
+      })
+      .then(function (rootCategoryId) {
+        if (rootCategoryId === -1) {
+          resolve(rootCategoryId)
+        } else {
+          return _this.getLeafCategoryId(rootCategoryId, categoryDecomposedPath, password)
+        }
+      })
+      .then(function (leafCategoryId) {
+        resolve(leafCategoryId)
+      })
+      .catch(function (err) {
+        reject(err)
+      })
   })
 }
 
@@ -236,19 +236,19 @@ function getLeafCategoryId (currentCategoryId, categoryPath, password) {
       resolve(currentCategoryId)
     } else {
       _this.getCategory(currentCategoryId, password)
-      .then(function (response) {
-        var category = response.body
-        var categoryName = categoryPath.shift()
-        var categoryId = findCategoryId(categoryName, category.relations)
-        if (categoryId !== -1) {
-          resolve(_this.getLeafCategoryId(categoryId, categoryPath, password))
-        } else {
-          resolve(-1)
-        }
-      })
-      .catch(function (err) {
-        reject(err)
-      })
+        .then(function (response) {
+          var category = response.body
+          var categoryName = categoryPath.shift()
+          var categoryId = findCategoryId(categoryName, category.relations)
+          if (categoryId !== -1) {
+            resolve(_this.getLeafCategoryId(categoryId, categoryPath, password))
+          } else {
+            resolve(-1)
+          }
+        })
+        .catch(function (err) {
+          reject(err)
+        })
     }
   })
 }

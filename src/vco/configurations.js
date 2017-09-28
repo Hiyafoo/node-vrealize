@@ -32,12 +32,12 @@ function exportConfiguration (categoryId, configurationPath, password) {
     }
 
     requestPromise.postAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
 
@@ -60,11 +60,11 @@ function importConfiguration (configurationId, password) {
     }
 
     requestPromise.getAsync(options)
-    .then(function (response) {
-      return resolve(response)
-    })
-    .catch(function (error) {
-      reject(error)
-    })
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
   })
 }
