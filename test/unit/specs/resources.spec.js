@@ -178,6 +178,7 @@ describe('Resources', function () {
     })
 
     it('promise should return contents of body when getRequest returns 200 status code', function () {
+      var resourceIdKey = 'resourceId'
       var stubbedResponse = {statusCode: 200,
         body: actionsForResourceResponse
       }
@@ -186,6 +187,7 @@ describe('Resources', function () {
       vRa.getResourceActions('name')
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body.content)
+          expect(response[resourceIdKey]).to.equal(stubbedResponse.body.content[resourceIdKey])
         })
     })
   })

@@ -13,6 +13,8 @@ module.exports = {
   submit: submit
 }
 
+var resourceIdKey = 'resourceId'
+
 function getAll () {
   var _this = this
 
@@ -119,6 +121,8 @@ function getById (id) {
 
 function getResourceActions (resourceName) {
   var _this = this
+  var resourceId
+
   return new Promise(function (resolve, reject) {
     _this.getByName(resourceName)
       .then(function (resource) {
@@ -135,12 +139,14 @@ function getResourceActions (resourceName) {
           json: true
         }
 
+        resourceId = resource.id
         return requestPromise.getAsync(options)
       })
       .then(function (response) {
         if (response.statusCode !== 200) {
           reject(response.body)
         } else {
+          response.body.content[resourceIdKey] = resourceId
           resolve(response.body.content)
         }
       })
@@ -187,9 +193,10 @@ function submit (actionOptions) {
   return new Promise(function (resolve, reject) {
     _this.getResourceActions(actionOptions.resourceName)
       .then(function (response) {
+        var resourceId = response[resourceIdKey]
         resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
 
-        return _this.getResourceActionTemplate(actionOptions.resourceId, resourceActionId)
+        return _this.getResourceActionTemplate(resourceId, resourceActionId)
       })
       .then(function (templateData) {
         var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${actionOptions.resourceId}/actions/${resourceActionId}/requests/`
