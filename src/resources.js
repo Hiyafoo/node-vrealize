@@ -6,7 +6,7 @@ var requestPromise = Promise.promisifyAll(require('request'))
 /* istanbul ignore next */
 module.exports = {
   getAll: getAll,
-  getByName: getByName,
+  getResourceByName: getResourceByName,
   getById: getById,
   getResourceActions: getResourceActions,
   getResourceActionTemplate: getResourceActionTemplate,
@@ -57,7 +57,7 @@ function getAll () {
   })
 }
 
-function getByName (name) {
+function getResourceByName (name) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -124,7 +124,7 @@ function getResourceActions (resourceName) {
   var resourceId
 
   return new Promise(function (resolve, reject) {
-    _this.getByName(resourceName)
+    _this.getResourceByName(resourceName)
       .then(function (resource) {
         var options = {
           method: 'GET',
@@ -189,19 +189,20 @@ function getResourceActionTemplate (resourceId, resourceActionId) {
 function submit (actionOptions) {
   var _this = this
   var resourceActionId
+  var resourceId
 
   return new Promise(function (resolve, reject) {
     _this.getResourceActions(actionOptions.resourceName)
       .then(function (response) {
-        var resourceId = response[resourceIdKey]
+        resourceId = response[resourceIdKey]
         resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
 
         return _this.getResourceActionTemplate(resourceId, resourceActionId)
       })
       .then(function (templateData) {
-        var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${actionOptions.resourceId}/actions/${resourceActionId}/requests/`
+        var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${resourceId}/actions/${resourceActionId}/requests/`
 
-        return Requests.sendRequest(postUrl, templateData)
+        return Requests.sendRequest.call(this, postUrl, templateData)
       })
       .then(function (response) {
         resolve(response)
@@ -214,7 +215,7 @@ function submit (actionOptions) {
 
 function getObjectFromKey (array, key) {
   var indexOfKey = _findIndex(array, function (o) {
-    return o.key === key
+    return o.name === key
   })
   if (indexOfKey === -1) {
     throw new Error('Could not find key: ' + key + ' in array: ' + JSON.stringify(array, null, 2))
