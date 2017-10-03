@@ -115,7 +115,7 @@ describe('Resources', function () {
     })
   })
 
-  describe('getById method', function () {
+  describe('getResourceById method', function () {
     it('promise should return error when getRequest fails', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)

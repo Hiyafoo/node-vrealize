@@ -5,17 +5,17 @@ var requestPromise = Promise.promisifyAll(require('request'))
 
 /* istanbul ignore next */
 module.exports = {
-  getAll: getAll,
+  getAllResources: getAllResources,
   getResourceByName: getResourceByName,
-  getById: getById,
+  getResourceById: getResourceById,
   getResourceActions: getResourceActions,
   getResourceActionTemplate: getResourceActionTemplate,
-  submit: submit
+  submitResource: submitResource
 }
 
 var resourceIdKey = 'resourceId'
 
-function getAll () {
+function getAllResources () {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -88,7 +88,7 @@ function getResourceByName (name) {
   })
 }
 
-function getById (id) {
+function getResourceById (id) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -186,7 +186,7 @@ function getResourceActionTemplate (resourceId, resourceActionId) {
   })
 }
 
-function submit (actionOptions) {
+function submitResource (actionOptions) {
   var _this = this
   var resourceActionId
   var resourceId

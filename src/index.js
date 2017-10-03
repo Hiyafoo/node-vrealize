@@ -51,11 +51,11 @@ vRa.prototype.getAll = requests.getAll
 vRa.prototype.getObjectFromKey = requests.getObjectFromKey
 
 // resources
-vRa.prototype.getAllResources = resources.getAll
+vRa.prototype.getAllResources = resources.getAllResources
 vRa.prototype.getResourceByName = resources.getResourceByName
-vRa.prototype.getResourceById = resources.getById
+vRa.prototype.getResourceById = resources.getResourceById
 vRa.prototype.getResourceActions = resources.getResourceActions
-vRa.prototype.submitResourceRequest = resources.submit
+vRa.prototype.submitResource = resources.submitResource
 vRa.prototype.getResourceActionTemplate = resources.getResourceActionTemplate
 
 // identity
