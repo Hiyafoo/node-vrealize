@@ -202,7 +202,7 @@ function submitResource (actionOptions) {
       .then(function (templateData) {
         var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${resourceId}/actions/${resourceActionId}/requests/`
 
-        return Requests.sendRequest.call(this, postUrl, templateData)
+        return Requests.sendRequest.call(_this, postUrl, templateData)
       })
       .then(function (response) {
         resolve(response)
