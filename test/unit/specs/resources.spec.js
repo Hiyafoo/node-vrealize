@@ -251,9 +251,17 @@ describe('Resources', function () {
       var stubbedResponse = {statusCode: 200,
         body: requestByActionResource
       }
+
+      var actionOptions = {
+        resourceName: getActionByNameResponse.content[0].name,
+        actionName: actionsForResourceResponse.content[0].name
+      }
+
+      // eslint-disable-next-line
+      var getResourceActionsStub = sandbox.stub(vRa, 'getResourceActions').resolves(actionsForResourceResponse.content)
       requestGetStub.resolves(stubbedResponse)
 
-      vRa.getResourceActionRequests('id', 'actionId')
+      vRa.getResourceActionRequests(actionOptions)
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body.content)
         })

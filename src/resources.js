@@ -214,23 +214,31 @@ function submitResource (actionOptions) {
   })
 }
 
-function getResourceActionRequests (resourceId, resourceActionId) {
+function getResourceActionRequests (actionOptions) {
   var _this = this
-  return new Promise(function (resolve, reject) {
-    var options = {
-      method: 'GET',
-      agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(resourceAction/id eq '${resourceActionId}' and resource/id eq '${resourceId}')`,
-      headers: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token}`
-      },
-      body: {},
-      json: true
-    }
+  var resourceId
+  var resourceActionId
 
-    requestPromise.getAsync(options)
+  return new Promise(function (resolve, reject) {
+    _this.getResourceActions(actionOptions.resourceName)
+      .then(function (response) {
+        resourceId = response[resourceIdKey]
+        resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
+
+        var options = {
+          method: 'GET',
+          agent: _this.config.agent,
+          url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(resourceAction/id eq '${resourceActionId}' and resource/id eq '${resourceId}')`,
+          headers: {
+            'cache-control': 'no-cache',
+            'content-type': 'application/json',
+            'authorization': `Bearer ${_this.config.token}`
+          },
+          body: {},
+          json: true
+        }
+        return requestPromise.getAsync(options)
+      })
       .then(function (response) {
         if (response.statusCode !== 200) {
           reject(response.body)
