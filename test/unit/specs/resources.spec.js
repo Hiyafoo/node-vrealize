@@ -225,6 +225,40 @@ describe('Resources', function () {
         })
     })
   })
+
+  describe('getResourceActionRequests method', function () {
+    it('promise should return error when resourceName cannot be found', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return vRa.getResourceActionRequests('id', 'actionId')
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
+    })
+
+    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
+
+      vRa.getResourceActionRequests('id', 'actionId')
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
+    })
+
+    it('promise should return contents of body when getRequest returns 200 status code', function () {
+      var stubbedResponse = {statusCode: 200,
+        body: requestByActionResource
+      }
+      requestGetStub.resolves(stubbedResponse)
+
+      vRa.getResourceActionRequests('id', 'actionId')
+        .then(function (response) {
+          expect(response).to.deep.equal(stubbedResponse.body.content)
+        })
+    })
+  })
 })
 
 var getActionByNameResponse = {
@@ -477,3 +511,225 @@ var actionTemplate = {
   'description': null,
   'data': {}
 }
+
+var requestByActionResource =
+  {
+    'links': [],
+    'content': [
+      {
+        '@type': 'ResourceActionRequest',
+        'id': '862390e2-66df-4eff-a905-feb5a19c655a',
+        'iconId': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+        'version': 2,
+        'requestNumber': 1191,
+        'state': 'PRE_REJECTED',
+        'description': null,
+        'reasons': null,
+        'requestedFor': 'C5258260@ycs.io',
+        'requestedBy': 'C5258260@ycs.io',
+        'organization': {
+          'tenantRef': 'ycommerce',
+          'tenantLabel': 'ycommerce',
+          'subtenantRef': '4b1dfb8f-0805-44c6-92d7-587ed3f59ccf',
+          'subtenantLabel': 'BG-YCM'
+        },
+        'requestorEntitlementId': '45eaa78d-0e30-42dd-9e02-d2b90293a82f',
+        'preApprovalId': 'bb3b63bc-89f2-4d63-8087-8387adfe3a14',
+        'postApprovalId': null,
+        'dateCreated': '2017-10-03T14:21:23.332Z',
+        'lastUpdated': '2017-10-03T14:22:51.375Z',
+        'dateSubmitted': '2017-10-03T14:21:23.332Z',
+        'dateApproved': null,
+        'dateCompleted': null,
+        'quote': {
+          'leasePeriod': null,
+          'leaseRate': null,
+          'totalLeaseCost': null
+        },
+        'requestCompletion': null,
+        'requestData': {
+          'entries': []
+        },
+        'retriesRemaining': 3,
+        'requestedItemName': 'Destroy Networking Project - sy2-dop402-do402-edge-001',
+        'requestedItemDescription': 'Resource action to use when you need to destroy all the components associated to Networking Project of a client',
+        'components': null,
+        'stateName': 'Rejected',
+        'resourceRef': {
+          'id': '5ba6b907-c254-4ddf-b23c-a1258d69a6d8',
+          'label': 'sy2-dop402-do402-edge-001'
+        },
+        'resourceActionRef': {
+          'id': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+          'label': 'Destroy Networking Project'
+        },
+        'executionStatus': 'STOPPED',
+        'waitingStatus': 'NOT_WAITING',
+        'approvalStatus': 'REJECTED',
+        'phase': 'REJECTED'
+      },
+      {
+        '@type': 'ResourceActionRequest',
+        'id': '92e03a3e-7938-4078-8cd6-eb5e790e5259',
+        'iconId': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+        'version': 2,
+        'requestNumber': 1094,
+        'state': 'PRE_REJECTED',
+        'description': null,
+        'reasons': null,
+        'requestedFor': 'C5258260@ycs.io',
+        'requestedBy': 'C5258260@ycs.io',
+        'organization': {
+          'tenantRef': 'ycommerce',
+          'tenantLabel': 'ycommerce',
+          'subtenantRef': '4b1dfb8f-0805-44c6-92d7-587ed3f59ccf',
+          'subtenantLabel': 'BG-YCM'
+        },
+        'requestorEntitlementId': '45eaa78d-0e30-42dd-9e02-d2b90293a82f',
+        'preApprovalId': 'c23b6f44-0849-4428-a4d9-231955a685d7',
+        'postApprovalId': null,
+        'dateCreated': '2017-09-29T15:12:42.664Z',
+        'lastUpdated': '2017-09-29T15:14:06.848Z',
+        'dateSubmitted': '2017-09-29T15:12:42.664Z',
+        'dateApproved': null,
+        'dateCompleted': null,
+        'quote': {
+          'leasePeriod': null,
+          'leaseRate': null,
+          'totalLeaseCost': null
+        },
+        'requestCompletion': null,
+        'requestData': {
+          'entries': []
+        },
+        'retriesRemaining': 3,
+        'requestedItemName': 'Destroy Networking Project - sy2-dop402-do402-edge-001',
+        'requestedItemDescription': 'Resource action to use when you need to destroy all the components associated to Networking Project of a client',
+        'components': null,
+        'stateName': 'Rejected',
+        'resourceRef': {
+          'id': '5ba6b907-c254-4ddf-b23c-a1258d69a6d8',
+          'label': 'sy2-dop402-do402-edge-001'
+        },
+        'resourceActionRef': {
+          'id': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+          'label': 'Destroy Networking Project'
+        },
+        'executionStatus': 'STOPPED',
+        'waitingStatus': 'NOT_WAITING',
+        'approvalStatus': 'REJECTED',
+        'phase': 'REJECTED'
+      },
+      {
+        '@type': 'ResourceActionRequest',
+        'id': '9f922145-b14b-4f68-b626-0f6e09b725e3',
+        'iconId': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+        'version': 2,
+        'requestNumber': 1092,
+        'state': 'PRE_REJECTED',
+        'description': null,
+        'reasons': null,
+        'requestedFor': 'C5258260@ycs.io',
+        'requestedBy': 'C5258260@ycs.io',
+        'organization': {
+          'tenantRef': 'ycommerce',
+          'tenantLabel': 'ycommerce',
+          'subtenantRef': '4b1dfb8f-0805-44c6-92d7-587ed3f59ccf',
+          'subtenantLabel': 'BG-YCM'
+        },
+        'requestorEntitlementId': '45eaa78d-0e30-42dd-9e02-d2b90293a82f',
+        'preApprovalId': 'b13e31a9-9e57-4c88-be33-f89a45bfecd3',
+        'postApprovalId': null,
+        'dateCreated': '2017-09-29T14:33:38.466Z',
+        'lastUpdated': '2017-09-29T14:35:04.691Z',
+        'dateSubmitted': '2017-09-29T14:33:38.466Z',
+        'dateApproved': null,
+        'dateCompleted': null,
+        'quote': {
+          'leasePeriod': null,
+          'leaseRate': null,
+          'totalLeaseCost': null
+        },
+        'requestCompletion': null,
+        'requestData': {
+          'entries': []
+        },
+        'retriesRemaining': 3,
+        'requestedItemName': 'Destroy Networking Project - sy2-dop402-do402-edge-001',
+        'requestedItemDescription': 'Resource action to use when you need to destroy all the components associated to Networking Project of a client',
+        'components': null,
+        'stateName': 'Rejected',
+        'resourceRef': {
+          'id': '5ba6b907-c254-4ddf-b23c-a1258d69a6d8',
+          'label': 'sy2-dop402-do402-edge-001'
+        },
+        'resourceActionRef': {
+          'id': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+          'label': 'Destroy Networking Project'
+        },
+        'executionStatus': 'STOPPED',
+        'waitingStatus': 'NOT_WAITING',
+        'approvalStatus': 'REJECTED',
+        'phase': 'REJECTED'
+      },
+      {
+        '@type': 'ResourceActionRequest',
+        'id': 'd0562cd7-fccf-4f59-a0cf-36f737f18e3f',
+        'iconId': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+        'version': 2,
+        'requestNumber': 1025,
+        'state': 'PRE_REJECTED',
+        'description': null,
+        'reasons': null,
+        'requestedFor': 'C5258260@ycs.io',
+        'requestedBy': 'C5258260@ycs.io',
+        'organization': {
+          'tenantRef': 'ycommerce',
+          'tenantLabel': 'ycommerce',
+          'subtenantRef': '4b1dfb8f-0805-44c6-92d7-587ed3f59ccf',
+          'subtenantLabel': 'BG-YCM'
+        },
+        'requestorEntitlementId': '45eaa78d-0e30-42dd-9e02-d2b90293a82f',
+        'preApprovalId': '663506ec-fc06-4718-b044-e813de0404ba',
+        'postApprovalId': null,
+        'dateCreated': '2017-09-26T15:09:29.789Z',
+        'lastUpdated': '2017-09-26T15:10:45.325Z',
+        'dateSubmitted': '2017-09-26T15:09:29.789Z',
+        'dateApproved': null,
+        'dateCompleted': null,
+        'quote': {
+          'leasePeriod': null,
+          'leaseRate': null,
+          'totalLeaseCost': null
+        },
+        'requestCompletion': null,
+        'requestData': {
+          'entries': []
+        },
+        'retriesRemaining': 3,
+        'requestedItemName': 'Destroy Networking Project - sy2-dop402-do402-edge-001',
+        'requestedItemDescription': 'Resource action to use when you need to destroy all the components associated to Networking Project of a client',
+        'components': null,
+        'stateName': 'Rejected',
+        'resourceRef': {
+          'id': '5ba6b907-c254-4ddf-b23c-a1258d69a6d8',
+          'label': 'sy2-dop402-do402-edge-001'
+        },
+        'resourceActionRef': {
+          'id': '5c13bfd4-5cb6-47d5-bb26-2f83c74d8e35',
+          'label': 'Destroy Networking Project'
+        },
+        'executionStatus': 'STOPPED',
+        'waitingStatus': 'NOT_WAITING',
+        'approvalStatus': 'REJECTED',
+        'phase': 'REJECTED'
+      }
+    ],
+    'metadata': {
+      'size': 1000,
+      'totalElements': 4,
+      'totalPages': 1,
+      'number': 1,
+      'offset': 0
+    }
+  }

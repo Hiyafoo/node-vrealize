@@ -57,6 +57,7 @@ vRa.prototype.getResourceById = resources.getResourceById
 vRa.prototype.getResourceActions = resources.getResourceActions
 vRa.prototype.submitResource = resources.submitResource
 vRa.prototype.getResourceActionTemplate = resources.getResourceActionTemplate
+vRa.prototype.getResourceActionRequests = resources.getResourceActionRequests
 
 // identity
 vRa.prototype.isTokenAuthorized = identity.isTokenAuthorized

@@ -10,6 +10,7 @@ module.exports = {
   getResourceById: getResourceById,
   getResourceActions: getResourceActions,
   getResourceActionTemplate: getResourceActionTemplate,
+  getResourceActionRequests: getResourceActionRequests,
   submitResource: submitResource
 }
 
@@ -206,6 +207,36 @@ function submitResource (actionOptions) {
       })
       .then(function (response) {
         resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
+}
+
+function getResourceActionRequests (resourceId, resourceActionId) {
+  var _this = this
+  return new Promise(function (resolve, reject) {
+    var options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(resourceAction/id eq '${resourceActionId}' and resource/id eq '${resourceId}')`,
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'authorization': `Bearer ${_this.config.token}`
+      },
+      body: {},
+      json: true
+    }
+
+    requestPromise.getAsync(options)
+      .then(function (response) {
+        if (response.statusCode !== 200) {
+          reject(response.body)
+        } else {
+          resolve(response.body.content)
+        }
       })
       .catch(function (error) {
         reject(error)
