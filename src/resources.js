@@ -79,9 +79,12 @@ function getResourceByName (name) {
       .then(function (response) {
         if (response.statusCode !== 200) {
           return reject(response.body)
-        } else {
-          resolve(response.body.content[0])
         }
+        if (response.body.content.length === 0) {
+          throw new Error('Unable to find resource with name: ' + name)
+        }
+
+        return resolve(response.body.content[0])
       })
       .catch(function (error) {
         reject(error)
@@ -110,9 +113,12 @@ function getResourceById (id) {
       .then(function (response) {
         if (response.statusCode !== 200) {
           reject(response.body)
-        } else {
-          resolve(response.body.content[0])
         }
+        if (response.body.content.length === 0) {
+          throw new Error('Unable to find resource with id: ' + id)
+        }
+
+        return resolve(response.body.content[0])
       })
       .catch(function (error) {
         reject(error)

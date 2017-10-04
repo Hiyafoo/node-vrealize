@@ -102,6 +102,17 @@ describe('Resources', function () {
         })
     })
 
+    it('promise should return error with not found message when body content is empty', function () {
+      var response = {statusCode: 200, body: {content: []}}
+      requestGetStub.resolves(response)
+      var resourceName = 'resourceName'
+
+      vRa.getResourceByName(resourceName)
+        .catch(function (error) {
+          expect(error.message).to.equal('Unable to find resource with name: ' + resourceName)
+        })
+    })
+
     it('promise should return contents of body when getRequest returns 200 status code', function () {
       var stubbedResponse = {statusCode: 200,
         body: getActionByNameResponse
@@ -133,6 +144,17 @@ describe('Resources', function () {
       vRa.getResourceById('id')
         .catch(function (error) {
           expect(error).to.equal(response.body)
+        })
+    })
+
+    it('promise should return error with not found message when body content is empty', function () {
+      var response = {statusCode: 200, body: {content: []}}
+      requestGetStub.resolves(response)
+      var id = '1234'
+
+      vRa.getResourceById(id)
+        .catch(function (error) {
+          expect(error.message).to.equal('Unable to find resource with id: ' + id)
         })
     })
 
