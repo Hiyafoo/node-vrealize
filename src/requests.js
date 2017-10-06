@@ -5,6 +5,7 @@ var requestPromise = Promise.promisifyAll(require('request'))
 var inProgressState = 'IN_PROGRESS'
 var pendingPreApprovalState = 'PENDING_PRE_APPROVAL'
 var submittedState = 'SUBMITTED'
+var preApproved = 'PRE_APPROVED'
 
 /* istanbul ignore next */
 module.exports = {
@@ -246,7 +247,7 @@ function get (params) {
           return resolve(body)
         }
 
-        if (body.state === inProgressState || body.state === pendingPreApprovalState || body.state === submittedState) {
+        if (body.state === inProgressState || body.state === pendingPreApprovalState || body.state === submittedState || body.state === preApproved) {
           return resolve(inProgressState)
         }
 
