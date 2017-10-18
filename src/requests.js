@@ -256,7 +256,7 @@ function get (params) {
           return resolve(requestCompletion.requestCompletionState)
         }
 
-        return resolve('ERROR')
+        return resolve('ERROR: ' + body.state)
       })
       .catch(function (error) {
         reject(error)

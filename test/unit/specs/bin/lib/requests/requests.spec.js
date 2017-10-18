@@ -283,7 +283,7 @@ describe('Requests', function () {
 
       return vRa.get(params)
         .then(function (response) {
-          expect(response).to.equal('ERROR')
+          expect(response).to.equal('ERROR: ' + rsp.body.state)
         })
     })
 
