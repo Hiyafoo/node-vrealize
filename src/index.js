@@ -7,6 +7,8 @@ import actions from './vco/actions'
 import workflows from './vco/workflows'
 import configurations from './vco/configurations'
 import categories from './vco/categories'
+import content from './vco/content'
+import packages from './vco/packages'
 
 function vRa () {
   this.config = {
@@ -62,5 +64,13 @@ vRa.prototype.getResourceActionRequests = resources.getResourceActionRequests
 // identity
 vRa.prototype.isTokenAuthorized = identity.isTokenAuthorized
 vRa.prototype.getTokenId = identity.getTokenId
+
+// content
+vRa.prototype.getContent = content.getContent
+
+// package
+vRa.prototype.createPackage = packages.createPackage
+vRa.prototype.getPackageIdByName = packages.getPackageIdByName
+vRa.prototype.getPackage = packages.getPackage
 
 module.exports = vRa
