@@ -14,14 +14,10 @@ function getContent (contentTypeId, tenantId) {
       options = {
         method: 'GET',
         agent: _this.config.agent,
-        url: `https://${_this.config.hostname}/content-management-service/api/contents/`,
+        url: `https://${_this.config.hostname}/content-management-service/api/contents/?limit=1000&$filter=(tenantId eq '${tenantId}')`,
         headers: {
           'cache-control': 'no-cache',
           'authorization': `Bearer ${_this.config.token}`
-        },
-        qs: {
-          limit: '1000',
-          filter: `tenantId eq ${tenantId}`
         },
         json: true
       }
