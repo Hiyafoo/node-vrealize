@@ -5,7 +5,7 @@ module.exports = {
   getContent: getContent
 }
 
-function getContent (contentTypeId, tenantId) {
+function getContent (tenantId) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
