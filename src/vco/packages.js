@@ -4,7 +4,8 @@ var requestPromise = Promise.promisifyAll(require('request'))
 module.exports = {
   createPackage: createPackage,
   getPackageIdByName: getPackageIdByName,
-  getPackage: getPackage
+  getPackage: getPackage,
+  deletePackage: deletePackage
 }
 
 function createPackage (packageName, tenantId, contents) {
@@ -87,6 +88,34 @@ function getPackage (id) {
     }
 
     requestPromise.getAsync(options)
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
+}
+
+function deletePackage (id) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options
+
+    options = {
+      method: 'DELETE',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/content-management-service/api/packages/${id}`,
+      headers: {
+        'cache-control': 'no-cache',
+        'authorization': `Bearer ${_this.config.token}`,
+        'accept': 'application/json'
+      },
+      json: true
+    }
+
+    requestPromise.deleteAsync(options)
       .then(function (response) {
         return resolve(response)
       })

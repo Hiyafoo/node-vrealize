@@ -72,5 +72,6 @@ vRa.prototype.getContent = content.getContent
 vRa.prototype.createPackage = packages.createPackage
 vRa.prototype.getPackageIdByName = packages.getPackageIdByName
 vRa.prototype.getPackage = packages.getPackage
+vRa.prototype.deletePackage = packages.deletePackage
 
 module.exports = vRa
