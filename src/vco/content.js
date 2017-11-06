@@ -1,4 +1,5 @@
 import Promise from 'bluebird'
+import fs from 'fs'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
