@@ -49,8 +49,7 @@ function exportContent (contentZipPath, resolutionMode) {
       url: `https://${_this.config.hostname}/content-management-service/api/packages/?resolutionMode=${resolutionMode}`,
       headers: {
         'cache-control': 'no-cache',
-        'authorization': `Bearer ${_this.config.token}`,
-        'accept': 'application/json'
+        'authorization': `Bearer ${_this.config.token}`
       },
       formData: {file: fs.createReadStream(contentZipPath)},
       json: true
