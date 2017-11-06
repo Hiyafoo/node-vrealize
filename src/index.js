@@ -67,6 +67,7 @@ vRa.prototype.getTokenId = identity.getTokenId
 
 // content
 vRa.prototype.getContent = content.getContent
+vRa.prototype.exportContent = content.exportContent
 
 // package
 vRa.prototype.createPackage = packages.createPackage
