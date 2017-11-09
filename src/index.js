@@ -8,6 +8,7 @@ import actions from './vro/actions'
 import workflows from './vro/workflows'
 import configurations from './vro/configurations'
 import categories from './vro/categories'
+import policies from './vco/policies'
 
 function NodeVRealize () {
   this.config = {
@@ -73,5 +74,11 @@ function NodeVRealize () {
   //   getResourceActionRequests: resources.getResourceActionRequests
   // }
 }
+
+// policies
+NodeVRealize.prototype.createApprovalPolicy = policies.createApprovalPolicy
+NodeVRealize.prototype.getAllApprovalPolicies = policies.getAllApprovalPolicies
+NodeVRealize.prototype.getApprovalPolicyBydId = policies.getApprovalPolicyBydId
+NodeVRealize.prototype.updateApprovalPolicy = policies.updateApprovalPolicy
 
 module.exports = NodeVRealize
