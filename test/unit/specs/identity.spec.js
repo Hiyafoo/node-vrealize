@@ -7,9 +7,9 @@ require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
 
-var vRa = new NodeVRealize()
+var nodeVRealize = new NodeVRealize()
 
-describe('Identity', function () {
+describe('[Identity]', function () {
   'use strict'
   let sandbox
   // eslint-disable-next-line
@@ -33,68 +33,68 @@ describe('Identity', function () {
   })
 
   describe('isTokenAuthorized method', function () {
-    it('promise should return error when vRa request promise is rejected', function () {
+    it('should return error when vRa request promise is rejected', function () {
       var errorMessage = 'error'
       requestHeadStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.isTokenAuthorized()
+      return nodeVRealize.identity.isTokenAuthorized()
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })
     })
 
-    it('promise should return true when vRa token request returns 204', function () {
+    it('should return true when vRa token request returns 204', function () {
       var response = {statusCode: 204}
       requestHeadStubPromise.resolves(response)
 
-      return vRa.isTokenAuthorized()
+      return nodeVRealize.identity.isTokenAuthorized()
         .then(function (isAuthorized) {
           expect(isAuthorized).to.equal(true)
         })
     })
 
-    it('promise should return false when vRa token request returns 300', function () {
+    it('should return false when vRa token request returns 300', function () {
       var response = {statusCode: 300}
       requestHeadStubPromise.resolves(response)
 
-      return vRa.isTokenAuthorized()
+      return nodeVRealize.identity.isTokenAuthorized()
         .then(function (isAuthorized) {
           expect(isAuthorized).to.equal(false)
         })
     })
   })
   describe('getToken method', function () {
-    it('promise should return error when vRa request promise is rejected', function () {
+    it('should return error when vRa request promise is rejected', function () {
       var errorMessage = 'error'
       requestPostStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.getTokenId()
+      return nodeVRealize.identity.getTokenId()
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })
     })
 
-    it('promise should return token id when vRa token request returns 200', function () {
+    it('should return token id when vRa token request returns 200', function () {
       var response = {
         statusCode: 200,
         body: {id: '1234'}
       }
       requestPostStubPromise.resolves(response)
 
-      return vRa.getTokenId()
+      return nodeVRealize.identity.getTokenId()
         .then(function (tokenId) {
           expect(tokenId).to.equal(response.body.id)
         })
     })
 
-    it('promise should return error when vRa token request returns 400', function () {
+    it('should return error when vRa token request returns 400', function () {
       var response = {
         statusCode: 400,
         body: {errors: [{systemMessage: 'error'}]}
       }
       requestPostStubPromise.resolves(response)
 
-      return vRa.getTokenId()
+      return nodeVRealize.identity.getTokenId()
         .catch(function (error) {
           expect(error).to.equal(response.body.errors[0].systemMessage)
         })

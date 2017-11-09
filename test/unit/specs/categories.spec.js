@@ -1,12 +1,11 @@
 /* global it beforeEach afterEach describe */
-// var path = require('path')
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
-var vRa = new NodeVRealize()
+var nodeVRealize = new NodeVRealize()
 
 var categoryLevel1 = {
   statusCode: 200,
@@ -73,7 +72,7 @@ var categoryLevel2 = {
   }
 }
 
-describe('Categories', function () {
+describe('[vRO - Categories]', function () {
   'use strict'
   let sandbox
   // eslint-disable-next-line
@@ -102,7 +101,6 @@ describe('Categories', function () {
     statusCode: 200,
     body: require('./files/categories').rootCategories
   }
-  // var bodyResponseAllCategories = require('./files/categories').allCategories
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
@@ -115,12 +113,12 @@ describe('Categories', function () {
     sandbox.restore()
   })
 
-  describe('exportCategory method', function () {
+  describe('exportOne method', function () {
     it('should return a 200 response when creating a root category', function () {
       var res = {statusCode: 200}
       requestPostStubPromise.resolves(res, null)
 
-      return vRa.exportCategory(rootCategoryObj, password)
+      return nodeVRealize.vro.categories.exportOne(rootCategoryObj, password)
         .then(function (response) {
           expect(res).to.equal(response)
           var spyPostAsync = requestPostStubPromise.getCall(0)
@@ -132,7 +130,7 @@ describe('Categories', function () {
       var res = {statusCode: 200}
       requestPostStubPromise.resolves(res, null)
 
-      return vRa.exportCategory(childCategoryObj, password)
+      return nodeVRealize.vro.categories.exportOne(childCategoryObj, password)
         .then(function (response) {
           expect(res).to.equal(response)
           var spyPostAsync = requestPostStubPromise.getCall(0)
@@ -144,7 +142,7 @@ describe('Categories', function () {
       var res = {statusCode: 300, body: 'test'}
       requestPostStubPromise.resolves(res)
 
-      return vRa.exportCategory(rootCategoryObj, password)
+      return nodeVRealize.vro.categories.exportOne(rootCategoryObj, password)
         .then(function (response) {
           expect(res).to.deep.equal(res)
         })
@@ -154,83 +152,83 @@ describe('Categories', function () {
       var errorMessage = 'error'
       requestPostStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.exportCategory(rootCategoryObj, password)
+      return nodeVRealize.vro.categories.exportOne(rootCategoryObj, password)
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })
     })
   })
 
-  describe('importCategory method', function () {
-    it('promise should return the response when statusCode is 200', function () {
+  describe('importOne method', function () {
+    it('should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.importCategory(categoryId, password)
+      return nodeVRealize.vro.categories.importOne(categoryId, password)
         .then(function (response) {
           expect(res).to.equal(response)
         })
     })
 
-    it('promise should return the response when statusCode is over 300', function () {
+    it('should return the response when statusCode is over 300', function () {
       var res = {statusCode: 300, body: 'test'}
       requestGetStubPromise.resolves(res)
 
-      return vRa.importCategory(categoryId, password)
+      return nodeVRealize.vro.categories.importOne(categoryId, password)
         .then(function (response) {
           expect(res).to.deep.equal(res)
         })
     })
 
-    it('promise should return error when the vRa request is rejected', function () {
+    it('should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.importCategory(categoryId, password)
+      return nodeVRealize.vro.categories.importOne(categoryId, password)
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })
     })
   })
 
-  describe('getCategory method', function () {
-    it('promise should return the response when statusCode is 200', function () {
+  describe('getOne method', function () {
+    it('should return the response when statusCode is 200', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.getCategory(categoryId, password)
+      return nodeVRealize.vro.categories.getOne(categoryId, password)
         .then(function (response) {
           expect(res).to.equal(response)
         })
     })
 
-    it('promise should return the response when statusCode is over 300', function () {
+    it('should return the response when statusCode is over 300', function () {
       var res = {statusCode: 300, body: 'test'}
       requestGetStubPromise.resolves(res)
 
-      return vRa.getCategory(categoryId, password)
+      return nodeVRealize.vro.categories.getOne(categoryId, password)
         .then(function (response) {
           expect(res).to.deep.equal(res)
         })
     })
 
-    it('promise should return error when the vRa request is rejected', function () {
+    it('should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.getCategory(categoryId, password)
+      return nodeVRealize.vro.categories.getOne(categoryId, password)
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })
     })
   })
 
-  describe('getCategories method', function () {
-    it('promise should return the response when statusCode is 200 (root categories only)', function () {
+  describe('getFromCategoryType method', function () {
+    it('should return the response when statusCode is 200 (root categories only)', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.getCategories('type', true, password)
+      return nodeVRealize.vro.categories.getFromCategoryType('type', true, password)
         .then(function (response) {
           var spyGetAsync = requestGetStubPromise.getCall(0)
           expect(spyGetAsync.args[0].qs).to.deep.equal({
@@ -240,11 +238,11 @@ describe('Categories', function () {
           expect(res).to.equal(response)
         })
     })
-    it('promise should return the response when statusCode is 200 (all categories)', function () {
+    it('should return the response when statusCode is 200 (all categories)', function () {
       var res = {statusCode: 200}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.getCategories('type', false, password)
+      return nodeVRealize.vro.categories.getFromCategoryType('type', false, password)
         .then(function (response) {
           var spyGetAsync = requestGetStubPromise.getCall(0)
           expect(spyGetAsync.args[0].qs).to.deep.equal({
@@ -255,21 +253,21 @@ describe('Categories', function () {
         })
     })
 
-    it('promise should return the response when statusCode is over 300', function () {
+    it('should return the response when statusCode is over 300', function () {
       var res = {statusCode: 300, body: 'test'}
       requestGetStubPromise.resolves(res)
 
-      return vRa.getCategories(categoryId, password)
+      return nodeVRealize.vro.categories.getFromCategoryType(categoryId, password)
         .then(function (response) {
           expect(res).to.deep.equal(res)
         })
     })
 
-    it('promise should return error when the vRa request is rejected', function () {
+    it('should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.getCategories(categoryId, password)
+      return nodeVRealize.vro.categories.getFromCategoryType(categoryId, password)
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })
@@ -278,11 +276,11 @@ describe('Categories', function () {
 
   describe('getCategoryIdFromAbsolutePath method', function () {
     it('should return the id of the level 1 category', function () {
-      var requestGetCategoriesStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategories')
-      var requestGetCategoryStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategory')
+      var requestGetCategoriesStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getFromCategoryType')
+      var requestGetCategoryStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getOne')
       requestGetCategoryStubPromise.resolves(categoryLevel1)
       requestGetCategoriesStubPromise.resolves(bodyResponseRootCategories)
-      return vRa.getCategoryIdFromAbsolutePath('/io.test/network/', 'ConfigurationElementCategory', 'password')
+      return nodeVRealize.vro.categories.getCategoryIdFromAbsolutePath('/io.test/network/', 'ConfigurationElementCategory', 'password')
         .then(function (rootCategoryId) {
           expect(requestGetCategoryStubPromise.calledOnce).to.equal(true)
           expect(rootCategoryId).to.equal('123080815d065f21015d1349a5580db3')
@@ -290,12 +288,12 @@ describe('Categories', function () {
     })
 
     it('should return the id of the level 2 category', function () {
-      var requestGetCategoriesStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategories')
-      var requestGetCategoryStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategory')
+      var requestGetCategoriesStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getFromCategoryType')
+      var requestGetCategoryStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getOne')
       requestGetCategoriesStubPromise.resolves(bodyResponseRootCategories)
       requestGetCategoryStubPromise.onCall(0).resolves(categoryLevel1)
       requestGetCategoryStubPromise.onCall(1).resolves(categoryLevel2)
-      return vRa.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')
+      return nodeVRealize.vro.categories.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')
         .then(function (rootCategoryId) {
           expect(requestGetCategoryStubPromise.callCount).to.equal(2)
           expect(rootCategoryId).to.equal('456789')
@@ -303,8 +301,8 @@ describe('Categories', function () {
     })
 
     it('should return -1 when the level 2 category does not exist', function () {
-      var requestGetCategoriesStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategories')
-      var requestGetCategoryStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategory')
+      var requestGetCategoriesStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getFromCategoryType')
+      var requestGetCategoryStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getOne')
       requestGetCategoriesStubPromise.resolves(bodyResponseRootCategories)
       requestGetCategoryStubPromise.onCall(0).resolves(categoryLevel1)
       requestGetCategoryStubPromise.onCall(1).resolves({
@@ -315,7 +313,7 @@ describe('Categories', function () {
           }
         }
       })
-      return vRa.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')
+      return nodeVRealize.vro.categories.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')
         .then(function (rootCategoryId) {
           expect(requestGetCategoryStubPromise.callCount).to.equal(2)
           expect(rootCategoryId).to.equal(-1)
@@ -323,22 +321,22 @@ describe('Categories', function () {
     })
 
     it('should return -1 when the root category does not exist', function () {
-      var requestGetCategoriesStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategories')
-      var requestGetCategoryStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategory')
+      var requestGetCategoriesStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getFromCategoryType')
+      var requestGetCategoryStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getOne')
       requestGetCategoriesStubPromise.resolves(bodyResponseRootCategories)
-      return vRa.getCategoryIdFromAbsolutePath('/does.not.exist/test/network/nsx', 'ConfigurationElementCategory', 'password')
+      return nodeVRealize.vro.categories.getCategoryIdFromAbsolutePath('/does.not.exist/test/network/nsx', 'ConfigurationElementCategory', 'password')
         .then(function (rootCategoryId) {
           expect(requestGetCategoryStubPromise.callCount).to.equal(0)
           expect(rootCategoryId).to.equal(-1)
         })
     })
 
-    it('should reject with an error if the getCategory rejects with an error', function () {
-      var requestGetCategoriesStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategories')
-      var requestGetCategoryStubPromise = sandbox.stub(NodeVRealize.prototype, 'getCategory')
+    it('should reject with an error if the getOne rejects with an error', function () {
+      var requestGetCategoriesStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getFromCategoryType')
+      var requestGetCategoryStubPromise = sandbox.stub(nodeVRealize.vro.categories, 'getOne')
       requestGetCategoriesStubPromise.resolves(bodyResponseRootCategories)
       requestGetCategoryStubPromise.rejects({message: 'error'})
-      return vRa.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')
+      return nodeVRealize.vro.categories.getCategoryIdFromAbsolutePath('/io.test/network/nsx', 'ConfigurationElementCategory', 'password')
         .then(function (rootCategoryId) {
           expect(requestGetCategoryStubPromise.callCount).to.equal(2)
           expect(rootCategoryId).to.equal(-1)
@@ -349,16 +347,16 @@ describe('Categories', function () {
     })
   })
 
-  describe('deleteRootCategory method', function () {
+  describe('deleteOne method', function () {
     it('should return a 200 statusCode on successful deletion', function () {
       var categoryId = 'id'
-      var getCategoryIdFromAbsolutePath = sandbox.stub(NodeVRealize.prototype, 'getCategoryIdFromAbsolutePath')
+      var getOneIdFromAbsolutePath = sandbox.stub(nodeVRealize.vro.categories, 'getCategoryIdFromAbsolutePath')
 
       var res = {statusCode: 200}
       requestDeleteStubPromise.resolves(res, null)
 
-      getCategoryIdFromAbsolutePath.resolves(categoryId)
-      return vRa.deleteRootCategory('/io.test/network/', 'ConfigurationElementCategory', 'password')
+      getOneIdFromAbsolutePath.resolves(categoryId)
+      return nodeVRealize.vro.categories.deleteOne('/io.test/network/', 'ConfigurationElementCategory', 'password')
         .then(function (response) {
           expect(response.statusCode).to.equal(200)
         })
@@ -366,13 +364,13 @@ describe('Categories', function () {
 
     it('should reject with an error when category id cannot be found', function () {
       var categoryId = 'id'
-      var getCategoryIdFromAbsolutePath = sandbox.stub(NodeVRealize.prototype, 'getCategoryIdFromAbsolutePath')
+      var getOneIdFromAbsolutePath = sandbox.stub(nodeVRealize.vro.categories, 'getCategoryIdFromAbsolutePath')
 
       var error = 'error'
       requestDeleteStubPromise.rejects(error)
 
-      getCategoryIdFromAbsolutePath.resolves(categoryId)
-      return vRa.deleteRootCategory('/io.test/network/', 'ConfigurationElementCategory', 'password')
+      getOneIdFromAbsolutePath.resolves(categoryId)
+      return nodeVRealize.vro.categories.deleteOne('/io.test/network/', 'ConfigurationElementCategory', 'password')
         .catch(function (err) {
           expect(err.name).to.equal(error)
         })

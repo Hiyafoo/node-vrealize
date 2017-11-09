@@ -6,6 +6,11 @@ module.exports = {
   isTokenAuthorized: isTokenAuthorized
 }
 
+/**
+ * Validate if a token is still valid
+ * @param {*} tokenId  - The token to be validated
+ * @returns {boolean} - True if the token is still valid, false otherwise
+ */
 function isTokenAuthorized (tokenId) {
   var _this = this
 
@@ -34,6 +39,10 @@ function isTokenAuthorized (tokenId) {
   })
 }
 
+/**
+ * Retrieve a token
+ * @returns {Promise} - The retrieved token
+ */
 function getTokenId () {
   var _this = this
 

@@ -1,33 +1,37 @@
-import Promise from 'bluebird'
 import fs from 'fs'
+import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
-  getContent: getContent,
-  exportContent: exportContent
+  importOne: importOne,
+  exportOne: exportOne
 }
 
-function getContent (tenantId) {
+function exportOne (categoryId, configurationPath, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
     var options
     try {
       options = {
-        method: 'GET',
+        method: 'POST',
         agent: _this.config.agent,
-        url: `https://${_this.config.hostname}/content-management-service/api/contents/?limit=1000&$filter=(tenantId eq '${tenantId}')`,
+        url: `https://${_this.config.hostname}/vco/api/configurations/`,
         headers: {
           'cache-control': 'no-cache',
-          'authorization': `Bearer ${_this.config.token}`
+          'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
         },
+        qs: {
+          categoryId: categoryId
+        },
+        formData: {file: fs.createReadStream(configurationPath)},
         json: true
       }
     } catch (error) {
       return reject(error)
     }
 
-    requestPromise.getAsync(options)
+    requestPromise.postAsync(options)
       .then(function (response) {
         return resolve(response)
       })
@@ -37,25 +41,25 @@ function getContent (tenantId) {
   })
 }
 
-function exportContent (contentZipPath, resolutionMode) {
+function importOne (configurationId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
     var options
 
     options = {
-      method: 'POST',
+      method: 'GET',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/content-management-service/api/packages/?resolutionMode=${resolutionMode}`,
+      url: `https://${_this.config.hostname}/vco/api/configurations/${configurationId}`,
       headers: {
         'cache-control': 'no-cache',
-        'authorization': `Bearer ${_this.config.token}`
+        'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
+        'accept': 'application/xml'
       },
-      formData: {file: fs.createReadStream(contentZipPath)},
-      json: true
+      encoding: 'utf-8'
     }
 
-    requestPromise.postAsync(options)
+    requestPromise.getAsync(options)
       .then(function (response) {
         return resolve(response)
       })

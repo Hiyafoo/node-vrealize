@@ -10,16 +10,16 @@ var _ = {
 }
 
 module.exports = {
-  importCategory: importCategory,
-  exportCategory: exportCategory,
+  importOne: importOne,
+  exportOne: exportOne,
   getCategoryIdFromAbsolutePath: getCategoryIdFromAbsolutePath,
-  getCategories: getCategories,
-  getCategory: getCategory,
+  getFromCategoryType: getFromCategoryType,
+  getOne: getOne,
   getLeafCategoryId: getLeafCategoryId,
-  deleteRootCategory: deleteRootCategory
+  deleteOne: deleteOne
 }
 
-function exportCategory (categoryObj, password) {
+function exportOne (categoryObj, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -52,7 +52,7 @@ function exportCategory (categoryObj, password) {
   })
 }
 
-function importCategory (categoryId, password) {
+function importOne (categoryId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -80,7 +80,7 @@ function importCategory (categoryId, password) {
   })
 }
 
-function getCategories (categoryType, isRoot, password) {
+function getFromCategoryType (categoryType, isRoot, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -113,7 +113,7 @@ function getCategories (categoryType, isRoot, password) {
   })
 }
 
-function getCategory (categoryId, password) {
+function getOne (categoryId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -142,11 +142,11 @@ function getCategory (categoryId, password) {
   })
 }
 
-function deleteRootCategory (categoryAbsolutePath, categoryType, password) {
+function deleteOne (categoryAbsolutePath, categoryType, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
-    _this.getCategoryIdFromAbsolutePath(categoryAbsolutePath, categoryType, password)
+    _this.vro.categories.getCategoryIdFromAbsolutePath(categoryAbsolutePath, categoryType, password)
       .then(function (categoryId) {
         var options
 
@@ -185,7 +185,7 @@ function getCategoryIdFromAbsolutePath (categoryAbsolutePath, categoryType, pass
     var categoryDecomposedPath = _.trim(categoryPath, '/').split('/')
 
     // TODO: put in cache for 5 minutes
-    _this.getCategories(categoryType, true, password)
+    _this.vro.categories.getFromCategoryType(categoryType, true, password)
       .then(function (response) {
         var rootCategories = response.body
         // TODO: put in cache for 5 minutes
@@ -196,7 +196,7 @@ function getCategoryIdFromAbsolutePath (categoryAbsolutePath, categoryType, pass
         if (rootCategoryId === -1) {
           resolve(rootCategoryId)
         } else {
-          return _this.getLeafCategoryId(rootCategoryId, categoryDecomposedPath, password)
+          return _this.vro.categories.getLeafCategoryId(rootCategoryId, categoryDecomposedPath, password)
         }
       })
       .then(function (leafCategoryId) {
@@ -235,13 +235,13 @@ function getLeafCategoryId (currentCategoryId, categoryPath, password) {
     if (categoryPath.length <= 0) {
       resolve(currentCategoryId)
     } else {
-      _this.getCategory(currentCategoryId, password)
+      _this.vro.categories.getOne(currentCategoryId, password)
         .then(function (response) {
           var category = response.body
           var categoryName = categoryPath.shift()
           var categoryId = findCategoryId(categoryName, category.relations)
           if (categoryId !== -1) {
-            resolve(_this.getLeafCategoryId(categoryId, categoryPath, password))
+            resolve(_this.vro.categories.getLeafCategoryId(categoryId, categoryPath, password))
           } else {
             resolve(-1)
           }

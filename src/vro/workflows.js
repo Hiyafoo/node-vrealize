@@ -3,11 +3,11 @@ import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
-  importConfiguration: importConfiguration,
-  exportConfiguration: exportConfiguration
+  importOne: importOne,
+  exportOne: exportOne
 }
 
-function exportConfiguration (categoryId, configurationPath, password) {
+function exportOne (categoryId, workflowPath, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -16,15 +16,16 @@ function exportConfiguration (categoryId, configurationPath, password) {
       options = {
         method: 'POST',
         agent: _this.config.agent,
-        url: `https://${_this.config.hostname}/vco/api/configurations/`,
+        url: `https://${_this.config.hostname}/vco/api/workflows/`,
         headers: {
           'cache-control': 'no-cache',
           'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
         },
         qs: {
-          categoryId: categoryId
+          categoryId: categoryId,
+          overwrite: true
         },
-        formData: {file: fs.createReadStream(configurationPath)},
+        formData: {file: fs.createReadStream(workflowPath)},
         json: true
       }
     } catch (error) {
@@ -41,7 +42,7 @@ function exportConfiguration (categoryId, configurationPath, password) {
   })
 }
 
-function importConfiguration (configurationId, password) {
+function importOne (workflowId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -50,13 +51,13 @@ function importConfiguration (configurationId, password) {
     options = {
       method: 'GET',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/vco/api/configurations/${configurationId}`,
+      url: `https://${_this.config.hostname}/vco/api/workflows/${workflowId}`,
       headers: {
         'cache-control': 'no-cache',
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
-        'accept': 'application/xml'
+        'accept': 'application/zip'
       },
-      encoding: 'utf-8'
+      encoding: null
     }
 
     requestPromise.getAsync(options)

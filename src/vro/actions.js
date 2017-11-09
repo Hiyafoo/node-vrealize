@@ -4,15 +4,13 @@ var _filter = require('lodash.filter')
 var requestPromise = Promise.promisifyAll(require('request'))
 
 module.exports = {
-  getAll: getAll,
-  importAction: importAction,
-  exportAction: exportAction,
-  importActions: importActions
+  importOne: importOne,
+  exportToModuleName: exportToModuleName,
+  importFromModuleName: importFromModuleName
 }
 
-function exportAction (categoryName, actionPath, password) {
+function exportToModuleName (moduleName, actionPath, password) {
   var _this = this
-
   return new Promise(function (resolve, reject) {
     var options
     try {
@@ -25,7 +23,7 @@ function exportAction (categoryName, actionPath, password) {
           'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
         },
         qs: {
-          categoryName: categoryName,
+          categoryName: moduleName,
           overwrite: true
         },
         formData: {file: fs.createReadStream(actionPath)},
@@ -45,7 +43,7 @@ function exportAction (categoryName, actionPath, password) {
   })
 }
 
-function importAction (actionId, password) {
+function importOne (actionId, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -72,7 +70,7 @@ function importAction (actionId, password) {
   })
 }
 
-function importActions (moduleName, password) {
+function importFromModuleName (moduleName, password) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -108,48 +106,6 @@ function importActions (moduleName, password) {
           response.body.link = filteredActions
         }
         return resolve(response)
-      })
-      .catch(function (error) {
-        reject(error)
-      })
-  })
-}
-
-function getAll () {
-  var _this = this
-
-  return new Promise(function (resolve, reject) {
-    var options = {
-      method: 'GET',
-      agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/resources?limit=1000`,
-      headers: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token}`
-      },
-      body: {},
-      json: true
-    }
-
-    requestPromise.getAsync(options)
-      .then(function (response) {
-        if (response.statusCode === 200) {
-          let resources = []
-          response.body.content.forEach(function (resource) {
-            var res = {}
-            res.name = resource.name
-            res.status = resource.status
-            res.id = resource.id
-            res.typeRef = resource.resourceTypeRef.label
-            // res.catalogResourceLabel = resource.catalogResource.label
-            // res.catalogResourceId = resource.catalogResource.id
-            resources.push(res)
-          }, _this)
-          resolve(resources)
-        } else {
-          resolve(response.body)
-        }
       })
       .catch(function (error) {
         reject(error)

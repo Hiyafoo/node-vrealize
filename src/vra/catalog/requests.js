@@ -1,4 +1,3 @@
-import _findIndex from 'lodash.findindex'
 import Promise from 'bluebird'
 var requestPromise = Promise.promisifyAll(require('request'))
 
@@ -9,21 +8,17 @@ var preApproved = 'PRE_APPROVED'
 
 /* istanbul ignore next */
 module.exports = {
-  submit: submit,
-  getAll: getAll,
-  getByName: getByName,
-  getRequestsByName: getRequestsByName,
-  getObjectFromKey: getObjectFromKey,
-  get: get,
-  getAllCatalogItems: getAllCatalogItems,
-  getTemplate: getTemplate,
-  sendRequest: sendRequest,
-  updateTemplateData: updateTemplateData
+  submitRequest: submitRequest,
+  getRequestsByCatalogItemName: getRequestsByCatalogItemName,
+  getRequest: getRequest,
+  getRequests: getRequests,
+  updateTemplateData: updateTemplateData,
+  sendRequestViaUrl: sendRequestViaUrl
 }
 
-function getRequestsByName (catalogItemName, filterMethod) {
+function getRequestsByCatalogItemName (catalogItemName, filterMethod, limit) {
   var _this = this
-
+  limit = limit || 10000
   return new Promise(function (resolve, reject) {
     var options = {
       method: 'GET',
@@ -44,7 +39,7 @@ function getRequestsByName (catalogItemName, filterMethod) {
           return reject(response.body)
         }
 
-        // could not find any reuqests with given name
+        // could not find any requests with given name
         if (!response.body || !response.body.content) {
           return resolve([])
         }
@@ -57,85 +52,12 @@ function getRequestsByName (catalogItemName, filterMethod) {
   })
 }
 
-function getAllCatalogItems () {
-  var _this = this
-
-  return new Promise(function (resolve, reject) {
-    var options = {
-      method: 'GET',
-      agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000`,
-      headers: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token}`
-      },
-      body: {},
-      json: true
-    }
-
-    requestPromise.getAsync(options)
-      .then(function (response) {
-        if (response.statusCode !== 200) {
-          return reject(response.body)
-        }
-
-        let items = []
-        response.body.content.forEach(function (item) {
-          var res = {}
-          res.name = item.name
-          res.id = item.catalogItemId
-          res.submitRequestUrl = item.links[1].href
-          res.submitRequestUrlMethod = item.links[1].rel
-          // res.catalogResourceLabel = item.catalogResource.label
-          // res.catalogResourceId = item.catalogResource.id
-          items.push(res)
-        }, this)
-        resolve(items)
-      })
-      .catch(function (error) {
-        reject(error)
-      })
-  })
-}
-
-function getByName (name) {
-  var _this = this
-
-  return new Promise(function (resolve, reject) {
-    var options = {
-      method: 'GET',
-      agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/entitledCatalogItemViews?limit=1000&$filter=(name eq '${name}')`,
-      headers: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token}`
-      },
-      body: {},
-      json: true
-    }
-
-    requestPromise.getAsync(options)
-      .then(function (response) {
-        if (response.statusCode !== 200) {
-          return reject(response.body)
-        } else {
-          resolve(response.body.content[0])
-        }
-      })
-      .catch(function (error) {
-        reject(error)
-      })
-  })
-}
-
-function submit (deploymentOptions) {
+function submitRequest (deploymentOptions) {
   var _this = this
   var urlRequest
 
   return new Promise(function (resolve, reject) {
-    _this.getByName(deploymentOptions.blueprintName)
+    _this.vra.catalog.getCatalogItemByName(deploymentOptions.blueprintName)
       .then(function (response) {
         var urlTemplate = response.links[0].href
         urlTemplate = urlTemplate.substring(0, urlTemplate.indexOf('{'))
@@ -143,13 +65,13 @@ function submit (deploymentOptions) {
         urlRequest = response.links[1].href
         urlRequest = urlRequest.substring(0, urlRequest.indexOf('{'))
 
-        return _this.getTemplate(urlTemplate)
+        return _this.vra.catalog.getCatalogItemTemplate(urlTemplate)
       })
       .then(function (templateData) {
-        return _this.updateTemplateData(templateData, deploymentOptions.templateData)
+        return module.exports.updateTemplateData(templateData, deploymentOptions.templateData)
       })
       .then(function (mergedTemplateData) {
-        return _this.sendRequest(urlRequest, mergedTemplateData)
+        return _this.vra.catalog.sendRequestViaUrl(urlRequest, mergedTemplateData)
       })
       .then(function (response) {
         resolve(response)
@@ -160,37 +82,7 @@ function submit (deploymentOptions) {
   })
 }
 
-function getTemplate (url) {
-  var _this = this
-
-  return new Promise(function (resolve, reject) {
-    var options = {
-      method: 'GET',
-      agent: _this.config.agent,
-      url: url,
-      headers: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token}`
-      },
-      body: {},
-      json: true
-    }
-
-    requestPromise.getAsync(options)
-      .then(function (response) {
-        if (response.statusCode !== 200) {
-          return reject(response.body)
-        }
-        return resolve(response.body)
-      })
-      .catch(function (error) {
-        reject(error)
-      })
-  })
-}
-
-function sendRequest (url, data) {
+function sendRequestViaUrl (url, data) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -220,7 +112,7 @@ function sendRequest (url, data) {
   })
 }
 
-function get (params) {
+function getRequest (params) {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -264,7 +156,7 @@ function get (params) {
   })
 }
 
-function getAll () {
+function getRequests () {
   var _this = this
 
   return new Promise(function (resolve, reject) {
@@ -291,17 +183,6 @@ function getAll () {
         reject(error)
       })
   })
-}
-
-function getObjectFromKey (jsonObject, key) {
-  var indexCID = _findIndex(jsonObject.entries, function (o) {
-    return o.key === key
-  })
-  // 'key', 'y.Hostname.CID')
-  if (indexCID === -1) {
-    return null
-  }
-  return jsonObject.entries[indexCID]
 }
 
 function updateTemplateData (templateData, dataToBeMerged) {

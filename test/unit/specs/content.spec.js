@@ -6,9 +6,9 @@ var request = require('request')
 require('chai').should()
 
 var NodeVRealize = require('../../../src/index')
-var vRa = new NodeVRealize()
+var nodeVRealize = new NodeVRealize()
 
-describe('Content', function () {
+describe('[vRA - Content]', function () {
   'use strict'
   let sandbox
   // eslint-disable-next-line
@@ -27,23 +27,84 @@ describe('Content', function () {
   })
 
   describe('getContent method', function () {
-    var contentTypeId = 'contentTypeId'
     var tenantId = 'tenantId'
-    it('promise should return response when the statusCode is 200', function () {
+    it('should return response when the statusCode is 200', function () {
       var res = {statusCode: 200, body: getContentResponse}
       requestGetStubPromise.resolves(res, null)
 
-      return vRa.getContent(contentTypeId, tenantId)
+      return nodeVRealize.vra.content.getFromTenant(tenantId)
+        .then(function (response) {
+          expect(requestGetStubPromise.getCall(0).args[0].url).to.equal('https:///content-management-service/api/contents/?limit=1000&$filter=(tenantId eq \'tenantId\')')
+          expect(res).to.equal(response)
+        })
+    })
+
+    it('should return response with 10,000 items when the statusCode is 200', function () {
+      var res = {statusCode: 200, body: getContentResponse}
+      requestGetStubPromise.resolves(res, null)
+
+      return nodeVRealize.vra.content.getFromTenant(tenantId, 10000)
+        .then(function (response) {
+          expect(requestGetStubPromise.getCall(0).args[0].url).to.equal('https:///content-management-service/api/contents/?limit=10000&$filter=(tenantId eq \'tenantId\')')
+          expect(res).to.equal(response)
+        })
+    })
+
+    it('should return error when the vRa request is rejected', function () {
+      var errorMessage = 'error'
+      requestGetStubPromise.rejects(new Error(errorMessage))
+
+      return nodeVRealize.vra.content.getFromTenant(tenantId)
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
+    })
+  })
+
+  describe('createPackage method', function () {
+    var packageName = 'packageName'
+    var tenantId = 'tenantId'
+    var contents = []
+
+    it('should return response when the statusCode is 201', function () {
+      var res = {statusCode: 201}
+      requestPostStubPromise.resolves(res, null)
+
+      return nodeVRealize.vra.content.createPackage(packageName, tenantId, contents)
         .then(function (response) {
           expect(res).to.equal(response)
         })
     })
 
-    it('promise should return error when the vRa request is rejected', function () {
+    it('should return error when the vRa request is rejected', function () {
+      var errorMessage = 'error'
+      requestPostStubPromise.rejects(new Error(errorMessage))
+
+      return nodeVRealize.vra.content.createPackage(packageName, tenantId, contents)
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
+    })
+  })
+
+  describe('getPackageById method', function () {
+    var packageId = 'packageName'
+
+    it('should return response when the statusCode is 200', function () {
+      var res = {statusCode: 200}
+      requestGetStubPromise.resolves(res, null)
+
+      return nodeVRealize.vra.content.getPackageById(packageId)
+        .then(function (response) {
+          expect(res).to.equal(response)
+        })
+    })
+
+    it('should return error when the vRa request is rejected', function () {
       var errorMessage = 'error'
       requestGetStubPromise.rejects(new Error(errorMessage))
 
-      return vRa.getContent(contentTypeId, tenantId)
+      return nodeVRealize.vra.content.getPackageById(packageId)
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })

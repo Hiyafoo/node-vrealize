@@ -3,11 +3,9 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
-var NodeVRealize = require('../../../../../../src/index')
+var requests = require('../../../../../../src/vra/catalog/requests')
 
-var vRa = new NodeVRealize()
-
-describe('[Requests] - updateTemplateData method', function () {
+describe('[vRA - Catalog / Requests] - updateTemplateData method', function () {
   'use strict'
   let sandbox
   let dataToBeMerged
@@ -61,30 +59,30 @@ describe('[Requests] - updateTemplateData method', function () {
     sandbox.restore()
   })
 
-  it('promise should return unchanged templateData when dataToBeMerged is empty', function () {
-    return vRa.updateTemplateData(templateData, [])
+  it('should return unchanged templateData when dataToBeMerged is empty', function () {
+    return requests.updateTemplateData(templateData, [])
       .then(function (template) {
         expect(template).to.deep.equal(templateData)
       })
   })
 
-  it('promise should return unchanged templateData when dataToBeMerged is null', function () {
-    return vRa.updateTemplateData(templateData, null)
+  it('should return unchanged templateData when dataToBeMerged is null', function () {
+    return requests.updateTemplateData(templateData, null)
       .then(function (template) {
         expect(template).to.deep.equal(templateData)
       })
   })
 
-  it('promise should return unchanged templateData when dataToBeMerged has empty path', function () {
+  it('should return unchanged templateData when dataToBeMerged has empty path', function () {
     dataToBeMerged[0].path = ''
-    return vRa.updateTemplateData(templateData, dataToBeMerged)
+    return requests.updateTemplateData(templateData, dataToBeMerged)
       .then(function (template) {
         expect(template).to.equal(templateData)
       })
   })
 
-  it('promise should return changed templateData with dataToBeMerged properties', function () {
-    return vRa.updateTemplateData(templateData, dataToBeMerged)
+  it('should return changed templateData with dataToBeMerged properties', function () {
+    return requests.updateTemplateData(templateData, dataToBeMerged)
       .then(function (template) {
         expect(template.data.DNS1.componentId).to.equal(dataToBeMerged[0].value)
       })
