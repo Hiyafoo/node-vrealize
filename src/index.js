@@ -9,6 +9,7 @@ import configurations from './vco/configurations'
 import categories from './vco/categories'
 import content from './vco/content'
 import packages from './vco/packages'
+import policies from './vco/policies'
 
 function vRa () {
   this.config = {
@@ -74,5 +75,11 @@ vRa.prototype.createPackage = packages.createPackage
 vRa.prototype.getPackageIdByName = packages.getPackageIdByName
 vRa.prototype.getPackage = packages.getPackage
 vRa.prototype.deletePackage = packages.deletePackage
+
+// policies
+vRa.prototype.createApprovalPolicy = policies.createApprovalPolicy
+vRa.prototype.getAllApprovalPolicies = policies.getAllApprovalPolicies
+vRa.prototype.getApprovalPolicyBydId = policies.getApprovalPolicyBydId
+vRa.prototype.updateApprovalPolicy = policies.updateApprovalPolicy
 
 module.exports = vRa
