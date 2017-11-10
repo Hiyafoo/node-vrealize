@@ -3,7 +3,7 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
-var requests = require('../../../../../../src/vra/catalog/requests')
+var requests = require('../../../src/vra/catalog/requests')
 
 describe('[vRA - Catalog / Requests] - updateTemplateData method', function () {
   'use strict'
