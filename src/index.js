@@ -3,11 +3,11 @@
 import identity from './identity'
 import content from './vra/content'
 import catalog from './vra/catalog'
+import approval from './vra/approval'
 import actions from './vro/actions'
 import workflows from './vro/workflows'
 import configurations from './vro/configurations'
 import categories from './vro/categories'
-import policies from './vco/policies'
 
 function NodeVRealize () {
   this.config = {
@@ -70,12 +70,12 @@ function NodeVRealize () {
     getResourceActionRequests: catalog.getResourceActionRequests.bind(this),
     submitResourceAction: catalog.submitResourceAction.bind(this)
   }
+  this.vra.approval = {
+    getAllApprovalPolicies: approval.getAllApprovalPolicies.bind(this),
+    getApprovalPolicyById: approval.getApprovalPolicyById.bind(this),
+    createApprovalPolicy: approval.createApprovalPolicy.bind(this),
+    updateApprovalPolicy: approval.updateApprovalPolicy.bind(this)
+  }
 }
-
-// policies
-NodeVRealize.prototype.createApprovalPolicy = policies.createApprovalPolicy
-NodeVRealize.prototype.getAllApprovalPolicies = policies.getAllApprovalPolicies
-NodeVRealize.prototype.getApprovalPolicyBydId = policies.getApprovalPolicyBydId
-NodeVRealize.prototype.updateApprovalPolicy = policies.updateApprovalPolicy
 
 module.exports = NodeVRealize
