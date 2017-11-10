@@ -1,5 +1,5 @@
 /* global it beforeEach afterEach describe */
-// var path = require('path')
+var fs = require('fs')
 var expect = require('chai').expect
 var sinon = require('sinon')
 var request = require('request')
@@ -15,11 +15,17 @@ describe('[vRA - Content]', function () {
   let requestPostStubPromise
   // eslint-disable-next-line
   let requestGetStubPromise
+  // eslint-disable-next-line
+  let createReadStreamStub
+  // eslint-disable-next-line
+  let requestDeleteStubPromise
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
     requestPostStubPromise = sandbox.stub(request, 'postAsync')
     requestGetStubPromise = sandbox.stub(request, 'getAsync')
+    requestDeleteStubPromise = sandbox.stub(request, 'deleteAsync')
+    createReadStreamStub = sandbox.stub(fs, 'createReadStream')
   })
 
   afterEach(() => {
@@ -81,6 +87,53 @@ describe('[vRA - Content]', function () {
       requestPostStubPromise.rejects(new Error(errorMessage))
 
       return nodeVRealize.vra.content.createPackage(packageName, tenantId, contents)
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
+    })
+  })
+
+  describe('exportPackage method', function () {
+    it('should return response when the statusCode is 201', function () {
+      var resolutionMode = 'YOUHOU'
+      var res = {statusCode: 201}
+      requestPostStubPromise.resolves(res, null)
+      createReadStreamStub.returns('content-of-the-file')
+      return nodeVRealize.vra.content.exportPackage('my-path', resolutionMode)
+        .then(function (response) {
+          expect(requestPostStubPromise.getCall(0).args[0].url).to.equal(`https:///content-management-service/api/packages/?resolutionMode=${resolutionMode}`)
+          expect(requestPostStubPromise.getCall(0).args[0].formData).to.deep.equal({file: 'content-of-the-file'})
+          expect(res).to.equal(response)
+        })
+    })
+
+    it('should return error when the vRa request is rejected', function () {
+      var errorMessage = 'error'
+      requestPostStubPromise.rejects(new Error(errorMessage))
+      createReadStreamStub.returns('content-of-the-file')
+      return nodeVRealize.vra.content.exportPackage('file', 'RESOLUTION_MODE')
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
+    })
+  })
+
+  describe('deletePackage method', function () {
+    it('should return response when the statusCode is 201', function () {
+      var id = 'ID'
+      var res = {statusCode: 201}
+      requestDeleteStubPromise.resolves(res, null)
+      return nodeVRealize.vra.content.deletePackage(id)
+        .then(function (response) {
+          expect(requestDeleteStubPromise.getCall(0).args[0].url).to.equal(`https:///content-management-service/api/packages/${id}`)
+          expect(res).to.equal(response)
+        })
+    })
+
+    it('should return error when the vRa request is rejected', function () {
+      var errorMessage = 'error'
+      requestDeleteStubPromise.rejects(new Error(errorMessage))
+      return nodeVRealize.vra.content.deletePackage('file')
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })

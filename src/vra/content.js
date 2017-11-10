@@ -15,19 +15,15 @@ function getFromTenant (tenantId, limit) {
   limit = limit || 1000
   return new Promise(function (resolve, reject) {
     var options
-    try {
-      options = {
-        method: 'GET',
-        agent: _this.config.agent,
-        url: `https://${_this.config.hostname}/content-management-service/api/contents/?limit=${limit}&$filter=(tenantId eq '${tenantId}')`,
-        headers: {
-          'cache-control': 'no-cache',
-          'authorization': `Bearer ${_this.config.token}`
-        },
-        json: true
-      }
-    } catch (error) {
-      return reject(error)
+    options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/content-management-service/api/contents/?limit=${limit}&$filter=(tenantId eq '${tenantId}')`,
+      headers: {
+        'cache-control': 'no-cache',
+        'authorization': `Bearer ${_this.config.token}`
+      },
+      json: true
     }
 
     requestPromise.getAsync(options)
