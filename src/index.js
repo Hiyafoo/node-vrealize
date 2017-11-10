@@ -1,7 +1,6 @@
 // import configuration from './config'
 
 import identity from './identity'
-// import resources from './vra/resources'
 import content from './vra/content'
 import catalog from './vra/catalog'
 import actions from './vro/actions'
@@ -62,17 +61,15 @@ function NodeVRealize () {
     sendRequestViaUrl: catalog.sendRequestViaUrl.bind(this),
     getRequest: catalog.getRequest.bind(this),
     getRequests: catalog.getRequests.bind(this),
-    getCatalogItemTemplate: catalog.getCatalogItemTemplate.bind(this)
+    getCatalogItemTemplate: catalog.getCatalogItemTemplate.bind(this),
+    getResources: catalog.getResources.bind(this),
+    getResourceByName: catalog.getResourceByName.bind(this),
+    getResourceById: catalog.getResourceById.bind(this),
+    getResourceActions: catalog.getResourceActions.bind(this),
+    getResourceActionTemplate: catalog.getResourceActionTemplate.bind(this),
+    getResourceActionRequests: catalog.getResourceActionRequests.bind(this),
+    submitResourceAction: catalog.submitResourceAction.bind(this)
   }
-  // this.vra.resources = {
-  //   getAllResources: resources.getAllResources,
-  //   getResourceByName: resources.getResourceByName,
-  //   getResourceById: resources.getResourceById,
-  //   getResourceActions: resources.getResourceActions,
-  //   submitResource: resources.submitResource,
-  //   getResourceActionTemplate: resources.getResourceActionTemplate,
-  //   getResourceActionRequests: resources.getResourceActionRequests
-  // }
 }
 
 // policies

@@ -4,30 +4,11 @@ var expect = require('chai').expect
 var sinon = require('sinon')
 require('chai').should()
 var NodeVRealize = require('../../../src/index')
+var resources = require('../../../src/vra/catalog/resources')
 
-var vRa = new NodeVRealize()
+var nodeVRealize = new NodeVRealize()
 
-// var resources = require('../../../src/resources')
-
-// var response200 = {statusCode: 200}
-// var response404 = {statusCode: 404}
-
-// var resourceBody = {
-//   id: 1,
-//   requestCompletion: true,
-//   content:
-//   [
-// {
-//   name: '1',
-//   status: 'status',
-//   id: 2,
-//   resourceTypeRef: {
-//     label: 1
-//   }
-// }
-//   ]}
-
-describe('Resources', function () {
+describe('[vRA - Catalog / Resources]', function () {
   'use strict'
   let sandbox
   let requestGetStub
@@ -41,85 +22,45 @@ describe('Resources', function () {
     sandbox.restore()
   })
 
-  describe('getAll method', function () {
-    it('promise should return error when getRequest fails', function () {
+  describe('getResourceByName method', function () {
+    it('should return error when getRequest fails', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)
 
-      return vRa.getAll()
+      return nodeVRealize.vra.catalog.getResourceByName()
         .catch(function (error) {
           expect(error.name).to.equal(errorMessage)
         })
     })
 
-    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+    it('should return error with contents of body when getRequest returns non-successful status code', function () {
       var response = {statusCode: 400, body: 'error'}
       requestGetStub.resolves(response)
 
-      vRa.getAll().catch(function (error) {
-        expect(error).to.equal(response.body)
-      })
-    })
-
-    it('promise should return contents of body when getRequest returns 200 status code', function () {
-      var stubbedResponse = {statusCode: 200,
-        body:
-        {
-          content: [
-            {
-              name: '1',
-              status: 'status'
-            }
-          ]}
-      }
-      requestGetStub.resolves(stubbedResponse)
-
-      vRa.getAll()
-        .then(function (response) {
-          expect(response.content.length).to.equal(stubbedResponse.body.content.length)
-        })
-    })
-  })
-
-  describe('getByName method', function () {
-    it('promise should return error when getRequest fails', function () {
-      var errorMessage = 'error'
-      requestGetStub.rejects(errorMessage)
-
-      return vRa.getResourceByName()
-        .catch(function (error) {
-          expect(error.name).to.equal(errorMessage)
-        })
-    })
-
-    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
-      var response = {statusCode: 400, body: 'error'}
-      requestGetStub.resolves(response)
-
-      vRa.getResourceByName('name')
+      nodeVRealize.vra.catalog.getResourceByName('name')
         .catch(function (error) {
           expect(error).to.equal(response.body)
         })
     })
 
-    it('promise should return error with not found message when body content is empty', function () {
+    it('should return error with not found message when body content is empty', function () {
       var response = {statusCode: 200, body: {content: []}}
       requestGetStub.resolves(response)
       var resourceName = 'resourceName'
 
-      vRa.getResourceByName(resourceName)
+      nodeVRealize.vra.catalog.getResourceByName(resourceName)
         .catch(function (error) {
           expect(error.message).to.equal('Unable to find resource with name: ' + resourceName)
         })
     })
 
-    it('promise should return contents of body when getRequest returns 200 status code', function () {
+    it('should return contents of body when getRequest returns 200 status code', function () {
       var stubbedResponse = {statusCode: 200,
         body: getActionByNameResponse
       }
       requestGetStub.resolves(stubbedResponse)
 
-      vRa.getResourceByName('name')
+      nodeVRealize.vra.catalog.getResourceByName('name')
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body.content[0])
         })
@@ -127,38 +68,38 @@ describe('Resources', function () {
   })
 
   describe('getResourceById method', function () {
-    it('promise should return error when getRequest fails', function () {
+    it('should return error when getRequest fails', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)
 
-      return vRa.getResourceById()
+      return nodeVRealize.vra.catalog.getResourceById()
         .catch(function (error) {
           expect(error.name).to.equal(errorMessage)
         })
     })
 
-    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+    it('should return error with contents of body when getRequest returns non-successful status code', function () {
       var response = {statusCode: 400, body: 'error'}
       requestGetStub.resolves(response)
 
-      vRa.getResourceById('id')
+      nodeVRealize.vra.catalog.getResourceById('id')
         .catch(function (error) {
           expect(error).to.equal(response.body)
         })
     })
 
-    it('promise should return error with not found message when body content is empty', function () {
+    it('should return error with not found message when body content is empty', function () {
       var response = {statusCode: 200, body: {content: []}}
       requestGetStub.resolves(response)
       var id = '1234'
 
-      vRa.getResourceById(id)
+      nodeVRealize.vra.catalog.getResourceById(id)
         .catch(function (error) {
           expect(error.message).to.equal('Unable to find resource with id: ' + id)
         })
     })
 
-    it('promise should return contents of body when getRequest returns 200 status code', function () {
+    it('should return contents of body when getRequest returns 200 status code', function () {
       var stubbedResponse = {statusCode: 200,
         body:
         {
@@ -171,7 +112,7 @@ describe('Resources', function () {
       }
       requestGetStub.resolves(stubbedResponse)
 
-      vRa.getResourceById('id')
+      nodeVRealize.vra.catalog.getResourceById('id')
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body.content[0])
         })
@@ -179,34 +120,34 @@ describe('Resources', function () {
   })
 
   describe('getResourceActions method', function () {
-    it('promise should return error when resourceName cannot be found', function () {
+    it('should return error when resourceName cannot be found', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)
 
-      return vRa.getResourceActions('name')
+      return nodeVRealize.vra.catalog.getResourceActions('name')
         .catch(function (error) {
           expect(error.name).to.equal(errorMessage)
         })
     })
 
-    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+    it('should return error with contents of body when getRequest returns non-successful status code', function () {
       var response = {statusCode: 400, body: 'error'}
       requestGetStub.resolves(response)
 
-      vRa.getResourceActions('name')
+      nodeVRealize.vra.catalog.getResourceActions('name')
         .catch(function (error) {
           expect(error).to.equal(response.body)
         })
     })
 
-    it('promise should return contents of body when getRequest returns 200 status code', function () {
+    it('should return contents of body when getRequest returns 200 status code', function () {
       var resourceIdKey = 'resourceId'
       var stubbedResponse = {statusCode: 200,
         body: actionsForResourceResponse
       }
       requestGetStub.resolves(stubbedResponse)
 
-      vRa.getResourceActions('name')
+      nodeVRealize.vra.catalog.getResourceActions('name')
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body.content)
           expect(response[resourceIdKey]).to.equal(stubbedResponse.body.content[resourceIdKey])
@@ -215,33 +156,33 @@ describe('Resources', function () {
   })
 
   describe('getResourceActionTemplate method', function () {
-    it('promise should return error when resourceName cannot be found', function () {
+    it('should return error when resourceName cannot be found', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)
 
-      return vRa.getResourceActionTemplate('id', 'actionId')
+      return nodeVRealize.vra.catalog.getResourceActionTemplate('id', 'actionId')
         .catch(function (error) {
           expect(error.name).to.equal(errorMessage)
         })
     })
 
-    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+    it('should return error with contents of body when getRequest returns non-successful status code', function () {
       var response = {statusCode: 400, body: 'error'}
       requestGetStub.resolves(response)
 
-      vRa.getResourceActionTemplate('id', 'actionId')
+      nodeVRealize.vra.catalog.getResourceActionTemplate('id', 'actionId')
         .catch(function (error) {
           expect(error).to.equal(response.body)
         })
     })
 
-    it('promise should return contents of body when getRequest returns 200 status code', function () {
+    it('should return contents of body when getRequest returns 200 status code', function () {
       var stubbedResponse = {statusCode: 200,
         body: actionTemplate
       }
       requestGetStub.resolves(stubbedResponse)
 
-      vRa.getResourceActionTemplate('id', 'actionId')
+      nodeVRealize.vra.catalog.getResourceActionTemplate('id', 'actionId')
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body)
         })
@@ -249,27 +190,27 @@ describe('Resources', function () {
   })
 
   describe('getResourceActionRequests method', function () {
-    it('promise should return error when resourceName cannot be found', function () {
+    it('should return error when resourceName cannot be found', function () {
       var errorMessage = 'error'
       requestGetStub.rejects(errorMessage)
 
-      return vRa.getResourceActionRequests('id', 'actionId')
+      return nodeVRealize.vra.catalog.getResourceActionRequests('id', 'actionId')
         .catch(function (error) {
           expect(error.name).to.equal(errorMessage)
         })
     })
 
-    it('promise should return error with contents of body when getRequest returns non-successful status code', function () {
+    it('should return error with contents of body when getRequest returns non-successful status code', function () {
       var response = {statusCode: 400, body: 'error'}
       requestGetStub.resolves(response)
 
-      vRa.getResourceActionRequests('id', 'actionId')
+      nodeVRealize.vra.catalog.getResourceActionRequests('id', 'actionId')
         .catch(function (error) {
           expect(error).to.equal(response.body)
         })
     })
 
-    it('promise should return contents of body when getRequest returns 200 status code', function () {
+    it('should return contents of body when getRequest returns 200 status code', function () {
       var stubbedResponse = {statusCode: 200,
         body: requestByActionResource
       }
@@ -280,10 +221,10 @@ describe('Resources', function () {
       }
 
       // eslint-disable-next-line
-      var getResourceActionsStub = sandbox.stub(vRa, 'getResourceActions').resolves(actionsForResourceResponse.content)
+      var getResourceActionsStub = sandbox.stub(nodeVRealize.vra.catalog, 'getResourceActions').resolves(actionsForResourceResponse.content)
       requestGetStub.resolves(stubbedResponse)
 
-      vRa.getResourceActionRequests(actionOptions)
+      nodeVRealize.vra.catalog.getResourceActionRequests(actionOptions)
         .then(function (response) {
           expect(response).to.deep.equal(stubbedResponse.body.content)
         })
@@ -291,25 +232,25 @@ describe('Resources', function () {
   })
 
   describe('getObjectFromKey method', function () {
-    it('should return the object when the key is present in the entries Array', function () {
-      var jsonSample = {
-        entries: [
-          {key: 'test'}
-        ]
-      }
-      var obj = vRa.getObjectFromKey(jsonSample, 'test')
-      expect(obj).to.deep.equal({key: 'test'})
+    it('should return the object when the key is present in the Array', function () {
+      var jsonSample = [
+        {name: 'test',
+          value: 'value'}
+      ]
+      var obj = resources.getObjectFromKey(jsonSample, 'test')
+      expect(obj).to.deep.equal({name: 'test', value: 'value'})
       obj.value = 'value'
-      expect(jsonSample.entries[0].value).to.deep.equal('value')
+      expect(jsonSample[0].value).to.deep.equal('value')
     })
 
-    it('should return null when the key is not present in the entries Array', function () {
-      var jsonSample = {
-        entries: [
-          {'hybris.Hostname.CID': 'te'}
-        ]
+    it('should throw an error when the key is not present in the Array', function () {
+      var jsonSample = [
+        {'hybris.Hostname.CID': 'te'}
+      ]
+      var result = function () {
+        resources.getObjectFromKey(jsonSample, 'test')
       }
-      expect(vRa.getObjectFromKey(jsonSample, 'test')).to.deep.equal(null)
+      expect(result).to.throw()
     })
   })
 })

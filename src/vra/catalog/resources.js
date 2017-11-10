@@ -1,29 +1,31 @@
 import Promise from 'bluebird'
 import _findIndex from 'lodash.findindex'
-import Requests from './requests'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 /* istanbul ignore next */
 module.exports = {
-  getAllResources: getAllResources,
+  getResources: getResources,
   getResourceByName: getResourceByName,
   getResourceById: getResourceById,
   getResourceActions: getResourceActions,
   getResourceActionTemplate: getResourceActionTemplate,
   getResourceActionRequests: getResourceActionRequests,
-  submitResource: submitResource
+  submitResourceAction: submitResourceAction,
+  getObjectFromKey: getObjectFromKey
 }
 
 var resourceIdKey = 'resourceId'
 
-function getAllResources () {
+function getResources (limit) {
   var _this = this
+
+  limit = limit || 1000
 
   return new Promise(function (resolve, reject) {
     var options = {
       method: 'GET',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/resources?limit=1000`,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/resources?limit=${limit}`,
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
@@ -46,8 +48,6 @@ function getAllResources () {
           res.status = resource.status
           res.id = resource.id
           res.typeRef = resource.resourceTypeRef.label
-          // res.catalogResourceLabel = resource.catalogResource.label
-          // res.catalogResourceId = resource.catalogResource.id
           resources.push(res)
         }, this)
         resolve(resources)
@@ -131,7 +131,7 @@ function getResourceActions (resourceName) {
   var resourceId
 
   return new Promise(function (resolve, reject) {
-    _this.getResourceByName(resourceName)
+    _this.vra.catalog.getResourceByName(resourceName)
       .then(function (resource) {
         var options = {
           method: 'GET',
@@ -193,23 +193,23 @@ function getResourceActionTemplate (resourceId, resourceActionId) {
   })
 }
 
-function submitResource (actionOptions) {
+function submitResourceAction (actionOptions) {
   var _this = this
   var resourceActionId
   var resourceId
 
   return new Promise(function (resolve, reject) {
-    _this.getResourceActions(actionOptions.resourceName)
+    _this.vra.catalog.getResourceActions(actionOptions.resourceName)
       .then(function (response) {
         resourceId = response[resourceIdKey]
         resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
 
-        return _this.getResourceActionTemplate(resourceId, resourceActionId)
+        return _this.vra.catalog.getResourceActionTemplate(resourceId, resourceActionId)
       })
       .then(function (templateData) {
         var postUrl = `https://${_this.config.hostname}/catalog-service/api/consumer/resources/${resourceId}/actions/${resourceActionId}/requests/`
 
-        return Requests.sendRequest.call(_this, postUrl, templateData)
+        return _this.vra.catalog.sendRequestViaUrl(postUrl, templateData)
       })
       .then(function (response) {
         resolve(response)
@@ -226,7 +226,7 @@ function getResourceActionRequests (actionOptions) {
   var resourceActionId
 
   return new Promise(function (resolve, reject) {
-    _this.getResourceActions(actionOptions.resourceName)
+    _this.vra.catalog.getResourceActions(actionOptions.resourceName)
       .then(function (response) {
         resourceId = response[resourceIdKey]
         resourceActionId = getObjectFromKey(response, actionOptions.actionName).id
@@ -263,7 +263,7 @@ function getObjectFromKey (array, key) {
     return o.name === key
   })
   if (indexOfKey === -1) {
-    throw new Error('Could not find key: ' + key + ' in array: ' + JSON.stringify(array, null, 2))
+    throw new Error('Could not find key with the value \'' + key + '\' in the array: ' + JSON.stringify(array, null, 2))
   }
   return array[indexOfKey]
 }
