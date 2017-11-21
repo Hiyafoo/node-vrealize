@@ -22,6 +22,71 @@ describe('[vRA - Catalog / Resources]', function () {
     sandbox.restore()
   })
 
+  describe('getResources method', function () {
+    var response = {
+      statusCode: 200,
+      body: {
+        content: [
+          {
+            name: 'name',
+            status: 'status',
+            id: 'id',
+            resourceTypeRef: {
+              label: 'label'
+            }
+          }
+        ]
+      }
+    }
+    var expectedResult = [
+      {
+        name: 'name',
+        status: 'status',
+        id: 'id',
+        typeRef: 'label'
+      }
+    ]
+    it('should return the good response when all is working fine', function () {
+      requestGetStub.resolves(response)
+
+      return nodeVRealize.vra.catalog.getResources()
+        .then(function (res) {
+          expect(requestGetStub.getCall(0).args[0].url).to.equal(`https:///catalog-service/api/consumer/resources?limit=1000`)
+          expect(res).to.deep.equal(expectedResult)
+        })
+    })
+
+    it('should return the good response (with the correct number of items) when all is working fine', function () {
+      requestGetStub.resolves(response)
+
+      return nodeVRealize.vra.catalog.getResources(777)
+        .then(function (res) {
+          expect(requestGetStub.getCall(0).args[0].url).to.equal(`https:///catalog-service/api/consumer/resources?limit=777`)
+          expect(res).to.deep.equal(expectedResult)
+        })
+    })
+
+    it('should return error with contents of body when getRequest returns non-successful status code', function () {
+      var response = {statusCode: 400, body: 'error'}
+      requestGetStub.resolves(response)
+
+      nodeVRealize.vra.catalog.getResources()
+        .catch(function (error) {
+          expect(error).to.equal(response.body)
+        })
+    })
+
+    it('should return error when getRequest fails', function () {
+      var errorMessage = 'error'
+      requestGetStub.rejects(errorMessage)
+
+      return nodeVRealize.vra.catalog.getResources()
+        .catch(function (error) {
+          expect(error.name).to.equal(errorMessage)
+        })
+    })
+  })
+
   describe('getResourceByName method', function () {
     it('should return error when getRequest fails', function () {
       var errorMessage = 'error'
@@ -252,6 +317,14 @@ describe('[vRA - Catalog / Resources]', function () {
       }
       expect(result).to.throw()
     })
+  })
+
+  describe('submitResourceAction method', function () {
+
+  })
+
+  describe('getResourceActionRequests method', function () {
+
   })
 })
 
