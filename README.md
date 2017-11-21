@@ -1,10 +1,8 @@
-[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.56%25-brightgreen.svg)
+[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.52%25-brightgreen.svg)
 
 # Node vRealize
 
 A node.js client library to communicate with the vRealize REST API.
-
-This project is in a very early phase.
 
 ## Installation
 
@@ -16,25 +14,11 @@ npm install node-vrealize
 
 Please note that all the methods of the node-vRealize module return Promises.
 
-## vCO
+## vRO
 
-### Identity
+### Categories (new NodeVRealize().vro.categories)
 
-* function getToken()
-* function isTokenAuthorized()
-
-### Artefacts import/export
-
-* function importAction(categoryName, actionPath, password)
-* function importActions (moduleName, password)
-
-  where moduleName is the fully qualified name of a module or the starting matching string  of a module name
-  (i.e. "io.test/network" or "io.test")
-* function importWorkflow(categoryId, workflowPath, password)
-* function importConfiguration(categoryId, configurationPath, password)
-* function importCategory(categoryObj, password)
-  
-  where categoryObj is of the following type if importing a root category:
+* method **exportOne**(*categoryObj*, *password*) where **categoryObj** is of the following type if importing a root category:
   ```JavaScript
   {
     name: 'name',
@@ -51,43 +35,81 @@ Please note that all the methods of the node-vRealize module return Promises.
     type: 'type'
   }
   ```
+* method **importOne**()
+* method **getCategoryIdFromAbsolutePath**(*categoryAbsolutePath*, *categoryType=[WorkflowCategory | ConfigurationElementCategory | ResourceElementCategory | ScriptModuleCategory]*, *password*)
+* method **getFromCategoryType**(*categoryType=[WorkflowCategory | ConfigurationElementCategory | ResourceElementCategory | ScriptModuleCategory]*, *isRoot*, *password*)
+* method **getOne**(*categoryId*, *password*)
+* method **getLeafCategoryId**(*currentCategoryId*, *categoryPath*, *password*)
+* method **deleteOne**(*categoryAbsolutePath*, *categoryType=[WorkflowCategory | ConfigurationElementCategory | ResourceElementCategory | ScriptModuleCategory]*, *password*)
 
-* function exportAction(actionId, password)
-* function exportWorkflow(workflowId, password)
-* function exportConfiguration(configurationId, password)
-* function exportCategory(categoryId, password)
+### Actions (new NodeVRealize().vro.actions)
 
-### Categories-related methods
+* method **importOne**(*actionId*, *password*)
+* method **exportToModuleName**(*moduleName*, *actionPath*, *password*)
+* method **importFromModuleName**(*moduleName*, *password*) where **moduleName** is the fully qualified name of a module or the starting matching string  of a module name
+  (i.e. "io.test/network" or "io.test")
 
-* function getCategories(categoryType, isRoot, password)
-* function getCategory(categoryId, password)
-* getCategoryIdFromAbsolutePath([string]categoryAbsolutePath, categoryType, password)
-* getLeafCategoryId(categoryId, [array]categoryPath, password)
+### Workflows (new NodeVRealize().vro.workflows)
 
-categoryType is one of:
+* method **importOne**(*workflowId*, *password*)
+* method **exportOne**(*categoryId*, *workflowPath*, *password*)
 
-* WorkflowCategory 
-* ConfigurationElementCategory
-* ResourceElementCategory
-* ScriptModuleCategory
+### Configurations (new NodeVRealize().vro.configurations)
+
+* method **importOne**(*configurationId*, *password*)
+* method **exportOne**(*categoryId*, *configurationPath*, *password*)
 
 ## vRA
 
-### Requests
+### Identity (new NodeVRealize().vra.identity)
 
-* function **getRequestsByName**(*catalogItemName*, *filterMehtod*)
-* function **getAllCatalogItems**()
-* function **submit**(*options*)
-* function **getByName**(*name*)
-* function **getTemplate**(*url*)
-* function **sendRequest**(*url*, *data*)
-* function **get**(*options*) with ***options***:
+* method **getToken**(*tokenId*)
+* method **isTokenAuthorized**()
+
+### Catalog (new NodeVRealize().vra.catalog)
+
+* method **getAllCatalogItems**()
+* method **getCatalogItemByName**(*name*)
+* method **getRequestsByCatalogItemName**(*catalogItemName*, *limit=1000*, *filterMethod*)
+* method **submitRequest**(*deploymentOptions*) where ***options*** is a JSON object:
+  * **blueprintName**: the name of the blueprint
+  * **templateData**
+* method **sendRequestViaUrl**(*url*, *data*)
+* method **getRequest**(*options*) where ***options*** is a JSON object:
+  * **id**: the id of the request
   * **raw**: *true*|*false*
 
     if *true*, returns a single string **IN_PROGRESS**|**PENDING_PRE_APPROVAL**|**SUBMITTED**|**SUCCESS**|**FAILED**
-    
+
     if *false*, returns the verbose vRa JSON object
-* function getAll()
+    (**THIS IS THE DEFAULT**)
+* method **getRequests**()
+* method **getCatalogItemTemplate**(*url*)
+* method **getResources**(*limit=1000*)
+* method **getResourceByName**(*resourceName*)
+* method **getResourceById**(*resourceId*)
+* method **getResourceActions**(*resourceName*)
+* method **getResourceActionTemplate**(*resourceId*, *resourceActionId*)
+* method **getResourceActionRequests**(*actionOptions*) where ***actionOptions*** is a JSON object:
+  * **resourceName**
+  * **actionName**
+* method **submitResourceAction**(*actionOptions*) where ***actionOptions*** is a JSON object:
+  * **resourceName**
+  * **actionName**
+
+### Content (new NodeVRealize().vra.content)
+
+* method **getFromTenant**(*tenantId* [, *limit=1000*])
+* method **exportPackage**(*contentZipPath*, *resolutionMode=[SKIP | OVERWRITE]*)
+* method **createPackage**(*packageName*, *tenantId*, *contents*)
+* method **getPackageById**(*packageId*)
+* method **deletePackage**(*packageId*)
+### Approval (new NodeVRealize().vra.approval)
+
+* method **getAllApprovalPolicies**()
+* method **getApprovalPolicyById**(*apprvalPolicyId*)
+* method **createApprovalPolicy**(*approvalPolicyJson*)
+* method **updateApprovalPolicy**(*apprvalPolicyId*, *approvalPolicyJson*)
 
 ## Usage
 
@@ -97,37 +119,36 @@ categoryType is one of:
 var NodevRealize = require( 'node-vrealize')
 var https = require( 'https')
 
-var vRa = new NodevRealize()
+var nodeVRealize = new NodevRealize()
 
 // Adjust the configuration variables to your own environment
-vRa.config.hostname = 'localhost'
-vRa.config.tenant = 'commerce'
-vRa.config.username: 'username',
-vRa.config.password: 'password',
-vRa.config.tenant: 'tenant',
-vRa.config.token: null,
-vRa.config.agent = new https.Agent({
+nodeVRealize.config.hostname = 'localhost'
+nodeVRealize.config.tenant = 'commerce'
+nodeVRealize.config.username: 'username',
+nodeVRealize.config.password: 'password',
+nodeVRealize.config.tenant: 'tenant',
+nodeVRealize.config.token: null,
+nodeVRealize.config.agent = new https.Agent({
   host: 'localhost',
   port: '4443',
   path: '/',
   rejectUnauthorized: false
 })
 
-vRa.getTokenId()
-.then(function (token) {
+nodeVRealize.identity.getTokenId()
+.then(method (token) {
   // Handle the retrieved token
-  vRa.config.token = token
 })
-.catch(function (error) {
+.catch(method (error) {
   // Handle the Error
 })
 
 // the vRA instance will use the token previously set in the config
-vRa.getRequestsByName('CentOS VM')
-.then(function (response) {
+nodeVRealize.vra.catalog.getRequestsByCatalogItemName('CentOS VM')
+.then(method (response) {
   // Do something
 })
-.catch(function (error) {
+.catch(method (error) {
   // Handle error
 })
 ```
