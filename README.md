@@ -70,7 +70,7 @@ Please note that all the methods of the node-vRealize module return Promises.
 
 * method **getAllCatalogItems**()
 * method **getCatalogItemByName**(*name*)
-* method **getRequestsByCatalogItemName**(*catalogItemName*, *limit=1000*, *filterMethod*)
+* method **getRequestsByCatalogItemName**(*catalogItemName*, *filterMethod* [, *limit=1000*])
 * method **submitRequest**(*deploymentOptions*) where ***options*** is a JSON object:
   * **blueprintName**: the name of the blueprint
   * **templateData**
