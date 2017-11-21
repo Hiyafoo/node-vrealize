@@ -60,7 +60,6 @@ function NodeVRealize () {
     submitRequest: catalog.submitRequest.bind(this),
     sendRequestViaUrl: catalog.sendRequestViaUrl.bind(this),
     getRequest: catalog.getRequest.bind(this),
-    getRequests: catalog.getRequests.bind(this),
     getCatalogItemTemplate: catalog.getCatalogItemTemplate.bind(this),
     getResources: catalog.getResources.bind(this),
     getResourceByName: catalog.getResourceByName.bind(this),

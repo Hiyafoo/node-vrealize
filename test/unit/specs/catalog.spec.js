@@ -287,38 +287,6 @@ describe('[vRA - Catalog / Requests]', function () {
     })
   })
 
-  describe('getRequests method', function () {
-    it('should reject with error when statusCode is not 200', function () {
-      var rsp = {statusCode: 404, body: 'error'}
-      requestGetStub.resolves(rsp)
-
-      return nodeVRealize.vra.catalog.getRequests()
-        .catch(function (error) {
-          expect(error).to.equal(rsp.body)
-        })
-    })
-
-    it('should reject with error when vRa request promise is rejected', function () {
-      var errorMessage = 'error'
-      requestGetStub.rejects(errorMessage)
-
-      return nodeVRealize.vra.catalog.getRequests()
-        .catch(function (error) {
-          expect(error.name).to.equal(errorMessage)
-        })
-    })
-
-    it('should resolve with response body vRa request resolves', function () {
-      var rsp = {statusCode: 200, body: 'body'}
-      requestGetStub.resolves(rsp)
-
-      return nodeVRealize.vra.catalog.getRequests()
-        .then(function (response) {
-          expect(response).to.equal(rsp.body)
-        })
-    })
-  })
-
   describe('sendRequestViaUrl method', function () {
     it('should reject with error when statusCode is not 200', function () {
       var rsp = {statusCode: 404, body: 'error'}

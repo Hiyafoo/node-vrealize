@@ -11,7 +11,6 @@ module.exports = {
   submitRequest: submitRequest,
   getRequestsByCatalogItemName: getRequestsByCatalogItemName,
   getRequest: getRequest,
-  getRequests: getRequests,
   updateTemplateData: updateTemplateData,
   sendRequestViaUrl: sendRequestViaUrl
 }
@@ -23,7 +22,7 @@ function getRequestsByCatalogItemName (catalogItemName, filterMethod, limit) {
     var options = {
       method: 'GET',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests?limit=1000&$filter=(catalogItem/name eq '${catalogItemName}')`,
+      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests?limit=${limit}&$filter=(catalogItem/name eq '${catalogItemName}')`,
       headers: {
         'cache-control': 'no-cache',
         'content-type': 'application/json',
@@ -149,35 +148,6 @@ function getRequest (params) {
         }
 
         return resolve('ERROR: ' + body.state)
-      })
-      .catch(function (error) {
-        reject(error)
-      })
-  })
-}
-
-function getRequests () {
-  var _this = this
-
-  return new Promise(function (resolve, reject) {
-    var options = {
-      method: 'GET',
-      agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/catalog-service/api/consumer/requests/`,
-      headers: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        'authorization': `Bearer ${_this.config.token}`
-      },
-      json: true
-    }
-
-    requestPromise.getAsync(options)
-      .then(function (response) {
-        if (response.statusCode !== 200) {
-          return reject(response.body)
-        }
-        resolve(response.body)
       })
       .catch(function (error) {
         reject(error)
