@@ -14,7 +14,7 @@ function exportOne (categoryId, resourcePath, password) {
       options = {
         method: 'POST',
         agent: _this.config.agent,
-        url: `https://${_this.config.hostname}/vco/api/actions/`,
+        url: `https://${_this.config.hostname}/vco/api/resources/`,
         headers: {
           'cache-control': 'no-cache',
           'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64')
