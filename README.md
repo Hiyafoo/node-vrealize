@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.52%25-brightgreen.svg)
+[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.6%25-brightgreen.svg)
 
 # Node vRealize
 
@@ -58,6 +58,10 @@ Please note that all the methods of the node-vRealize module return Promises.
 
 * method **importOne**(*configurationId*, *password*)
 * method **exportOne**(*categoryId*, *configurationPath*, *password*)
+
+### Resources (new NodeVRealize().vro.resources)
+
+* method **exportOne**(*categoryId*, *resourcePath*, *password*)
 
 ## vRA
 

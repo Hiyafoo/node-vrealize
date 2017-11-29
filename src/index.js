@@ -8,6 +8,7 @@ import actions from './vro/actions'
 import workflows from './vro/workflows'
 import configurations from './vro/configurations'
 import categories from './vro/categories'
+import resources from './vro/resources'
 
 function NodeVRealize () {
   this.config = {
@@ -45,6 +46,9 @@ function NodeVRealize () {
   this.vro.configurations = {
     importOne: configurations.importOne.bind(this),
     exportOne: configurations.exportOne.bind(this)
+  }
+  this.vro.resources = {
+    exportOne: resources.exportOne.bind(this)
   }
   this.vra.content = {
     getFromTenant: content.getFromTenant.bind(this),
