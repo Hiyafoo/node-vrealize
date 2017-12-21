@@ -9,6 +9,7 @@ import workflows from './vro/workflows'
 import configurations from './vro/configurations'
 import categories from './vro/categories'
 import resources from './vro/resources'
+import advancedDesigner from './vra/advancedDesigner'
 
 function NodeVRealize () {
   this.config = {
@@ -78,6 +79,12 @@ function NodeVRealize () {
     getApprovalPolicyById: approval.getApprovalPolicyById.bind(this),
     createApprovalPolicy: approval.createApprovalPolicy.bind(this),
     updateApprovalPolicy: approval.updateApprovalPolicy.bind(this)
+  }
+  this.vra.advancedDesigner = {
+    getAllSubscriptions: advancedDesigner.getAllSubscriptions.bind(this),
+    getSubscriptionById: advancedDesigner.getSubscriptionById.bind(this),
+    createSubscription: advancedDesigner.createSubscription.bind(this),
+    deleteSubscription: advancedDesigner.deleteSubscription.bind(this)
   }
 }
 

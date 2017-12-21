@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.6%25-brightgreen.svg)
+[![CircleCI](https://circleci.com/gh/Hiyafoo/node-vrealize.svg?style=shield)](https://circleci.com/gh/Hiyafoo/node-vrealize) ![Local Coverage-shield-badge-1](https://img.shields.io/badge/Local%20Coverage-97.77%25-brightgreen.svg)
 
 # Node vRealize
 
@@ -108,12 +108,20 @@ Please note that all the methods of the node-vRealize module return Promises.
 * method **createPackage**(*packageName*, *tenantId*, *contents*)
 * method **getPackageById**(*packageId*)
 * method **deletePackage**(*packageId*)
+
 ### Approval (new NodeVRealize().vra.approval)
 
 * method **getAllApprovalPolicies**()
-* method **getApprovalPolicyById**(*apprvalPolicyId*)
+* method **getApprovalPolicyById**(*approvalPolicyId*)
 * method **createApprovalPolicy**(*approvalPolicyJson*)
-* method **updateApprovalPolicy**(*apprvalPolicyId*, *approvalPolicyJson*)
+* method **updateApprovalPolicy**(*approvalPolicyId*, *approvalPolicyJson*)
+
+### Advanced Designer (new NodeVRealize().vra.advancedDesigner)
+
+* method **getAllSubscriptions**()
+* method **getSubscriptionById**(*subscriptionId*)
+* method **createSubscription**(*createSubscriptionJson*)
+* method **deleteSubscription**(*subscriptionId*)
 
 ## Usage
 
