@@ -54,7 +54,7 @@ function importOne (configurationId, password) {
       headers: {
         'cache-control': 'no-cache',
         'authorization': 'Basic ' + new Buffer(_this.config.username + ':' + password).toString('base64'),
-        'accept': 'application/xml'
+        'accept': 'application/vcoobject+xml'
       },
       encoding: 'utf-8'
     }
