@@ -5,7 +5,8 @@ module.exports = {
   getAllApprovalPolicies: getAllApprovalPolicies,
   getApprovalPolicyById: getApprovalPolicyById,
   createApprovalPolicy: createApprovalPolicy,
-  updateApprovalPolicy: updateApprovalPolicy
+  updateApprovalPolicy: updateApprovalPolicy,
+  getApprovalPolicyTypeByName: getApprovalPolicyTypeByName
 }
 
 function getAllApprovalPolicies () {
@@ -110,6 +111,41 @@ function updateApprovalPolicy (id, policyJson) {
         return resolve(response)
       })
       .catch(function (error) {
+        reject(error)
+      })
+  })
+}
+
+function getApprovalPolicyTypeByName (policyTypeName) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options
+    options = {
+      method: 'GET',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/approval-service/api/policytypes?limit=1000`,
+      headers: {
+        'cache-control': 'no-cache',
+        'authorization': `Bearer ${_this.config.token}`
+      },
+      json: true
+    }
+    requestPromise.getAsync(options)
+      .then(function (response) {
+        var policyTypes = response.body.content
+
+        for (var i = 0; i < policyTypes.length; i++) {
+          var policyType = policyTypes[i]
+          if (policyType.name === policyTypeName) {
+            return resolve(policyType)
+          }
+        }
+
+        reject(new Error('Could not find policyType with name' + policyTypeName))
+      })
+      .catch(function (error) {
+        console.log('ERROR:' + error.message)
         reject(error)
       })
   })

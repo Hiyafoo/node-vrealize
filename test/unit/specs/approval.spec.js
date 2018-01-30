@@ -8,6 +8,8 @@ require('chai').should()
 var NodeVRealize = require('../../../src/index')
 var nodeVRealize = new NodeVRealize()
 
+var approval = require('./files/approval')
+
 describe('[vRA - Approval]', function () {
   'use strict'
   let sandbox
@@ -116,6 +118,42 @@ describe('[vRA - Approval]', function () {
       requestPutStubPromise.rejects(new Error(errorMessage))
 
       return nodeVRealize.vra.approval.updateApprovalPolicy(policyId)
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
+    })
+  })
+
+  describe('getApprovalPolicyTypeByName method', function () {
+    var policyTypeName = 'Service Catalog - Catalog Item Request - Virtual Machine'
+    it('should return policy type with matching name when policy type exists', function () {
+      var res = {statusCode: 200, body: approval.all}
+      requestGetStubPromise.resolves(res, null)
+
+      return nodeVRealize.vra.approval.getApprovalPolicyTypeByName(policyTypeName)
+        .then(function (response) {
+          expect(response.name).to.equal(policyTypeName)
+        })
+    })
+
+    it('should reject with error message when policy type name does not exist', function () {
+      var policyTypeName = 'abc'
+      var errorMessage = 'Could not find policyType with name' + policyTypeName
+      var res = {statusCode: 200, body: approval.all}
+      requestGetStubPromise.resolves(res, null)
+
+      return nodeVRealize.vra.approval.getApprovalPolicyTypeByName(policyTypeName)
+        .catch(function (error) {
+          expect(error.message).to.equal(errorMessage)
+        })
+    })
+
+    it('should reject with error message when method throws unhandled exception', function () {
+      var policyTypeName = 'abc'
+      var errorMessage = 'error message'
+      requestGetStubPromise.rejects(new Error(errorMessage))
+
+      return nodeVRealize.vra.approval.getApprovalPolicyTypeByName(policyTypeName)
         .catch(function (error) {
           expect(error.message).to.equal(errorMessage)
         })

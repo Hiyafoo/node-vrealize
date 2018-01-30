@@ -73,7 +73,8 @@ function NodeVRealize () {
     getAllApprovalPolicies: approval.getAllApprovalPolicies.bind(this),
     getApprovalPolicyById: approval.getApprovalPolicyById.bind(this),
     createApprovalPolicy: approval.createApprovalPolicy.bind(this),
-    updateApprovalPolicy: approval.updateApprovalPolicy.bind(this)
+    updateApprovalPolicy: approval.updateApprovalPolicy.bind(this),
+    getApprovalPolicyTypeByName: approval.getApprovalPolicyTypeByName.bind(this)
   }
 }
 
