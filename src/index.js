@@ -8,6 +8,8 @@ import actions from './vro/actions'
 import workflows from './vro/workflows'
 import configurations from './vro/configurations'
 import categories from './vro/categories'
+import resources from './vro/resources'
+import advancedDesigner from './vra/advancedDesigner'
 
 function NodeVRealize () {
   this.config = {
@@ -46,6 +48,9 @@ function NodeVRealize () {
     importOne: configurations.importOne.bind(this),
     exportOne: configurations.exportOne.bind(this)
   }
+  this.vro.resources = {
+    exportOne: resources.exportOne.bind(this)
+  }
   this.vra.content = {
     getFromTenant: content.getFromTenant.bind(this),
     exportPackage: content.exportPackage.bind(this),
@@ -75,6 +80,12 @@ function NodeVRealize () {
     createApprovalPolicy: approval.createApprovalPolicy.bind(this),
     updateApprovalPolicy: approval.updateApprovalPolicy.bind(this),
     getApprovalPolicyTypeByName: approval.getApprovalPolicyTypeByName.bind(this)
+  }
+  this.vra.advancedDesigner = {
+    getAllSubscriptions: advancedDesigner.getAllSubscriptions.bind(this),
+    getSubscriptionById: advancedDesigner.getSubscriptionById.bind(this),
+    createSubscription: advancedDesigner.createSubscription.bind(this),
+    deleteSubscription: advancedDesigner.deleteSubscription.bind(this)
   }
 }
 
