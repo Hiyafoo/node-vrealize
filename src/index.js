@@ -79,7 +79,8 @@ function NodeVRealize () {
     getApprovalPolicyById: approval.getApprovalPolicyById.bind(this),
     createApprovalPolicy: approval.createApprovalPolicy.bind(this),
     updateApprovalPolicy: approval.updateApprovalPolicy.bind(this),
-    getApprovalPolicyTypeByName: approval.getApprovalPolicyTypeByName.bind(this)
+    getApprovalPolicyTypeByName: approval.getApprovalPolicyTypeByName.bind(this),
+    deleteApprovalPolicy: approval.deleteApprovalPolicy.bind(this)
   }
   this.vra.advancedDesigner = {
     getAllSubscriptions: advancedDesigner.getAllSubscriptions.bind(this),
