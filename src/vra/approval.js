@@ -19,7 +19,7 @@ function getAllApprovalPolicies () {
     options = {
       method: 'GET',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/approval-service/api/policies`,
+      url: `https://${_this.config.hostname}/approval-service/api/policies?limit=1000`,
       headers: {
         'cache-control': 'no-cache',
         'authorization': `Bearer ${_this.config.token}`
