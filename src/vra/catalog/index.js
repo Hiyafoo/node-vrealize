@@ -1,6 +1,7 @@
 import Promise from 'bluebird'
 import requests from './requests'
 import resources from './resources'
+import entitlements from './entitlements'
 var requestPromise = Promise.promisifyAll(require('request'))
 
 /* istanbul ignore next */
@@ -19,7 +20,10 @@ module.exports = {
   getResourceActions: resources.getResourceActions,
   getResourceActionTemplate: resources.getResourceActionTemplate,
   getResourceActionRequests: resources.getResourceActionRequests,
-  submitResourceAction: resources.submitResourceAction
+  submitResourceAction: resources.submitResourceAction,
+  getEntitlementByName: entitlements.getEntitlementByName,
+  updateEntitlement: entitlements.updateEntitlement
+
 }
 
 function getAllCatalogItems () {

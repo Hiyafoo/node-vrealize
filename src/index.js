@@ -72,7 +72,9 @@ function NodeVRealize () {
     getResourceActions: catalog.getResourceActions.bind(this),
     getResourceActionTemplate: catalog.getResourceActionTemplate.bind(this),
     getResourceActionRequests: catalog.getResourceActionRequests.bind(this),
-    submitResourceAction: catalog.submitResourceAction.bind(this)
+    submitResourceAction: catalog.submitResourceAction.bind(this),
+    getEntitlementByName: catalog.getEntitlementByName.bind(this),
+    updateEntitlement: catalog.updateEntitlement.bind(this)
   }
   this.vra.approval = {
     getAllApprovalPolicies: approval.getAllApprovalPolicies.bind(this),

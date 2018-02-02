@@ -145,7 +145,6 @@ function getApprovalPolicyTypeByName (policyTypeName) {
         reject(new Error('Could not find policyType with name' + policyTypeName))
       })
       .catch(function (error) {
-        console.log('ERROR:' + error.message)
         reject(error)
       })
   })
