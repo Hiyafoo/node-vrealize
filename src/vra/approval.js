@@ -6,7 +6,8 @@ module.exports = {
   getApprovalPolicyById: getApprovalPolicyById,
   createApprovalPolicy: createApprovalPolicy,
   updateApprovalPolicy: updateApprovalPolicy,
-  getApprovalPolicyTypeByName: getApprovalPolicyTypeByName
+  getApprovalPolicyTypeByName: getApprovalPolicyTypeByName,
+  deleteApprovalPolicy: deleteApprovalPolicy
 }
 
 function getAllApprovalPolicies () {
@@ -18,7 +19,7 @@ function getAllApprovalPolicies () {
     options = {
       method: 'GET',
       agent: _this.config.agent,
-      url: `https://${_this.config.hostname}/approval-service/api/policies`,
+      url: `https://${_this.config.hostname}/approval-service/api/policies?limit=1000`,
       headers: {
         'cache-control': 'no-cache',
         'authorization': `Bearer ${_this.config.token}`
@@ -53,6 +54,32 @@ function getApprovalPolicyById (id) {
     }
 
     requestPromise.getAsync(options)
+      .then(function (response) {
+        return resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
+}
+
+function deleteApprovalPolicy (id) {
+  var _this = this
+
+  return new Promise(function (resolve, reject) {
+    var options
+    options = {
+      method: 'DELETE',
+      agent: _this.config.agent,
+      url: `https://${_this.config.hostname}/approval-service/api/policies/${id}`,
+      headers: {
+        'cache-control': 'no-cache',
+        'authorization': `Bearer ${_this.config.token}`
+      },
+      json: true
+    }
+
+    requestPromise.deleteAsync(options)
       .then(function (response) {
         return resolve(response)
       })
