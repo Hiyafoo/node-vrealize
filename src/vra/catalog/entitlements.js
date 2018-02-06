@@ -39,7 +39,6 @@ function getEntitlementByName (entitlementName) {
 
         for (var i = 0; i < entitlements.length; i++) {
           var entitlement = entitlements[i]
-          console.log(entitlement)
           if (entitlement.name === entitlementName) {
             return resolve(entitlement)
           }
