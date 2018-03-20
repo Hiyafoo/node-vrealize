@@ -181,8 +181,8 @@ function getCategoryIdFromAbsolutePath (categoryAbsolutePath, categoryType, pass
 
   return new Promise(function (resolve, reject) {
     var category = path.parse(categoryAbsolutePath)
-    var categoryPath = category.dir + '/' + category.base
-    var categoryDecomposedPath = _.trim(categoryPath, '/').split('/')
+    var categoryPath = category.dir + path.sep + category.base
+    var categoryDecomposedPath = _.trim(categoryPath, path.sep).split(path.sep)
 
     // TODO: put in cache for 5 minutes
     _this.vro.categories.getFromCategoryType(categoryType, true, password)
