@@ -1,6 +1,6 @@
 {
   "name": "node-vrealize",
-  "version": "9.6.1",
+  "version": "9.6.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
